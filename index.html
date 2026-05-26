@@ -209,48 +209,83 @@
         </div>
       </section>
 
-      <section id="video" class="scene section-pad">
-        <div class="fsh shape-ring video-float" aria-hidden="true"></div>
-        <div class="section-shell">
-          <div class="section-head">
+      <section id="video" class="scene section-pad video-abyss" data-titanic-experience>
+        <div class="abyss-stage" data-abyss-stage aria-hidden="true">
+          <canvas class="titanic-canvas" data-titanic-canvas></canvas>
+          <div class="abyss-fallback" data-abyss-fallback>
+            <img src="https://i.ytimg.com/vi/R2XtefrMNhg/maxresdefault.jpg" alt="" />
+          </div>
+          <div class="abyss-layer abyss-back"></div>
+          <div class="abyss-layer abyss-mid"></div>
+          <div class="abyss-layer abyss-front"></div>
+          <div class="abyss-rays"></div>
+          <div class="abyss-caustics"></div>
+          <div class="abyss-cursor-light" data-abyss-light></div>
+        </div>
+
+        <div class="section-shell abyss-content">
+          <div class="section-head abyss-head">
             <div class="rv">
               <p class="slbl">02 - Vidéo principale</p>
               <h2 class="stitle">Titanic, le relevé <em>impossible.</em></h2>
             </div>
             <p class="head-copy rv d2">
-              Une descente océanique dans la reconstruction 3D du Titanic :
-              lecture du scan, indices sur la coque et mémoire d'une épave
-              devenue archive numérique.
+              La strate terrestre s’efface. L’épave apparaît dans le noir abyssal, scannée comme une relique engloutie
+              avant de révéler l’archive vidéo.
             </p>
           </div>
 
-          <div class="vframe rv-sc">
-            <div class="corner tl"></div>
-            <div class="corner tr"></div>
-            <div class="corner bl"></div>
-            <div class="corner br"></div>
-            <div class="video-shell">
-              <iframe
-                data-video-embed
-                data-video-src="https://www.youtube.com/embed/R2XtefrMNhg?autoplay=1&amp;rel=0&amp;modestbranding=1"
-                src="https://www.youtube.com/embed/R2XtefrMNhg?rel=0&amp;modestbranding=1"
-                srcdoc="<style>*{box-sizing:border-box}body{margin:0;background:#07050a}img{width:100%;height:100%;object-fit:cover;filter:brightness(.52) contrast(1.12) saturate(.8)}</style><img src='https://i.ytimg.com/vi/R2XtefrMNhg/maxresdefault.jpg' alt='Reconstruction 3D du Titanic'>"
-                title="Scan of Titanic reveals wreck as never seen before - BBC News"
-                allow="
-                  accelerometer;
-                  autoplay;
-                  clipboard-write;
-                  encrypted-media;
-                  gyroscope;
-                  picture-in-picture;
-                  web-share;
-                "
-                referrerpolicy="strict-origin-when-cross-origin"
-                allowfullscreen
-              ></iframe>
-              <button class="video-play-overlay" type="button" data-video-play aria-label="Lancer la vidéo">
-                <span>Lancer la vidéo</span>
-              </button>
+          <div class="abyss-interface rv-sc">
+            <div class="abyss-readout">
+              <span>DEPTH 3 800M</span>
+              <span>1912</span>
+              <span>NORTH ATLANTIC</span>
+              <span>3D RECONSTRUCTION</span>
+            </div>
+
+            <button class="artifact-trigger" type="button" data-artifact-trigger>
+              <span class="trigger-mark"></span>
+              <span>Analyser l’artefact</span>
+            </button>
+
+            <div class="artifact-hud" data-artifact-hud>
+              <span>SCAN TARGET LOCKED</span>
+              <span>COORD 41.7325 N / 49.9469 W</span>
+              <span>ARCHIVE READY</span>
+            </div>
+
+            <div class="analysis-capsule vframe" data-analysis-capsule>
+              <div class="capsule-topline">
+                <span>ARCHIVE REMONTÉE</span>
+                <span>EXPEDITION // TITANIC</span>
+              </div>
+              <div class="corner tl"></div>
+              <div class="corner tr"></div>
+              <div class="corner bl"></div>
+              <div class="corner br"></div>
+              <div class="video-shell">
+                <iframe
+                  data-video-embed
+                  data-video-src="https://www.youtube.com/embed/R2XtefrMNhg?autoplay=1&amp;rel=0&amp;modestbranding=1"
+                  src="https://www.youtube.com/embed/R2XtefrMNhg?rel=0&amp;modestbranding=1"
+                  srcdoc="<style>*{box-sizing:border-box}body{margin:0;background:#07050a}img{width:100%;height:100%;object-fit:cover;filter:brightness(.52) contrast(1.12) saturate(.8)}</style><img src='https://i.ytimg.com/vi/R2XtefrMNhg/maxresdefault.jpg' alt='Reconstruction 3D du Titanic'>"
+                  title="Scan of Titanic reveals wreck as never seen before - BBC News"
+                  allow="
+                    accelerometer;
+                    autoplay;
+                    clipboard-write;
+                    encrypted-media;
+                    gyroscope;
+                    picture-in-picture;
+                    web-share;
+                  "
+                  referrerpolicy="strict-origin-when-cross-origin"
+                  allowfullscreen
+                ></iframe>
+                <button class="video-play-overlay" type="button" data-video-play aria-label="Lancer la vidéo">
+                  <span>Lancer la vidéo</span>
+                </button>
+              </div>
             </div>
           </div>
         </div>

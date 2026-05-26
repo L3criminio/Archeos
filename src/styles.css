@@ -771,6 +771,331 @@ body.hov #c-ring {
     linear-gradient(180deg, #090604, #100907 58%, #070504);
 }
 
+.video-abyss {
+  --abyss-x: 50%;
+  --abyss-y: 46%;
+  min-height: 145svh;
+  padding-block: clamp(7rem, 13vw, 12rem);
+  background:
+    radial-gradient(circle at var(--abyss-x) var(--abyss-y), rgb(77 166 175 / 0.12), transparent 18rem),
+    radial-gradient(circle at 50% 22%, rgb(0 20 26 / 0.84), transparent 42rem),
+    linear-gradient(180deg, #060404 0%, #061216 34%, #031016 64%, #050403 100%);
+}
+
+.video-abyss::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgb(5 4 3 / 0.74), transparent 18%, transparent 78%, rgb(5 4 3 / 0.82)),
+    radial-gradient(circle at 50% 55%, transparent 0 24rem, rgb(0 0 0 / 0.62) 48rem);
+}
+
+.abyss-stage {
+  position: absolute;
+  z-index: -2;
+  inset: 0;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 48%, rgb(15 80 94 / 0.22), transparent 34rem),
+    linear-gradient(180deg, #050403 0%, #051017 32%, #02070b 100%);
+}
+
+.titanic-canvas,
+.abyss-fallback,
+.abyss-fallback img,
+.abyss-layer,
+.abyss-rays,
+.abyss-caustics,
+.abyss-cursor-light {
+  position: absolute;
+  inset: 0;
+}
+
+.titanic-canvas {
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 900ms ease;
+}
+
+.video-abyss.is-3d-ready .titanic-canvas {
+  opacity: 1;
+}
+
+.abyss-fallback {
+  z-index: 1;
+  opacity: 0.42;
+  transition:
+    opacity 600ms ease,
+    filter 600ms ease,
+    transform 1200ms ease;
+}
+
+.video-abyss.is-3d-ready .abyss-fallback {
+  opacity: 0.16;
+  filter: blur(4px);
+}
+
+.video-abyss.is-fallback .abyss-fallback {
+  opacity: 0.56;
+}
+
+.abyss-fallback img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  filter: brightness(0.26) contrast(1.22) saturate(0.52) hue-rotate(142deg);
+  transform: scale(1.12);
+}
+
+.abyss-layer {
+  z-index: 3;
+  pointer-events: none;
+}
+
+.abyss-back {
+  opacity: 0.42;
+  background:
+    radial-gradient(circle at 18% 26%, rgb(83 145 145 / 0.12), transparent 10rem),
+    radial-gradient(circle at 86% 52%, rgb(145 40 16 / 0.1), transparent 18rem),
+    repeating-radial-gradient(circle at 52% 38%, transparent 0 1.4rem, rgb(120 200 205 / 0.035) 1.48rem);
+  animation: abyssDrift 24s ease-in-out infinite;
+}
+
+.abyss-mid {
+  opacity: 0.5;
+  background-image:
+    radial-gradient(circle, rgb(210 235 226 / 0.28) 0 1px, transparent 1.8px),
+    radial-gradient(circle, rgb(210 235 226 / 0.12) 0 1px, transparent 2px);
+  background-position:
+    12% 28%,
+    72% 44%;
+  background-size:
+    7rem 9rem,
+    11rem 13rem;
+  animation: abyssParticles 18s linear infinite;
+}
+
+.abyss-front {
+  opacity: 0.34;
+  background-image: radial-gradient(circle, rgb(240 223 194 / 0.22) 0 1px, transparent 2px);
+  background-size: 14rem 16rem;
+  filter: blur(0.6px);
+  animation: abyssParticles 12s linear infinite reverse;
+}
+
+.abyss-rays {
+  z-index: 4;
+  pointer-events: none;
+  opacity: 0.46;
+  background:
+    linear-gradient(104deg, transparent 0 38%, rgb(100 190 205 / 0.1) 43%, transparent 54%),
+    linear-gradient(82deg, transparent 0 48%, rgb(100 190 205 / 0.08) 52%, transparent 61%),
+    linear-gradient(96deg, transparent 0 58%, rgb(145 40 16 / 0.08) 62%, transparent 72%);
+  mix-blend-mode: screen;
+  transform-origin: center top;
+  animation: abyssRays 11s ease-in-out infinite;
+}
+
+.abyss-caustics {
+  z-index: 5;
+  pointer-events: none;
+  opacity: 0.12;
+  background-image:
+    radial-gradient(ellipse at 20% 40%, transparent 0 28%, rgb(108 214 220 / 0.35) 30%, transparent 33%),
+    radial-gradient(ellipse at 68% 60%, transparent 0 30%, rgb(108 214 220 / 0.22) 32%, transparent 36%),
+    radial-gradient(ellipse at 42% 20%, transparent 0 26%, rgb(240 223 194 / 0.15) 28%, transparent 31%);
+  background-size: 34rem 22rem;
+  filter: blur(8px);
+  mix-blend-mode: screen;
+  animation: caustics 16s ease-in-out infinite;
+}
+
+.abyss-cursor-light {
+  z-index: 6;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(circle at var(--abyss-x) var(--abyss-y), rgb(130 220 220 / 0.22), transparent 11rem);
+  mix-blend-mode: screen;
+  transition: opacity 260ms ease;
+}
+
+.video-abyss.is-pointer-inside .abyss-cursor-light {
+  opacity: 1;
+}
+
+.abyss-content {
+  position: relative;
+  z-index: 7;
+}
+
+.abyss-head {
+  min-height: 22rem;
+}
+
+.abyss-interface {
+  position: relative;
+  min-height: clamp(34rem, 64vw, 54rem);
+  perspective: 1200px;
+}
+
+.abyss-readout,
+.artifact-hud,
+.capsule-topline {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  color: rgb(174 226 222 / 0.72);
+  font-family: "Space Mono", monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.abyss-readout {
+  position: absolute;
+  z-index: 8;
+  top: 0;
+  left: 0;
+  width: min(620px, 100%);
+}
+
+.abyss-readout span,
+.artifact-hud span,
+.capsule-topline span {
+  border: 1px solid rgb(100 190 205 / 0.22);
+  background: rgb(2 12 16 / 0.42);
+  padding: 0.55rem 0.7rem;
+  backdrop-filter: blur(14px);
+}
+
+.artifact-trigger {
+  position: absolute;
+  z-index: 9;
+  left: 50%;
+  top: 39%;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  border: 1px solid rgb(145 40 16 / 0.58);
+  background: rgb(7 5 10 / 0.45);
+  color: var(--sand-l);
+  padding: 0.85rem 1rem;
+  font-family: "Space Mono", monospace;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  transform: translate3d(-50%, -50%, 0);
+  box-shadow:
+    0 0 0 1px rgb(100 190 205 / 0.08) inset,
+    0 0 28px rgb(145 40 16 / 0.2);
+  transition:
+    border-color 220ms ease,
+    background 220ms ease,
+    color 220ms ease,
+    opacity 320ms ease,
+    transform 320ms ease;
+}
+
+.artifact-trigger:hover,
+.video-abyss.is-artifact-hover .artifact-trigger {
+  border-color: rgb(100 190 205 / 0.48);
+  background: rgb(4 22 30 / 0.62);
+  color: rgb(203 239 236);
+}
+
+.video-abyss.is-archive-open .artifact-trigger {
+  opacity: 0;
+  pointer-events: none;
+  transform: translate3d(-50%, -30%, 0) scale(0.96);
+}
+
+.trigger-mark {
+  position: relative;
+  display: block;
+  width: 1.35rem;
+  aspect-ratio: 1;
+  border: 1px solid var(--terracotta);
+  border-radius: 50%;
+}
+
+.trigger-mark::before,
+.trigger-mark::after {
+  content: "";
+  position: absolute;
+  background: var(--terracotta);
+}
+
+.trigger-mark::before {
+  top: 50%;
+  left: -0.35rem;
+  width: 2rem;
+  height: 1px;
+}
+
+.trigger-mark::after {
+  top: -0.35rem;
+  left: 50%;
+  width: 1px;
+  height: 2rem;
+}
+
+.artifact-hud {
+  position: absolute;
+  z-index: 8;
+  right: 0;
+  bottom: 18%;
+  justify-content: flex-end;
+  max-width: 520px;
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity 300ms ease,
+    transform 300ms ease;
+}
+
+.video-abyss.is-artifact-hover .artifact-hud,
+.video-abyss.is-archive-open .artifact-hud {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.analysis-capsule {
+  position: absolute;
+  z-index: 10;
+  right: 0;
+  bottom: 0;
+  width: min(820px, 66vw);
+  opacity: 0;
+  pointer-events: none;
+  transform: translate3d(0, 7rem, 0) scale(0.92) rotateX(8deg);
+  transform-origin: center bottom;
+  transition:
+    opacity 720ms cubic-bezier(0.19, 1, 0.22, 1),
+    transform 900ms cubic-bezier(0.19, 1, 0.22, 1),
+    box-shadow 720ms ease;
+}
+
+.video-abyss.is-archive-open .analysis-capsule {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate3d(0, 0, 0) scale(1) rotateX(0);
+  box-shadow:
+    0 3rem 9rem rgb(0 0 0 / 0.58),
+    0 0 90px rgb(100 190 205 / 0.12);
+}
+
+.capsule-topline {
+  justify-content: space-between;
+  margin-bottom: 0.85rem;
+}
+
 #video::before {
   content: "VIDEO STREAM - ARCHEOS EP.01";
   position: absolute;
@@ -1268,6 +1593,47 @@ body.hov #c-ring {
   }
 }
 
+@keyframes abyssDrift {
+  0%,
+  100% {
+    transform: translate3d(-1%, -1%, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(1.5%, 1%, 0) scale(1.04);
+  }
+}
+
+@keyframes abyssParticles {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(0, -9rem, 0);
+  }
+}
+
+@keyframes abyssRays {
+  0%,
+  100% {
+    opacity: 0.34;
+    transform: translate3d(-1%, 0, 0) skewX(-2deg);
+  }
+  50% {
+    opacity: 0.58;
+    transform: translate3d(1%, 1.5%, 0) skewX(2deg);
+  }
+}
+
+@keyframes caustics {
+  0%,
+  100% {
+    transform: translate3d(-2%, -1%, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate3d(2%, 1%, 0) rotate(3deg);
+  }
+}
+
 @media (max-width: 900px) {
   body {
     cursor: auto;
@@ -1349,6 +1715,62 @@ body.hov #c-ring {
 
   .section-head {
     display: block;
+  }
+
+  .video-abyss {
+    min-height: auto;
+    padding-block: 5.5rem 6.5rem;
+  }
+
+  .abyss-head {
+    min-height: auto;
+    margin-bottom: 3rem;
+  }
+
+  .abyss-interface {
+    min-height: 46rem;
+  }
+
+  .titanic-canvas {
+    display: none;
+  }
+
+  .abyss-fallback {
+    opacity: 0.5;
+  }
+
+  .abyss-readout,
+  .artifact-hud {
+    position: relative;
+    right: auto;
+    bottom: auto;
+    left: auto;
+    max-width: 100%;
+    justify-content: flex-start;
+  }
+
+  .artifact-trigger {
+    top: 14rem;
+    width: min(100%, 22rem);
+    justify-content: center;
+  }
+
+  .artifact-hud {
+    margin-top: 18rem;
+    opacity: 1;
+    transform: none;
+  }
+
+  .analysis-capsule {
+    position: relative;
+    right: auto;
+    bottom: auto;
+    left: 0;
+    width: 100%;
+    margin-top: 1.5rem;
+    opacity: 1;
+    pointer-events: auto;
+    transform: none;
   }
 
   .head-copy {

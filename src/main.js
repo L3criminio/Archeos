@@ -126,6 +126,48 @@ const setupVideoScrollLayer = () => {
 
 setupVideoScrollLayer();
 
+const setupTitanicExperienceLoader = () => {
+  const section = document.querySelector("[data-titanic-experience]");
+  if (!section) return;
+
+  let loaded = false;
+  const loadExperience = async () => {
+    if (loaded) return;
+    loaded = true;
+
+    try {
+      const { initTitanicExperience } = await import("./titanicExperience.js");
+      await initTitanicExperience({
+        section,
+        gsap,
+        ScrollTrigger,
+        reducedMotion: prefersReducedMotion,
+      });
+      ScrollTrigger.refresh();
+    } catch {
+      section.classList.add("is-fallback");
+    }
+  };
+
+  if (!("IntersectionObserver" in window)) {
+    loadExperience();
+    return;
+  }
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      if (!entries.some((entry) => entry.isIntersecting)) return;
+      observer.disconnect();
+      loadExperience();
+    },
+    { rootMargin: "650px 0px" },
+  );
+
+  observer.observe(section);
+};
+
+setupTitanicExperienceLoader();
+
 if (!prefersReducedMotion) {
   gsap.set(".rv", { opacity: 0, y: 44, clipPath: "inset(12% 0 0 0)" });
   gsap.set(".rv-sc", { opacity: 0, y: 52, scale: 0.96 });

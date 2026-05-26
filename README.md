@@ -1,6 +1,8 @@
 # Archeos
 
-Landing page Vite + Tailwind CSS pour la chaîne YouTube Archeos.
+Landing page immersive pour la chaîne YouTube **Archeos**.
+
+Le site garde une direction archéologie futuriste avec une palette sombre dominée par le terracotta `#912810`. La section vidéo est une rupture volontaire : une descente abyssale autour du Titanic, avec scène 3D desktop-first et fallback image sur mobile ou si WebGL échoue.
 
 ## Installation
 
@@ -19,6 +21,21 @@ npm run dev
 ```bash
 npm run build
 ```
+
+## Modèle 3D Titanic
+
+Place le modèle GLB ici :
+
+```text
+public/models/titanic.glb
+```
+
+Notes :
+- Le modèle est chargé uniquement quand la section vidéo approche du viewport.
+- Le GLB actuel est optimisé avec glTF Transform : compression Meshopt, textures WebP et taille ramenée à environ 3.3 MB.
+- Desktop : scène Three.js avec modèle 3D, scan au curseur et capsule vidéo.
+- Mobile, `prefers-reduced-motion` ou échec WebGL : fallback image premium, sans écran noir.
+- Si le GLB source est remplacé plus tard, il faut viser une version finale sous 5 MB avant publication.
 
 ## Publication GitHub
 
