@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - greg
   workflow_dispatch:
 
 permissions:

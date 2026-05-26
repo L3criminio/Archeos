@@ -62,5 +62,6 @@ Le projet contient un workflow prêt à l'emploi :
 - Va dans `Settings > Pages`.
 - Dans `Build and deployment`, choisis `GitHub Actions`.
 - Push sur `main`, puis attends la fin de l'action `Deploy GitHub Pages`.
+- Si tu travailles depuis la branche `greg`, le workflow se lance aussi au push sur `greg`.
 
 La config Vite ajuste automatiquement le `base` pour GitHub Pages avec `GITHUB_REPOSITORY`. Pour ce repo, le build Pages utilisera donc `/Archeos/`.
