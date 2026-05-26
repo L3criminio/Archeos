@@ -1154,6 +1154,7 @@ body.hov #c-ring {
   min-height: 100svh;
   display: grid;
   place-items: center;
+  padding: clamp(6rem, 10vw, 8rem) 0;
   background:
     radial-gradient(
       circle at 50% 32%,
@@ -1219,17 +1220,95 @@ body.hov #c-ring {
 }
 
 .cta-title {
-  margin: 2.4rem 0 1.5rem;
+  margin: 1.35rem 0 0.8rem;
   color: var(--sand-l);
   font-family: "Instrument Serif", serif;
-  font-size: clamp(4rem, 10vw, 10rem);
+  font-size: clamp(3.2rem, 7vw, 7.2rem);
   line-height: 0.86;
 }
 
 .cta-inner p {
   width: min(620px, 100%);
-  margin: 0 auto 2rem;
+  margin: 0 auto 1rem;
   font-size: 1rem;
+}
+
+.contact-form {
+  display: grid;
+  gap: 0.75rem;
+  width: min(760px, 100%);
+  margin: 1.2rem auto 1.1rem;
+  text-align: left;
+}
+
+.contact-fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  border: 1px solid var(--border-strong);
+  background:
+    linear-gradient(135deg, rgb(226 216 200 / 0.055), transparent),
+    rgb(7 5 10 / 0.56);
+  color: var(--sand-l);
+  font: 700 0.72rem/1.5 "Space Mono", monospace;
+  letter-spacing: 0.04em;
+  outline: none;
+  padding: 0.95rem 1rem;
+  transition:
+    border-color 220ms ease,
+    background 220ms ease,
+    box-shadow 220ms ease;
+}
+
+.contact-form textarea {
+  min-height: 6rem;
+  resize: vertical;
+}
+
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+  color: rgb(200 184 149 / 0.52);
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  border-color: var(--terracotta-border);
+  background: rgb(7 5 10 / 0.72);
+  box-shadow: 0 0 0 3px rgb(145 40 16 / 0.14);
+}
+
+.contact-form .btn-p {
+  justify-self: center;
+  border: 1px solid rgb(145 40 16 / 0.66);
+}
+
+.contact-form .btn-p:disabled {
+  cursor: wait;
+  opacity: 0.62;
+  transform: none;
+}
+
+.form-status {
+  min-height: 1.35rem;
+  margin: 0;
+  color: var(--fog);
+  font-family: "Space Mono", monospace;
+  font-size: 0.66rem;
+  letter-spacing: 0.08em;
+  text-align: center;
+}
+
+.form-status[data-state="success"] {
+  color: var(--moss-soft);
+}
+
+.form-status[data-state="error"] {
+  color: var(--terracotta-soft);
 }
 
 .rv,
@@ -1275,6 +1354,15 @@ body.hov #c-ring {
 
   a {
     cursor: pointer;
+  }
+
+  button {
+    cursor: pointer;
+  }
+
+  input,
+  textarea {
+    cursor: text;
   }
 
   #c-dot,
@@ -1342,6 +1430,7 @@ body.hov #c-ring {
 
   .split-layout,
   .concept-grid,
+  .contact-fields,
   .shorts-grid,
   .artifact-item {
     grid-template-columns: 1fr;

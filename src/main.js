@@ -18,6 +18,7 @@ createIcons({
 gsap.registerPlugin(ScrollTrigger);
 
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const makeWebhookUrl = "https://hook.eu1.make.com/2uutni4wmoy3ueemdp5sxpyo12adn1cs";
 const nav = document.getElementById("nav");
 
 const updateNav = (scroll = window.scrollY) => {
@@ -100,13 +101,60 @@ const setupCursor = () => {
 
   animate();
 
-  document.querySelectorAll("a, button, iframe").forEach((el) => {
+  document.querySelectorAll("a, button, iframe, input, textarea").forEach((el) => {
     el.addEventListener("mouseenter", () => document.body.classList.add("hov"));
     el.addEventListener("mouseleave", () => document.body.classList.remove("hov"));
   });
 };
 
 setupCursor();
+
+const setupContactForm = () => {
+  const form = document.getElementById("contact-form");
+  if (!form) return;
+
+  const status = document.getElementById("status");
+  const submitButton = form.querySelector('button[type="submit"]');
+
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    status.style.display = "block";
+    status.textContent = "Envoi en cours...";
+    status.dataset.state = "loading";
+    submitButton.disabled = true;
+
+    const payload = {
+      name: document.getElementById("name").value,
+      email: document.getElementById("email").value,
+      message: document.getElementById("message").value,
+    };
+
+    try {
+      const response = await fetch(makeWebhookUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      if (response.ok) {
+        status.textContent = "✅ Message envoyé ! Vérifiez votre boîte mail.";
+        status.dataset.state = "success";
+        event.target.reset();
+      } else {
+        status.textContent = "❌ Une erreur est survenue, réessayez.";
+        status.dataset.state = "error";
+      }
+    } catch {
+      status.textContent = "❌ Connexion impossible.";
+      status.dataset.state = "error";
+    } finally {
+      submitButton.disabled = false;
+    }
+  });
+};
+
+setupContactForm();
 
 const setupVideoScrollLayer = () => {
   document.querySelectorAll(".video-shell").forEach((shell) => {
