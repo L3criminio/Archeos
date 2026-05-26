@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Archeos explore l'archéologie et les mondes disparus avec des reconstructions 3D immersives."
+    />
+    <meta name="theme-color" content="#071419" />
+    <title>Archeos - Archéologie en 3D</title>
+  </head>
+  <body>
+    <div id="app">
+      <header class="site-header" data-header>
+        <a class="brand" href="#top" aria-label="Archeos accueil">
+          <span class="brand-mark">A</span>
+          <span>Archeos</span>
+        </a>
+
+        <nav class="nav" aria-label="Navigation principale">
+          <a href="#episode">Épisode</a>
+          <a href="#ocean">Océan</a>
+          <a href="#chaine">Chaîne</a>
+        </nav>
+
+        <a class="icon-button" href="https://youtube.com" target="_blank" rel="noreferrer" aria-label="Ouvrir YouTube">
+          <i data-lucide="square-play"></i>
+        </a>
+      </header>
+
+      <main id="top">
+        <section class="hero" aria-labelledby="hero-title">
+          <img
+            class="hero-media"
+            src="https://i.ytimg.com/vi/R2XtefrMNhg/maxresdefault.jpg"
+            alt="Reconstruction 3D du Titanic au fond de l'ocean"
+          />
+          <div class="hero-shade" aria-hidden="true"></div>
+
+          <div class="hero-content section-shell">
+            <p class="eyebrow">Archéologie visuelle</p>
+            <h1 id="hero-title">Archeos</h1>
+            <p class="hero-copy">
+              Des civilisations, des épaves et des sites disparus racontés par la 3D.
+            </p>
+            <div class="hero-actions">
+              <a class="button button-primary" href="#episode">
+                <i data-lucide="play"></i>
+                Voir l'épisode
+              </a>
+              <a class="button button-secondary" href="#chaine">
+                <i data-lucide="compass"></i>
+                Explorer
+              </a>
+            </div>
+          </div>
+        </section>
+
+        <section id="episode" class="section-shell episode-grid" aria-labelledby="episode-title">
+          <div class="section-intro">
+            <p class="eyebrow">Épisode pilote</p>
+            <h2 id="episode-title">Titanic, le relevé impossible</h2>
+            <p>
+              Une plongée dans la reconstruction 3D du paquebot, depuis le scan sous-marin jusqu'à la lecture des
+              indices laissés sur le fond.
+            </p>
+          </div>
+
+          <div class="video-frame">
+            <iframe
+              src="https://www.youtube.com/embed/R2XtefrMNhg?rel=0&amp;modestbranding=1"
+              srcdoc="<style>*{box-sizing:border-box}body{margin:0;background:#071419;font-family:Arial,sans-serif}a{position:absolute;inset:0;display:grid;place-items:center;color:#071419;text-decoration:none}img{width:100%;height:100%;object-fit:cover;filter:brightness(.62) saturate(.9)}span{position:absolute;display:inline-flex;align-items:center;gap:.55rem;background:#d9f1e8;padding:.85rem 1.1rem;font-weight:800}span:before{content:'▶';font-size:.8rem}</style><a href='https://www.youtube.com/embed/R2XtefrMNhg?autoplay=1&amp;rel=0&amp;modestbranding=1'><img src='https://i.ytimg.com/vi/R2XtefrMNhg/maxresdefault.jpg' alt='Reconstruction 3D du Titanic'><span>Lancer la video</span></a>"
+              title="Scan of Titanic reveals wreck as never seen before - BBC News"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allowfullscreen
+            ></iframe>
+          </div>
+        </section>
+
+        <section id="ocean" class="ocean-section" aria-labelledby="ocean-title">
+          <div class="section-shell ocean-grid">
+            <div>
+              <p class="eyebrow">Sous la surface</p>
+              <h2 id="ocean-title">Descente sous l'océan</h2>
+            </div>
+
+            <div class="ocean-panel">
+              <div class="depth-line" aria-hidden="true"></div>
+              <dl>
+                <div>
+                  <dt>3 800 m</dt>
+                  <dd>Profondeur du site</dd>
+                </div>
+                <div>
+                  <dt>700k+</dt>
+                  <dd>Images de référence</dd>
+                </div>
+                <div>
+                  <dt>1912</dt>
+                  <dd>Le naufrage replacé dans son contexte</dd>
+                </div>
+              </dl>
+            </div>
+          </div>
+        </section>
+
+        <section id="chaine" class="section-shell channel-section" aria-labelledby="channel-title">
+          <div>
+            <p class="eyebrow">La chaîne</p>
+            <h2 id="channel-title">Clair, dense, immersif.</h2>
+          </div>
+
+          <div class="channel-cards">
+            <article>
+              <i data-lucide="scan-line"></i>
+              <h3>Reconstituer</h3>
+              <p>Transformer archives, scans et traces en scènes lisibles.</p>
+            </article>
+            <article>
+              <i data-lucide="waves"></i>
+              <h3>Raconter</h3>
+              <p>Aller droit au fait, sans surcharge ni jargon inutile.</p>
+            </article>
+            <article>
+              <i data-lucide="layers-3"></i>
+              <h3>Explorer</h3>
+              <p>Passer du détail technique à l'histoire humaine.</p>
+            </article>
+          </div>
+        </section>
+      </main>
+
+      <footer class="site-footer">
+        <div class="section-shell footer-inner">
+          <span>Archeos</span>
+          <a href="https://youtube.com" target="_blank" rel="noreferrer">
+            <i data-lucide="square-play"></i>
+            YouTube
+          </a>
+        </div>
+      </footer>
+    </div>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

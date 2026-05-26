@@ -1,0 +1,20 @@
+{
+  "name": "archeos-landing",
+  "version": "1.0.0",
+  "description": "Landing page Vite et Tailwind CSS pour la chaîne YouTube Archeos.",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "@tailwindcss/vite": "^4.3.0",
+    "lucide": "^1.16.0",
+    "tailwindcss": "^4.3.0",
+    "vite": "^8.0.14"
+  }
+}
