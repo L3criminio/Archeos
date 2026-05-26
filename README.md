@@ -49,3 +49,18 @@ git push -u origin main
 ```
 
 Remplace `<utilisateur>` et `<repo>` par le compte et le dépôt GitHub.
+
+## Déploiement GitHub Pages
+
+Le projet contient un workflow prêt à l'emploi :
+
+```text
+.github/workflows/deploy.yml
+```
+
+À vérifier dans GitHub :
+- Va dans `Settings > Pages`.
+- Dans `Build and deployment`, choisis `GitHub Actions`.
+- Push sur `main`, puis attends la fin de l'action `Deploy GitHub Pages`.
+
+La config Vite ajuste automatiquement le `base` pour GitHub Pages avec `GITHUB_REPOSITORY`. Pour ce repo, le build Pages utilisera donc `/Archeos/`.
