@@ -5,143 +5,400 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Archeos explore l'archéologie et les mondes disparus avec des reconstructions 3D immersives."
+      content="Archeos explore l'archéologie, les civilisations enfouies et les reconstructions 3D à travers une expérience YouTube cinématique."
     />
-    <meta name="theme-color" content="#071419" />
-    <title>Archeos - Archéologie en 3D</title>
+    <meta name="theme-color" content="#07050a" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Instrument+Serif:ital@0;1&family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <title>Archeos</title>
   </head>
   <body>
-    <div id="app">
-      <header class="site-header" data-header>
-        <a class="brand" href="#top" aria-label="Archeos accueil">
-          <span class="brand-mark">A</span>
-          <span>Archeos</span>
-        </a>
+    <div id="c-dot" aria-hidden="true"></div>
+    <div id="c-ring" aria-hidden="true"></div>
+    <div id="c-cross" aria-hidden="true"></div>
 
-        <nav class="nav" aria-label="Navigation principale">
-          <a href="#episode">Épisode</a>
-          <a href="#ocean">Océan</a>
-          <a href="#chaine">Chaîne</a>
-        </nav>
+    <header id="nav">
+      <a class="brand" href="#hero" aria-label="Archeos accueil">
+        <span class="brand-mark">A</span>
+        <span>Archeos</span>
+      </a>
 
-        <a class="icon-button" href="https://youtube.com" target="_blank" rel="noreferrer" aria-label="Ouvrir YouTube">
-          <i data-lucide="square-play"></i>
-        </a>
-      </header>
+      <nav class="nav-links" aria-label="Navigation principale">
+        <a href="#concept" class="nav-lnk">Concept</a>
+        <a href="#video" class="nav-lnk">Vidéo</a>
+        <a href="#shorts" class="nav-lnk">Shorts</a>
+        <a href="#artifacts" class="nav-lnk">Exploration</a>
+      </nav>
 
-      <main id="top">
-        <section class="hero" aria-labelledby="hero-title">
-          <img
-            class="hero-media"
-            src="https://i.ytimg.com/vi/R2XtefrMNhg/maxresdefault.jpg"
-            alt="Reconstruction 3D du Titanic au fond de l'ocean"
+      <a
+        class="btn-p nav-cta"
+        href="https://www.youtube.com/@archeosx"
+        target="_blank"
+        rel="noreferrer"
+      >
+        <i data-lucide="square-play"></i>
+        YouTube
+      </a>
+    </header>
+
+    <main>
+      <section id="hero" class="scene">
+        <svg
+          id="hero-grid"
+          viewBox="0 0 1440 900"
+          preserveAspectRatio="xMidYMid slice"
+          aria-hidden="true"
+        >
+          <defs>
+            <linearGradient id="grid-v" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#912810" stop-opacity="0" />
+              <stop offset="45%" stop-color="#912810" stop-opacity=".48" />
+              <stop offset="100%" stop-color="#912810" stop-opacity="0" />
+            </linearGradient>
+            <linearGradient id="grid-h" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#c24725" stop-opacity="0" />
+              <stop offset="50%" stop-color="#c24725" stop-opacity=".28" />
+              <stop offset="100%" stop-color="#c24725" stop-opacity="0" />
+            </linearGradient>
+          </defs>
+          <line x1="0" y1="420" x2="1440" y2="420" stroke="url(#grid-h)" />
+          <line
+            x1="0"
+            y1="485"
+            x2="1440"
+            y2="485"
+            stroke="url(#grid-h)"
+            opacity=".8"
           />
-          <div class="hero-shade" aria-hidden="true"></div>
+          <line
+            x1="0"
+            y1="565"
+            x2="1440"
+            y2="565"
+            stroke="url(#grid-h)"
+            opacity=".55"
+          />
+          <line
+            x1="0"
+            y1="675"
+            x2="1440"
+            y2="675"
+            stroke="url(#grid-h)"
+            opacity=".36"
+          />
+          <line x1="210" y1="0" x2="630" y2="900" stroke="url(#grid-v)" />
+          <line
+            x1="460"
+            y1="0"
+            x2="720"
+            y2="900"
+            stroke="url(#grid-v)"
+            opacity=".75"
+          />
+          <line
+            x1="720"
+            y1="0"
+            x2="720"
+            y2="900"
+            stroke="url(#grid-v)"
+            opacity=".45"
+          />
+          <line
+            x1="980"
+            y1="0"
+            x2="720"
+            y2="900"
+            stroke="url(#grid-v)"
+            opacity=".75"
+          />
+          <line x1="1230" y1="0" x2="810" y2="900" stroke="url(#grid-v)" />
+        </svg>
 
-          <div class="hero-content section-shell">
-            <p class="eyebrow">Archéologie visuelle</p>
-            <h1 id="hero-title">Archeos</h1>
-            <p class="hero-copy">
-              Des civilisations, des épaves et des sites disparus racontés par la 3D.
+        <div class="hero-media" aria-hidden="true">
+          <img
+            src="https://i.ytimg.com/vi/R2XtefrMNhg/maxresdefault.jpg"
+            alt=""
+          />
+        </div>
+        <div id="glow-a" class="glow amber"></div>
+        <div id="glow-c" class="glow moss"></div>
+        <div id="hero-scan" aria-hidden="true"></div>
+        <div id="hero-ghost" aria-hidden="true">ARCHEOS</div>
+
+        <div id="hero-mouse-layer" aria-hidden="true">
+          <div
+            class="fsh shape-triangle"
+            style="--x: 78%; --y: 20%; --d: 11s"
+          ></div>
+          <div
+            class="fsh shape-diamond"
+            style="--x: 12%; --y: 68%; --d: 13s"
+          ></div>
+          <div
+            class="fsh shape-ring"
+            style="--x: 68%; --y: 76%; --d: 15s"
+          ></div>
+        </div>
+
+        <div class="hero-copy section-shell">
+          <h1 class="hero-title">
+            <span class="clip-line">Archeos</span>
+            <span class="hero-subline">recompose le passé.</span>
+          </h1>
+          <p class="hero-lead rv d1">
+            Une expérience de vulgarisation cinématique où scans, archives et
+            reconstitutions 3D transforment les vestiges en mondes explorables.
+          </p>
+          <div class="hero-actions rv d2">
+            <a href="#video" class="btn-p">
+              <i data-lucide="play"></i>
+              Voir l'épisode
+            </a>
+            <a href="#concept" class="btn-s">
+              <i data-lucide="compass"></i>
+              Entrer dans la strate
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section id="concept" class="scene section-pad">
+        <div class="ghost-num" aria-hidden="true">01</div>
+        <div class="section-shell split-layout">
+          <div class="rv">
+            <p class="slbl">01 - Concept de chaîne</p>
+            <h2 class="stitle">Ce que nous <em>créons.</em></h2>
+            <p class="mono-copy">
+              Archeos raconte les civilisations anciennes comme des enquêtes
+              visuelles : terrain, hypothèses, reconstruction et technologie
+              dialoguent dans une même narration.
             </p>
-            <div class="hero-actions">
-              <a class="button button-primary" href="#episode">
-                <i data-lucide="play"></i>
-                Voir l'épisode
-              </a>
-              <a class="button button-secondary" href="#chaine">
-                <i data-lucide="compass"></i>
-                Explorer
-              </a>
-            </div>
           </div>
-        </section>
 
-        <section id="episode" class="section-shell episode-grid" aria-labelledby="episode-title">
-          <div class="section-intro">
-            <p class="eyebrow">Épisode pilote</p>
-            <h2 id="episode-title">Titanic, le relevé impossible</h2>
-            <p>
-              Une plongée dans la reconstruction 3D du paquebot, depuis le scan sous-marin jusqu'à la lecture des
-              indices laissés sur le fond.
+          <div class="concept-grid">
+            <article class="ccard rv d1">
+              <span class="card-index">A01</span>
+              <h3>Thématique</h3>
+              <p>
+                Épaves, temples, cités enfouies, objets rituels et traces
+                humaines relues par l'imagerie moderne.
+              </p>
+            </article>
+            <article class="ccard rv d2">
+              <span class="card-index">A02</span>
+              <h3>Ligne éditoriale</h3>
+              <p>
+                Un ton scientifique mais accessible, porté par un montage
+                immersif et une direction visuelle forte.
+              </p>
+            </article>
+            <article class="ccard wide rv d3">
+              <span class="card-index">A03</span>
+              <h3>Promesse</h3>
+              <p>
+                Chaque vidéo devient un artifact numérique : on part d'une
+                trace, on traverse la donnée, puis on reconstruit une scène qui
+                donne envie de comprendre.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="video" class="scene section-pad">
+        <div class="fsh shape-ring video-float" aria-hidden="true"></div>
+        <div class="section-shell">
+          <div class="section-head">
+            <div class="rv">
+              <p class="slbl">02 - Vidéo principale</p>
+              <h2 class="stitle">Titanic, le relevé <em>impossible.</em></h2>
+            </div>
+            <p class="head-copy rv d2">
+              Une descente océanique dans la reconstruction 3D du Titanic :
+              lecture du scan, indices sur la coque et mémoire d'une épave
+              devenue archive numérique.
             </p>
           </div>
 
-          <div class="video-frame">
-            <iframe
-              src="https://www.youtube.com/embed/R2XtefrMNhg?rel=0&amp;modestbranding=1"
-              srcdoc="<style>*{box-sizing:border-box}body{margin:0;background:#071419;font-family:Arial,sans-serif}a{position:absolute;inset:0;display:grid;place-items:center;color:#071419;text-decoration:none}img{width:100%;height:100%;object-fit:cover;filter:brightness(.62) saturate(.9)}span{position:absolute;display:inline-flex;align-items:center;gap:.55rem;background:#d9f1e8;padding:.85rem 1.1rem;font-weight:800}span:before{content:'▶';font-size:.8rem}</style><a href='https://www.youtube.com/embed/R2XtefrMNhg?autoplay=1&amp;rel=0&amp;modestbranding=1'><img src='https://i.ytimg.com/vi/R2XtefrMNhg/maxresdefault.jpg' alt='Reconstruction 3D du Titanic'><span>Lancer la video</span></a>"
-              title="Scan of Titanic reveals wreck as never seen before - BBC News"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              referrerpolicy="strict-origin-when-cross-origin"
-              allowfullscreen
-            ></iframe>
-          </div>
-        </section>
-
-        <section id="ocean" class="ocean-section" aria-labelledby="ocean-title">
-          <div class="section-shell ocean-grid">
-            <div>
-              <p class="eyebrow">Sous la surface</p>
-              <h2 id="ocean-title">Descente sous l'océan</h2>
-            </div>
-
-            <div class="ocean-panel">
-              <div class="depth-line" aria-hidden="true"></div>
-              <dl>
-                <div>
-                  <dt>3 800 m</dt>
-                  <dd>Profondeur du site</dd>
-                </div>
-                <div>
-                  <dt>700k+</dt>
-                  <dd>Images de référence</dd>
-                </div>
-                <div>
-                  <dt>1912</dt>
-                  <dd>Le naufrage replacé dans son contexte</dd>
-                </div>
-              </dl>
+          <div class="vframe rv-sc">
+            <div class="corner tl"></div>
+            <div class="corner tr"></div>
+            <div class="corner bl"></div>
+            <div class="corner br"></div>
+            <div class="video-shell">
+              <iframe
+                data-video-embed
+                data-video-src="https://www.youtube.com/embed/R2XtefrMNhg?autoplay=1&amp;rel=0&amp;modestbranding=1"
+                src="https://www.youtube.com/embed/R2XtefrMNhg?rel=0&amp;modestbranding=1"
+                srcdoc="<style>*{box-sizing:border-box}body{margin:0;background:#07050a}img{width:100%;height:100%;object-fit:cover;filter:brightness(.52) contrast(1.12) saturate(.8)}</style><img src='https://i.ytimg.com/vi/R2XtefrMNhg/maxresdefault.jpg' alt='Reconstruction 3D du Titanic'>"
+                title="Scan of Titanic reveals wreck as never seen before - BBC News"
+                allow="
+                  accelerometer;
+                  autoplay;
+                  clipboard-write;
+                  encrypted-media;
+                  gyroscope;
+                  picture-in-picture;
+                  web-share;
+                "
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen
+              ></iframe>
+              <button class="video-play-overlay" type="button" data-video-play aria-label="Lancer la vidéo">
+                <span>Lancer la vidéo</span>
+              </button>
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        <section id="chaine" class="section-shell channel-section" aria-labelledby="channel-title">
-          <div>
-            <p class="eyebrow">La chaîne</p>
-            <h2 id="channel-title">Clair, dense, immersif.</h2>
+      <section id="shorts" class="scene section-pad">
+        <div class="ghost-num left" aria-hidden="true">03</div>
+        <div class="section-shell">
+          <div class="section-head">
+            <div class="rv">
+              <p class="slbl">03 - Contenus courts</p>
+              <h2 class="stitle">Les <em>Shorts.</em></h2>
+            </div>
+            <p class="head-copy rv d2">
+              Des capsules verticales pour prolonger l'expédition : un détail,
+              une hypothèse, une image qui accroche.
+            </p>
           </div>
 
-          <div class="channel-cards">
-            <article>
-              <i data-lucide="scan-line"></i>
-              <h3>Reconstituer</h3>
-              <p>Transformer archives, scans et traces en scènes lisibles.</p>
+          <div class="shorts-grid">
+            <article class="short-card rv">
+              <div class="short-visual bronze">
+                <i data-lucide="scan-line"></i>
+              </div>
+              <span>#SHORT 01</span>
+              <h3>Le scan révèle la coque</h3>
+              <p>
+                Un détail invisible en photo devient lisible grâce au relevé 3D.
+              </p>
             </article>
-            <article>
-              <i data-lucide="waves"></i>
-              <h3>Raconter</h3>
-              <p>Aller droit au fait, sans surcharge ni jargon inutile.</p>
+            <article class="short-card tall rv d1">
+              <div class="short-visual moss">
+                <i data-lucide="waves"></i>
+              </div>
+              <span>#SHORT 02</span>
+              <h3>Pourquoi l'épave se transforme</h3>
+              <p>
+                Corrosion, pression, bactéries : l'océan continue d'écrire
+                l'histoire.
+              </p>
             </article>
-            <article>
-              <i data-lucide="layers-3"></i>
-              <h3>Explorer</h3>
-              <p>Passer du détail technique à l'histoire humaine.</p>
+            <article class="short-card rv d2">
+              <div class="short-visual stone">
+                <i data-lucide="layers-3"></i>
+              </div>
+              <span>#SHORT 03</span>
+              <h3>Du fragment à la scène</h3>
+              <p>
+                Comment une reconstruction passe de la donnée brute à une image
+                compréhensible.
+              </p>
             </article>
           </div>
-        </section>
-      </main>
+        </div>
+      </section>
 
-      <footer class="site-footer">
-        <div class="section-shell footer-inner">
-          <span>Archeos</span>
-          <a href="https://youtube.com" target="_blank" rel="noreferrer">
+      <section id="artifacts" class="scene section-pad">
+        <div class="artifact-ghost" aria-hidden="true">EXPLORE</div>
+        <div class="section-shell">
+          <div class="section-head stacked">
+            <p class="slbl rv">04 - Exploration des strates</p>
+            <h2 class="stitle rv d1">
+              Chaque couche raconte une <em>histoire.</em>
+            </h2>
+          </div>
+
+          <div class="timeline">
+            <article class="artifact-item rv">
+              <div class="artifact-copy">
+                <span>STRATE 01</span>
+                <h3>Trace</h3>
+                <p>
+                  Un signal faible : archive, sonar, objet, inscription ou
+                  anomalie topographique.
+                </p>
+              </div>
+              <div class="artifact-node"></div>
+              <div class="artifact-media">
+                <div class="ai-m-inner relief-a"></div>
+              </div>
+            </article>
+            <article class="artifact-item rv d1">
+              <div class="artifact-copy">
+                <span>STRATE 02</span>
+                <h3>Donnée</h3>
+                <p>
+                  La trace devient matière : scan, carte, modèle et hypothèses
+                  croisées.
+                </p>
+              </div>
+              <div class="artifact-node"></div>
+              <div class="artifact-media">
+                <div class="ai-m-inner relief-b"></div>
+              </div>
+            </article>
+            <article class="artifact-item rv d2">
+              <div class="artifact-copy">
+                <span>STRATE 03</span>
+                <h3>Reconstruction</h3>
+                <p>
+                  Le passé reprend volume pour être compris, discuté et
+                  transmis.
+                </p>
+              </div>
+              <div class="artifact-node"></div>
+              <div class="artifact-media">
+                <div class="ai-m-inner relief-c"></div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="cta" class="scene">
+        <div id="cta-ghost" aria-hidden="true">S'ABONNER</div>
+        <div class="light-rays" aria-hidden="true">
+          <span style="--i: -18deg; --x: 38%; --d: 0s"></span>
+          <span style="--i: -6deg; --x: 46%; --d: 0.5s"></span>
+          <span style="--i: 0deg; --x: 50%; --d: 0.1s"></span>
+          <span style="--i: 6deg; --x: 54%; --d: 0.8s"></span>
+          <span style="--i: 18deg; --x: 62%; --d: 0.3s"></span>
+        </div>
+        <div class="corner tl"></div>
+        <div class="corner tr"></div>
+        <div class="corner bl"></div>
+        <div class="corner br"></div>
+
+        <div class="cta-inner">
+          <span class="tag rv">05 - Rejoindre l'expédition</span>
+          <h2 class="cta-title rv d1">
+            Entrez dans l'<em>archive vivante.</em>
+          </h2>
+          <p class="rv d2">
+            Archeos transforme les vestiges en expériences visuelles. Le
+            prochain signal est déjà sous la surface.
+          </p>
+          <a
+            class="btn-p rv d3"
+            href="https://youtube.com"
+            target="_blank"
+            rel="noreferrer"
+          >
             <i data-lucide="square-play"></i>
-            YouTube
+            Suivre Archeos
           </a>
         </div>
-      </footer>
-    </div>
+      </section>
+    </main>
 
     <script type="module" src="/src/main.js"></script>
   </body>
