@@ -22,6 +22,21 @@ npm run dev
 npm run build
 ```
 
+## Assets de marque
+
+Les logos, favicons et icônes d'installation sont dans `public/`.
+
+```text
+public/favicon-archeos-16px.png
+public/favicon-archeos-32px.png
+public/apple-touch-icon.png
+public/android-chrome-192x192.png
+public/android-chrome-512x512.png
+public/site.webmanifest
+```
+
+Le HTML utilise `%BASE_URL%` pour que ces assets fonctionnent aussi sur GitHub Pages quand le site est publié dans un sous-dossier de dépôt.
+
 ## Modèle 3D Titanic
 
 Place le modèle GLB ici :

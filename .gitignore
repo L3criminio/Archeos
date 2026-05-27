@@ -12,3 +12,4 @@ yarn-error.log*
 pnpm-debug.log*
 vite-dev*.log
 palette-check*.png
+assets.zip

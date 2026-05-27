@@ -1,10 +1,15 @@
 @import "tailwindcss";
 
 @theme {
-  --font-display: "Bebas Neue", Impact, sans-serif;
-  --font-serif: "Instrument Serif", Georgia, serif;
-  --font-mono: "Space Mono", ui-monospace, monospace;
-  --font-sans: Syne, ui-sans-serif, system-ui, sans-serif;
+  --font-display:
+    "Helvetica Neue", Helvetica, Arial, ui-sans-serif, system-ui, sans-serif;
+  --font-serif:
+    "Helvetica Neue", Helvetica, Arial, ui-sans-serif, system-ui, sans-serif;
+  --font-mono:
+    "MONO", "SFMono-Regular", "SF Mono", Consolas, "Liberation Mono", Menlo,
+    ui-monospace, monospace;
+  --font-sans:
+    "Helvetica Neue", Helvetica, Arial, ui-sans-serif, system-ui, sans-serif;
 }
 
 :root {
@@ -29,9 +34,11 @@
   --border-strong: rgb(200 184 149 / 0.18);
   --moss-border: rgb(124 106 44 / 0.24);
   --terracotta-border: rgb(202 138 36 / 0.42);
+  --wordmark-primary: var(--sand-l);
   color: var(--sand-l);
   background: var(--void);
-  font-family: Syne, ui-sans-serif, system-ui, sans-serif;
+  font-family:
+    "Helvetica Neue", Helvetica, Arial, ui-sans-serif, system-ui, sans-serif;
   font-synthesis: none;
   scroll-behavior: auto;
   text-rendering: optimizeLegibility;
@@ -55,7 +62,11 @@ body {
   overflow-x: hidden;
   cursor: none;
   background:
-    radial-gradient(circle at 18% 0%, rgb(202 138 36 / 0.16), transparent 34rem),
+    radial-gradient(
+      circle at 18% 0%,
+      rgb(202 138 36 / 0.16),
+      transparent 34rem
+    ),
     radial-gradient(
       circle at 78% 18%,
       rgb(217 163 58 / 0.12),
@@ -98,6 +109,10 @@ a {
   color: inherit;
   cursor: none;
   text-decoration: none;
+}
+
+#video {
+  scroll-margin-top: -14.5rem;
 }
 
 img,
@@ -243,29 +258,34 @@ body.hov #c-ring {
 .brand {
   display: inline-flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.5rem;
   width: max-content;
   font-weight: 800;
+}
+
+.wordmark-mask {
+  display: block;
+  background: var(--wordmark-color, var(--sand-l));
+  mask: var(--wordmark-url) center / contain no-repeat;
+  -webkit-mask: var(--wordmark-url) center / contain no-repeat;
 }
 
 .brand-mark {
   position: relative;
   display: grid;
-  width: 2.15rem;
+  width: 2.7rem;
   aspect-ratio: 1;
   place-items: center;
-  border: 1px solid var(--border-strong);
-  background: rgb(226 216 200 / 0.06);
   color: var(--sand-l);
-  font-family: "Instrument Serif", serif;
+  font-family: var(--font-sans);
   font-size: 1.1rem;
 }
 
-.brand-mark::after {
-  content: "";
-  position: absolute;
-  inset: -5px;
-  border: 1px solid rgb(202 138 36 / 0.16);
+.brand-wordmark {
+  --wordmark-color: var(--wordmark-primary);
+  width: clamp(5.4rem, 9vw, 6.7rem);
+  aspect-ratio: 512 / 120;
+  filter: drop-shadow(0 0 0.65rem rgb(202 138 36 / 0.18));
 }
 
 .nav-links {
@@ -278,7 +298,7 @@ body.hov #c-ring {
 .nav-lnk {
   position: relative;
   color: var(--fog);
-  font-family: "Space Mono", monospace;
+  font-family: var(--font-mono);
   font-size: 0.62rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
@@ -318,7 +338,7 @@ body.hov #c-ring {
   gap: 0.55rem;
   overflow: hidden;
   padding: 0.78rem 1.35rem;
-  font-family: "Space Mono", monospace;
+  font-family: var(--font-mono);
   font-size: 0.62rem;
   font-weight: 700;
   letter-spacing: 0.1em;
@@ -415,15 +435,15 @@ body.hov #c-ring {
   inset: 0;
   background:
     radial-gradient(
-      circle at 68% 30%,
+      circle at 50% 30%,
       transparent 0 18rem,
       rgb(7 5 10 / 0.25) 40rem
     ),
     linear-gradient(
       90deg,
-      rgb(7 5 10 / 0.94),
-      rgb(7 5 10 / 0.68) 44%,
-      rgb(7 5 10 / 0.24)
+      rgb(7 5 10 / 0.72),
+      rgb(7 5 10 / 0.42) 50%,
+      rgb(7 5 10 / 0.72)
     ),
     linear-gradient(180deg, rgb(7 5 10 / 0.12) 38%, var(--void));
 }
@@ -471,13 +491,15 @@ body.hov #c-ring {
 #hero-ghost {
   position: absolute;
   z-index: 0;
-  right: -0.05em;
+  right: 0;
+  left: 0;
   bottom: -0.2em;
   color: rgb(196 184 156 / 0.04);
-  font-family: "Bebas Neue", sans-serif;
+  font-family: var(--font-sans);
   font-size: clamp(8rem, 24vw, 25rem);
   line-height: 1;
   letter-spacing: 0.04em;
+  text-align: center;
   white-space: nowrap;
   pointer-events: none;
 }
@@ -532,7 +554,7 @@ body.hov #c-ring {
   display: flex;
   gap: 1rem;
   color: rgb(226 216 200 / 0.58);
-  font-family: "Space Mono", monospace;
+  font-family: var(--font-mono);
   font-size: 0.58rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -551,15 +573,17 @@ body.hov #c-ring {
   display: flex;
   min-height: 100svh;
   flex-direction: column;
+  align-items: center;
   justify-content: center;
   padding-block: 8rem 6rem;
+  text-align: center;
 }
 
 .kicker,
 .slbl {
   margin: 0 0 1.25rem;
   color: var(--terracotta-soft);
-  font-family: "Space Mono", monospace;
+  font-family: var(--font-mono);
   font-size: 0.68rem;
   font-weight: 700;
   letter-spacing: 0.22em;
@@ -568,13 +592,23 @@ body.hov #c-ring {
 
 .hero-title {
   max-width: 980px;
-  margin: 0 0 1.5rem;
+  margin: 0 auto 1.5rem;
   color: var(--sand-l);
-  font-family: "Instrument Serif", serif;
+  font-family: var(--font-sans);
   font-size: clamp(5.2rem, 13vw, 13rem);
   font-weight: 700;
   line-height: 0.78;
   text-shadow: 0 1.5rem 5rem rgb(0 0 0 / 0.48);
+}
+
+.hero-wordmark {
+  --wordmark-color: var(--wordmark-primary);
+  width: min(70vw, 46rem);
+  max-width: 100%;
+  aspect-ratio: 512 / 120;
+  margin-inline: auto;
+  filter: drop-shadow(0 1.2rem 3rem rgb(0 0 0 / 0.58))
+    drop-shadow(0 0 1.8rem rgb(202 138 36 / 0.16));
 }
 
 .clip-line {
@@ -591,7 +625,7 @@ body.hov #c-ring {
 
 .hero-lead {
   max-width: 620px;
-  margin: 0 0 2.3rem;
+  margin: 0 auto 2.3rem;
   color: rgb(226 216 200 / 0.72);
   font-size: clamp(1rem, 1.45vw, 1.28rem);
   line-height: 1.82;
@@ -600,6 +634,7 @@ body.hov #c-ring {
 .hero-actions {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 0.85rem;
 }
 
@@ -609,7 +644,7 @@ body.hov #c-ring {
   top: -0.18em;
   right: -0.03em;
   color: rgb(196 184 156 / 0.03);
-  font-family: "Bebas Neue", sans-serif;
+  font-family: var(--font-sans);
   font-size: clamp(12rem, 30vw, 35rem);
   line-height: 1;
   pointer-events: none;
@@ -632,7 +667,7 @@ body.hov #c-ring {
 .stitle {
   margin: 0;
   color: var(--sand-l);
-  font-family: "Instrument Serif", serif;
+  font-family: var(--font-sans);
   font-size: clamp(3.4rem, 7vw, 8rem);
   font-weight: 700;
   line-height: 0.9;
@@ -652,7 +687,7 @@ body.hov #c-ring {
 .mono-copy {
   max-width: 430px;
   margin: 2rem 0;
-  font-family: "Space Mono", monospace;
+  font-family: var(--font-mono);
   font-size: 0.78rem;
   letter-spacing: 0.03em;
 }
@@ -664,7 +699,7 @@ body.hov #c-ring {
   background: rgb(202 138 36 / 0.09);
   color: var(--terracotta-soft);
   padding: 0.5rem 0.7rem;
-  font-family: "Space Mono", monospace;
+  font-family: var(--font-mono);
   font-size: 0.58rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -735,7 +770,7 @@ body.hov #c-ring {
 .artifact-copy span,
 .video-hud span {
   color: var(--terracotta-soft);
-  font-family: "Space Mono", monospace;
+  font-family: var(--font-mono);
   font-size: 0.58rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
@@ -777,9 +812,23 @@ body.hov #c-ring {
   min-height: 145svh;
   padding-block: clamp(7rem, 13vw, 12rem);
   background:
-    radial-gradient(circle at var(--abyss-x) var(--abyss-y), rgb(77 166 175 / 0.12), transparent 18rem),
+    radial-gradient(
+      circle at var(--abyss-x) var(--abyss-y),
+      rgb(77 166 175 / 0.12),
+      transparent 18rem
+    ),
     radial-gradient(circle at 50% 22%, rgb(0 20 26 / 0.84), transparent 42rem),
     linear-gradient(180deg, #060404 0%, #061216 34%, #031016 64%, #050403 100%);
+}
+
+.video-abyss::before {
+  content: "";
+  position: absolute;
+  z-index: 6;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  mix-blend-mode: screen;
 }
 
 .video-abyss::after {
@@ -789,8 +838,78 @@ body.hov #c-ring {
   z-index: -1;
   pointer-events: none;
   background:
-    linear-gradient(180deg, rgb(5 4 3 / 0.74), transparent 18%, transparent 78%, rgb(5 4 3 / 0.82)),
-    radial-gradient(circle at 50% 55%, transparent 0 24rem, rgb(0 0 0 / 0.62) 48rem);
+    linear-gradient(
+      180deg,
+      rgb(5 4 3 / 0.74),
+      transparent 18%,
+      transparent 78%,
+      rgb(5 4 3 / 0.82)
+    ),
+    radial-gradient(
+      circle at 50% 55%,
+      transparent 0 24rem,
+      rgb(0 0 0 / 0.62) 48rem
+    );
+}
+
+.video-abyss.is-opening {
+  cursor: wait;
+}
+
+.video-abyss.reveal-archive.is-opening::before {
+  opacity: 1;
+  background:
+    linear-gradient(
+      90deg,
+      transparent 0 33%,
+      rgb(202 138 36 / 0.18) 48%,
+      rgb(108 214 220 / 0.12) 50%,
+      rgb(202 138 36 / 0.18) 52%,
+      transparent 67% 100%
+    ),
+    radial-gradient(
+      circle at 50% 76%,
+      rgb(202 138 36 / 0.22),
+      transparent 18rem
+    );
+  animation: archiveLift 1100ms cubic-bezier(0.19, 1, 0.22, 1) both;
+}
+
+.video-abyss.reveal-scan.is-opening::before {
+  opacity: 1;
+  background:
+    linear-gradient(
+      180deg,
+      transparent 0 38%,
+      rgb(174 226 222 / 0.18) 44%,
+      rgb(202 138 36 / 0.14) 48%,
+      transparent 56% 100%
+    ),
+    repeating-linear-gradient(
+      0deg,
+      transparent 0 0.75rem,
+      rgb(174 226 222 / 0.055) 0.8rem 0.86rem
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent 0 5.5rem,
+      rgb(202 138 36 / 0.045) 5.55rem 5.62rem
+    );
+  animation: scanReveal 950ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.video-abyss.reveal-vortex.is-opening::before {
+  opacity: 1;
+  background:
+    radial-gradient(
+      circle at 50% 50%,
+      transparent 0 8rem,
+      rgb(108 214 220 / 0.16) 9rem,
+      rgb(202 138 36 / 0.12) 10.5rem,
+      transparent 16rem
+    ),
+    radial-gradient(circle at 50% 50%, rgb(5 18 24 / 0.82), transparent 42rem);
+  animation: vortexOpen 900ms cubic-bezier(0.19, 1, 0.22, 1) both;
 }
 
 .abyss-stage {
@@ -801,6 +920,8 @@ body.hov #c-ring {
   background:
     radial-gradient(circle at 50% 48%, rgb(15 80 94 / 0.22), transparent 34rem),
     linear-gradient(180deg, #050403 0%, #051017 32%, #02070b 100%);
+  transform-origin: center;
+  will-change: transform, filter;
 }
 
 .titanic-canvas,
@@ -861,9 +982,21 @@ body.hov #c-ring {
 .abyss-back {
   opacity: 0.42;
   background:
-    radial-gradient(circle at 18% 26%, rgb(83 145 145 / 0.12), transparent 10rem),
-    radial-gradient(circle at 86% 52%, rgb(202 138 36 / 0.1), transparent 18rem),
-    repeating-radial-gradient(circle at 52% 38%, transparent 0 1.4rem, rgb(120 200 205 / 0.035) 1.48rem);
+    radial-gradient(
+      circle at 18% 26%,
+      rgb(83 145 145 / 0.12),
+      transparent 10rem
+    ),
+    radial-gradient(
+      circle at 86% 52%,
+      rgb(202 138 36 / 0.1),
+      transparent 18rem
+    ),
+    repeating-radial-gradient(
+      circle at 52% 38%,
+      transparent 0 1.4rem,
+      rgb(120 200 205 / 0.035) 1.48rem
+    );
   animation: abyssDrift 24s ease-in-out infinite;
 }
 
@@ -883,7 +1016,11 @@ body.hov #c-ring {
 
 .abyss-front {
   opacity: 0.34;
-  background-image: radial-gradient(circle, rgb(240 223 194 / 0.22) 0 1px, transparent 2px);
+  background-image: radial-gradient(
+    circle,
+    rgb(240 223 194 / 0.22) 0 1px,
+    transparent 2px
+  );
   background-size: 14rem 16rem;
   filter: blur(0.6px);
   animation: abyssParticles 12s linear infinite reverse;
@@ -894,9 +1031,24 @@ body.hov #c-ring {
   pointer-events: none;
   opacity: 0.46;
   background:
-    linear-gradient(104deg, transparent 0 38%, rgb(100 190 205 / 0.1) 43%, transparent 54%),
-    linear-gradient(82deg, transparent 0 48%, rgb(100 190 205 / 0.08) 52%, transparent 61%),
-    linear-gradient(96deg, transparent 0 58%, rgb(202 138 36 / 0.08) 62%, transparent 72%);
+    linear-gradient(
+      104deg,
+      transparent 0 38%,
+      rgb(100 190 205 / 0.1) 43%,
+      transparent 54%
+    ),
+    linear-gradient(
+      82deg,
+      transparent 0 48%,
+      rgb(100 190 205 / 0.08) 52%,
+      transparent 61%
+    ),
+    linear-gradient(
+      96deg,
+      transparent 0 58%,
+      rgb(202 138 36 / 0.08) 62%,
+      transparent 72%
+    );
   mix-blend-mode: screen;
   transform-origin: center top;
   animation: abyssRays 11s ease-in-out infinite;
@@ -907,9 +1059,24 @@ body.hov #c-ring {
   pointer-events: none;
   opacity: 0.12;
   background-image:
-    radial-gradient(ellipse at 20% 40%, transparent 0 28%, rgb(108 214 220 / 0.35) 30%, transparent 33%),
-    radial-gradient(ellipse at 68% 60%, transparent 0 30%, rgb(108 214 220 / 0.22) 32%, transparent 36%),
-    radial-gradient(ellipse at 42% 20%, transparent 0 26%, rgb(240 223 194 / 0.15) 28%, transparent 31%);
+    radial-gradient(
+      ellipse at 20% 40%,
+      transparent 0 28%,
+      rgb(108 214 220 / 0.35) 30%,
+      transparent 33%
+    ),
+    radial-gradient(
+      ellipse at 68% 60%,
+      transparent 0 30%,
+      rgb(108 214 220 / 0.22) 32%,
+      transparent 36%
+    ),
+    radial-gradient(
+      ellipse at 42% 20%,
+      transparent 0 26%,
+      rgb(240 223 194 / 0.15) 28%,
+      transparent 31%
+    );
   background-size: 34rem 22rem;
   filter: blur(8px);
   mix-blend-mode: screen;
@@ -920,7 +1087,11 @@ body.hov #c-ring {
   z-index: 6;
   pointer-events: none;
   opacity: 0;
-  background: radial-gradient(circle at var(--abyss-x) var(--abyss-y), rgb(130 220 220 / 0.22), transparent 11rem);
+  background: radial-gradient(
+    circle at var(--abyss-x) var(--abyss-y),
+    rgb(130 220 220 / 0.22),
+    transparent 11rem
+  );
   mix-blend-mode: screen;
   transition: opacity 260ms ease;
 }
@@ -944,6 +1115,10 @@ body.hov #c-ring {
   perspective: 1200px;
 }
 
+.video-abyss.is-archive-open .abyss-interface {
+  padding-bottom: clamp(2rem, 5vw, 4rem);
+}
+
 .abyss-readout,
 .artifact-hud,
 .capsule-topline {
@@ -951,7 +1126,7 @@ body.hov #c-ring {
   flex-wrap: wrap;
   gap: 0.75rem;
   color: rgb(174 226 222 / 0.72);
-  font-family: "Space Mono", monospace;
+  font-family: var(--font-mono);
   font-size: 0.58rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
@@ -986,7 +1161,7 @@ body.hov #c-ring {
   background: rgb(7 5 10 / 0.45);
   color: var(--sand-l);
   padding: 0.85rem 1rem;
-  font-family: "Space Mono", monospace;
+  font-family: var(--font-mono);
   font-size: 0.62rem;
   font-weight: 700;
   letter-spacing: 0.14em;
@@ -1067,33 +1242,91 @@ body.hov #c-ring {
 }
 
 .analysis-capsule {
-  position: absolute;
+  position: relative;
   z-index: 10;
-  right: 0;
-  bottom: 0;
-  width: min(820px, 66vw);
+  right: auto;
+  bottom: auto;
+  width: min(1040px, 100%);
+  margin: clamp(28rem, 48vw, 36rem) auto 0;
   opacity: 0;
   pointer-events: none;
-  transform: translate3d(0, 7rem, 0) scale(0.92) rotateX(8deg);
+  transform: translate3d(0, 5rem, 0) scale(0.96);
   transform-origin: center bottom;
+  border: 1px solid rgb(240 223 194 / 0.12);
+  border-radius: 0.65rem;
+  background: rgb(4 8 10 / 0.88);
   transition:
     opacity 720ms cubic-bezier(0.19, 1, 0.22, 1),
     transform 900ms cubic-bezier(0.19, 1, 0.22, 1),
     box-shadow 720ms ease;
+  backdrop-filter: blur(18px);
+  will-change: transform, opacity, filter, clip-path;
+}
+
+.analysis-capsule::before {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  opacity: 0;
+  z-index: 4;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(90deg, transparent, rgb(240 223 194 / 0.12), transparent);
+  mix-blend-mode: screen;
+  transform: translateX(-115%);
 }
 
 .video-abyss.is-archive-open .analysis-capsule {
   opacity: 1;
   pointer-events: auto;
-  transform: translate3d(0, 0, 0) scale(1) rotateX(0);
+  transform: translate3d(0, 0, 0) scale(1);
   box-shadow:
-    0 3rem 9rem rgb(0 0 0 / 0.58),
-    0 0 90px rgb(100 190 205 / 0.12);
+    0 2.5rem 7rem rgb(0 0 0 / 0.54),
+    0 0 0 1px rgb(202 138 36 / 0.08) inset;
+}
+
+.video-abyss.is-opening .analysis-capsule {
+  pointer-events: none;
+}
+
+.video-abyss.reveal-archive.is-opening .analysis-capsule::before {
+  opacity: 1;
+  animation: capsuleBeam 980ms cubic-bezier(0.19, 1, 0.22, 1) both;
+}
+
+.video-abyss.reveal-scan.is-opening .analysis-capsule::before {
+  opacity: 1;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent 0 0.62rem,
+      rgb(174 226 222 / 0.18) 0.68rem 0.75rem
+    ),
+    linear-gradient(90deg, transparent, rgb(202 138 36 / 0.2), transparent);
+  animation: capsuleScan 900ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.video-abyss.reveal-vortex.is-opening .analysis-capsule::before {
+  inset: -20%;
+  opacity: 1;
+  background: radial-gradient(
+    circle at 50% 50%,
+    transparent 0 18%,
+    rgb(108 214 220 / 0.2) 22%,
+    transparent 44%
+  );
+  animation: capsuleVortex 900ms cubic-bezier(0.19, 1, 0.22, 1) both;
 }
 
 .capsule-topline {
+  position: relative;
+  z-index: 5;
   justify-content: space-between;
-  margin-bottom: 0.85rem;
+  margin-bottom: 0.7rem;
+  padding: 0 0.1rem;
+  color: rgb(240 223 194 / 0.54);
+  font-size: 0.52rem;
+  letter-spacing: 0.14em;
 }
 
 #video::before {
@@ -1102,7 +1335,7 @@ body.hov #c-ring {
   top: 3rem;
   right: clamp(1.5rem, 4vw, 4rem);
   color: rgb(196 184 156 / 0.12);
-  font-family: "Space Mono", monospace;
+  font-family: var(--font-mono);
   font-size: 0.62rem;
   letter-spacing: 0.16em;
 }
@@ -1128,14 +1361,10 @@ body.hov #c-ring {
 
 .vframe {
   position: relative;
-  padding: clamp(0.75rem, 2vw, 1.2rem);
-  border: 1px solid var(--border-strong);
-  background:
-    linear-gradient(135deg, rgb(202 138 36 / 0.09), transparent 28%),
-    rgb(226 216 200 / 0.025);
-  box-shadow:
-    0 3rem 8rem rgb(0 0 0 / 0.45),
-    inset 0 0 0 1px rgb(202 138 36 / 0.08);
+  padding: clamp(0.7rem, 1.3vw, 0.95rem);
+  border: 1px solid rgb(240 223 194 / 0.12);
+  background: rgb(226 216 200 / 0.022);
+  box-shadow: 0 2rem 6rem rgb(0 0 0 / 0.42);
 }
 
 .corner {
@@ -1150,7 +1379,7 @@ body.hov #c-ring {
 .corner::after {
   content: "";
   position: absolute;
-  background: var(--terracotta);
+  background: rgb(202 138 36 / 0.78);
 }
 
 .corner::before {
@@ -1188,9 +1417,23 @@ body.hov #c-ring {
 
 .video-shell {
   position: relative;
+  z-index: 3;
   aspect-ratio: 16 / 9;
   overflow: hidden;
+  border: 1px solid rgb(240 223 194 / 0.1);
+  border-radius: 0.45rem;
   background: #020203;
+  box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.35);
+}
+
+.video-shell::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  border: 1px solid rgb(202 138 36 / 0.1);
+  border-radius: inherit;
 }
 
 .video-shell iframe {
@@ -1200,9 +1443,13 @@ body.hov #c-ring {
   pointer-events: none;
 }
 
+.video-shell.is-playing iframe {
+  pointer-events: auto;
+}
+
 .video-play-overlay {
   position: absolute;
-  z-index: 3;
+  z-index: 6;
   inset: 0;
   display: grid;
   place-items: center;
@@ -1217,14 +1464,19 @@ body.hov #c-ring {
   display: inline-flex;
   align-items: center;
   gap: 0.6rem;
-  padding: 0.9rem 1.2rem;
-  background:
-    repeating-linear-gradient(0deg, rgb(240 223 194 / 0.92), rgb(240 223 194 / 0.92) 3px, rgb(200 184 149 / 0.92) 4px),
-    var(--sand-l);
-  color: var(--void);
+  border: 1px solid rgb(240 223 194 / 0.22);
+  border-radius: 999px;
+  padding: 0.78rem 1rem;
+  background: rgb(240 223 194 / 0.92);
+  color: #050403;
+  font-family: var(--font-mono);
+  font-size: 0.56rem;
   font-weight: 800;
-  letter-spacing: 0.02em;
-  box-shadow: 0 1rem 3rem rgb(0 0 0 / 0.35);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  box-shadow:
+    0 1rem 3rem rgb(0 0 0 / 0.34),
+    0 0 0 0.5rem rgb(240 223 194 / 0.05);
   transition:
     opacity 180ms ease,
     transform 180ms ease;
@@ -1242,6 +1494,11 @@ body.hov #c-ring {
 .video-shell.is-playing .video-play-overlay span {
   opacity: 0;
   transform: scale(0.96);
+}
+
+.video-shell.is-playing .video-play-overlay {
+  pointer-events: none;
+  opacity: 0;
 }
 
 .video-hud {
@@ -1357,7 +1614,11 @@ body.hov #c-ring {
       rgb(202 138 36 / 0.12),
       transparent 36rem
     ),
-    radial-gradient(circle at 12% 72%, rgb(202 138 36 / 0.12), transparent 30rem),
+    radial-gradient(
+      circle at 12% 72%,
+      rgb(202 138 36 / 0.12),
+      transparent 30rem
+    ),
     linear-gradient(180deg, #0b090b, #080608);
 }
 
@@ -1368,7 +1629,7 @@ body.hov #c-ring {
   z-index: -1;
   translate: -50% -50%;
   color: rgb(196 184 156 / 0.018);
-  font-family: "Bebas Neue", sans-serif;
+  font-family: var(--font-sans);
   font-size: clamp(8rem, 20vw, 20rem);
   letter-spacing: 0.12em;
   white-space: nowrap;
@@ -1424,7 +1685,7 @@ body.hov #c-ring {
 }
 
 .artifact-copy h3 {
-  font-family: "Instrument Serif", serif;
+  font-family: var(--font-sans);
   font-size: clamp(2.5rem, 5vw, 4.5rem);
   line-height: 0.9;
 }
@@ -1506,7 +1767,7 @@ body.hov #c-ring {
   z-index: -1;
   translate: -50% -50%;
   color: rgb(196 184 156 / 0.035);
-  font-family: "Bebas Neue", sans-serif;
+  font-family: var(--font-sans);
   font-size: clamp(7rem, 20vw, 22rem);
   letter-spacing: 0.08em;
   white-space: nowrap;
@@ -1546,7 +1807,7 @@ body.hov #c-ring {
 .cta-title {
   margin: 2.4rem 0 1.5rem;
   color: var(--sand-l);
-  font-family: "Instrument Serif", serif;
+  font-family: var(--font-sans);
   font-size: clamp(4rem, 10vw, 10rem);
   line-height: 0.86;
 }
@@ -1566,7 +1827,8 @@ body.hov #c-ring {
   --parallax-x: 0%;
   --parallax-y: 0%;
   --parallax-rotate: 0deg;
-  transform: translate3d(var(--parallax-x), var(--parallax-y), 0) rotate(var(--parallax-rotate));
+  transform: translate3d(var(--parallax-x), var(--parallax-y), 0)
+    rotate(var(--parallax-rotate));
   will-change: transform;
 }
 
@@ -1574,13 +1836,10 @@ body.hov #c-ring {
   --hover-y: 0px;
   --tilt-x: 0deg;
   --tilt-y: 0deg;
-  transform:
-    perspective(1000px)
+  transform: perspective(1000px)
     translate3d(var(--parallax-x, 0%), var(--parallax-y, 0%), 0)
-    rotate(var(--parallax-rotate, 0deg))
-    translate3d(0, var(--hover-y), 0)
-    rotateX(var(--tilt-x))
-    rotateY(var(--tilt-y));
+    rotate(var(--parallax-rotate, 0deg)) translate3d(0, var(--hover-y), 0)
+    rotateX(var(--tilt-x)) rotateY(var(--tilt-y));
   transform-style: preserve-3d;
   will-change: transform;
 }
@@ -1663,6 +1922,83 @@ body.hov #c-ring {
   }
 }
 
+@keyframes archiveLift {
+  0% {
+    opacity: 0;
+    translate: 0 18%;
+    scale: 0.92 1;
+  }
+  36% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    translate: 0 -18%;
+    scale: 1.08 1;
+  }
+}
+
+@keyframes scanReveal {
+  0% {
+    opacity: 0;
+    clip-path: inset(0 0 100% 0);
+  }
+  34% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    clip-path: inset(100% 0 0 0);
+  }
+}
+
+@keyframes vortexOpen {
+  0% {
+    opacity: 0;
+    scale: 0.46;
+    rotate: -12deg;
+    filter: blur(9px);
+  }
+  42% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    scale: 1.7;
+    rotate: 10deg;
+    filter: blur(0);
+  }
+}
+
+@keyframes capsuleBeam {
+  0% {
+    transform: translateX(-115%);
+  }
+  100% {
+    transform: translateX(115%);
+  }
+}
+
+@keyframes capsuleScan {
+  0% {
+    transform: translateY(-115%);
+  }
+  100% {
+    transform: translateY(115%);
+  }
+}
+
+@keyframes capsuleVortex {
+  0% {
+    scale: 0.4;
+    rotate: -18deg;
+  }
+  100% {
+    scale: 1.55;
+    rotate: 16deg;
+  }
+}
+
 @media (max-width: 900px) {
   body {
     cursor: auto;
@@ -1717,7 +2053,7 @@ body.hov #c-ring {
   }
 
   .hero-copy {
-    justify-content: flex-end;
+    justify-content: center;
     padding-block: 8rem 5rem;
   }
 
@@ -1749,6 +2085,12 @@ body.hov #c-ring {
   .video-abyss {
     min-height: auto;
     padding-block: 5.5rem 6.5rem;
+  }
+
+  .video-abyss.is-opening::before,
+  .video-abyss.is-opening .analysis-capsule::before {
+    animation: none;
+    opacity: 0;
   }
 
   .abyss-head {
@@ -1791,15 +2133,20 @@ body.hov #c-ring {
   }
 
   .analysis-capsule {
-    position: relative;
-    right: auto;
-    bottom: auto;
-    left: 0;
     width: 100%;
     margin-top: 1.5rem;
     opacity: 1;
     pointer-events: auto;
     transform: none;
+    border-radius: 0.5rem;
+  }
+
+  .capsule-topline {
+    gap: 0.45rem;
+  }
+
+  .video-shell {
+    border-radius: 0.4rem;
   }
 
   .head-copy {
@@ -1858,8 +2205,9 @@ body.hov #c-ring {
     padding-block: 5rem;
   }
 
-  .brand span:last-child {
+  .brand-wordmark {
     font-size: 0.95rem;
+    width: 5rem;
   }
 
   .kicker,
@@ -1877,5 +2225,19 @@ body.hov #c-ring {
 
   #cta .corner {
     display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .video-abyss.is-opening::before,
+  .video-abyss.is-opening .analysis-capsule::before {
+    animation: none;
+    opacity: 0;
+  }
+
+  .analysis-capsule,
+  .abyss-stage {
+    filter: none !important;
+    transform: none !important;
   }
 }

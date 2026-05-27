@@ -1,6 +1,7 @@
 const MODEL_URL = `${import.meta.env.BASE_URL}models/titanic.glb`;
 const MAX_RENDER_DPR = 1;
 const TARGET_FRAME_MS = 1000 / 28;
+const REVEAL_MODES = new Set(["archive", "scan", "vortex"]);
 
 const isSmallViewport = () => window.matchMedia("(max-width: 1024px)").matches;
 
@@ -19,23 +20,114 @@ const canUseWebGL = () => {
   }
 };
 
+const getRevealMode = () => {
+  const mode = new URLSearchParams(window.location.search).get("reveal") ?? "archive";
+  return REVEAL_MODES.has(mode) ? mode : "archive";
+};
+
 export async function initTitanicExperience({ section, gsap, ScrollTrigger, reducedMotion = false }) {
   if (!section) return null;
 
   const canvas = section.querySelector("[data-titanic-canvas]");
   const trigger = section.querySelector("[data-artifact-trigger]");
   const capsule = section.querySelector("[data-analysis-capsule]");
+  const shell = capsule?.querySelector(".video-shell");
+  const readoutItems = section.querySelectorAll(".abyss-readout span");
+  const hudItems = section.querySelectorAll(".artifact-hud span");
+  const stage = section.querySelector("[data-abyss-stage]");
+  const revealMode = getRevealMode();
+  const simplifiedReveal = reducedMotion || isSmallViewport() || isConstrainedDevice();
+  let opening = false;
+  let openTimeline = null;
+
+  section.classList.add(`reveal-${revealMode}`);
+
+  const finishOpening = () => {
+    opening = false;
+    section.classList.remove("is-opening");
+  };
 
   const openArchive = () => {
+    if (opening || section.classList.contains("is-archive-open")) return;
+
+    opening = true;
     section.classList.add("is-archive-open");
-    capsule?.scrollIntoView({ behavior: reducedMotion ? "auto" : "smooth", block: "center" });
+    section.classList.add("is-opening");
+    capsule?.scrollIntoView({ behavior: simplifiedReveal ? "auto" : "smooth", block: "center" });
+
+    if (!gsap || simplifiedReveal || !capsule) {
+      finishOpening();
+      return;
+    }
+
+    openTimeline?.kill();
+    const animatedTargets = [capsule, shell, trigger, stage, ...readoutItems, ...hudItems].filter(Boolean);
+    gsap.killTweensOf(animatedTargets);
+
+    const commonEase = "power3.out";
+    const capsuleIn = {
+      archive: {
+        from: { y: 150, scale: 0.92, rotateX: 0, opacity: 0, filter: "blur(14px)", clipPath: "inset(34% 8% 0% 8%)" },
+        to: { y: 0, scale: 1, rotateX: 0, opacity: 1, filter: "blur(0px)", clipPath: "inset(0% 0% 0% 0%)", duration: 1.1, ease: "expo.out" },
+      },
+      scan: {
+        from: { y: 34, scale: 0.98, rotateX: 0, opacity: 0, filter: "blur(8px)", clipPath: "inset(0% 100% 0% 0%)" },
+        to: { y: 0, scale: 1, rotateX: 0, opacity: 1, filter: "blur(0px)", clipPath: "inset(0% 0% 0% 0%)", duration: 1, ease: commonEase },
+      },
+      vortex: {
+        from: { y: 70, scale: 0.9, rotateX: 0, opacity: 0, filter: "blur(10px)", clipPath: "circle(0% at 50% 50%)" },
+        to: { y: 0, scale: 1, rotateX: 0, opacity: 1, filter: "blur(0px)", clipPath: "circle(142% at 50% 50%)", duration: 1, ease: "expo.out" },
+      },
+    }[revealMode];
+
+    openTimeline = gsap.timeline({
+      defaults: { overwrite: true },
+      onComplete: finishOpening,
+    });
+
+    openTimeline
+      .to(trigger, { opacity: 0, y: -18, scale: 0.96, duration: 0.26, ease: "power2.in" }, 0)
+      .to(stage, {
+        scale: revealMode === "vortex" ? 1.045 : 1.015,
+        filter: revealMode === "scan" ? "brightness(1.12) contrast(1.08)" : "brightness(0.94)",
+        duration: 0.46,
+        yoyo: true,
+        repeat: 1,
+        ease: "sine.inOut",
+      }, 0)
+      .fromTo(readoutItems, { opacity: 0.42, y: 10 }, {
+        opacity: 1,
+        y: 0,
+        duration: 0.38,
+        stagger: 0.055,
+        ease: "power2.out",
+      }, 0.08)
+      .fromTo(hudItems, { opacity: 0, y: 12 }, {
+        opacity: 1,
+        y: 0,
+        duration: 0.4,
+        stagger: 0.065,
+        ease: commonEase,
+      }, 0.18)
+      .fromTo(capsule, capsuleIn.from, capsuleIn.to, revealMode === "archive" ? 0.34 : 0.28)
+      .fromTo(shell, { opacity: 0, scale: revealMode === "vortex" ? 0.94 : 0.985 }, {
+        opacity: 1,
+        scale: 1,
+        duration: 0.62,
+        ease: commonEase,
+      }, revealMode === "archive" ? 0.82 : 0.64);
   };
 
   trigger?.addEventListener("click", openArchive);
 
   if (!canvas || reducedMotion || isSmallViewport() || isConstrainedDevice() || !canUseWebGL()) {
     section.classList.add("is-fallback");
-    return { destroy: () => trigger?.removeEventListener("click", openArchive) };
+    return {
+      destroy: () => {
+        openTimeline?.kill();
+        trigger?.removeEventListener("click", openArchive);
+      },
+    };
   }
 
   let THREE;
@@ -48,7 +140,12 @@ export async function initTitanicExperience({ section, gsap, ScrollTrigger, redu
     ({ MeshoptDecoder } = await import("three/examples/jsm/libs/meshopt_decoder.module.js"));
   } catch {
     section.classList.add("is-fallback");
-    return { destroy: () => trigger?.removeEventListener("click", openArchive) };
+    return {
+      destroy: () => {
+        openTimeline?.kill();
+        trigger?.removeEventListener("click", openArchive);
+      },
+    };
   }
 
   const renderer = new THREE.WebGLRenderer({
@@ -119,7 +216,7 @@ export async function initTitanicExperience({ section, gsap, ScrollTrigger, redu
 
     if (abyssMaterials?.mesh) {
       abyssMaterials.mesh.color.setHex(value ? 0x769391 : 0x3d5c5b);
-    abyssMaterials.mesh.emissive.setHex(value ? 0x4a310c : 0x020809);
+      abyssMaterials.mesh.emissive.setHex(value ? 0x4a310c : 0x020809);
       abyssMaterials.mesh.emissiveIntensity = value ? 0.32 : 0.12;
     }
 
@@ -262,6 +359,7 @@ export async function initTitanicExperience({ section, gsap, ScrollTrigger, redu
       cancelAnimationFrame(frameId);
       scrollTween?.scrollTrigger?.kill();
       scrollTween?.kill();
+      openTimeline?.kill();
       trigger?.removeEventListener("click", openArchive);
       section.removeEventListener("pointermove", onPointerMove);
       section.removeEventListener("pointerleave", onPointerLeave);

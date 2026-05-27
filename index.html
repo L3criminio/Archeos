@@ -7,13 +7,31 @@
       name="description"
       content="Archeos explore l'archéologie, les civilisations enfouies et les reconstructions 3D à travers une expérience YouTube cinématique."
     />
-    <meta name="theme-color" content="#07050a" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Instrument+Serif:ital@0;1&family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&display=swap"
-      rel="stylesheet"
+    <meta name="theme-color" content="#050403" />
+    <meta name="application-name" content="Archeos" />
+    <meta name="apple-mobile-web-app-title" content="Archeos" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
     />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="%BASE_URL%favicon-archeos-16px.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="%BASE_URL%favicon-archeos-32px.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="%BASE_URL%apple-touch-icon.png"
+    />
+    <link rel="manifest" href="%BASE_URL%site.webmanifest" />
     <title>Archeos</title>
   </head>
   <body>
@@ -23,8 +41,14 @@
 
     <header id="nav">
       <a class="brand" href="#hero" aria-label="Archeos accueil">
-        <span class="brand-mark">A</span>
-        <span>Archeos</span>
+        <span class="brand-mark" aria-hidden="true">
+          <img src="%BASE_URL%android-chrome-192x192.png" alt="" />
+        </span>
+        <span
+          class="wordmark-mask brand-wordmark"
+          style="--wordmark-url: url(&quot;%BASE_URL%Archeos.svg&quot;)"
+          aria-hidden="true"
+        ></span>
       </a>
 
       <nav class="nav-links" aria-label="Navigation principale">
@@ -120,16 +144,37 @@
           <line x1="1230" y1="0" x2="810" y2="900" stroke="url(#grid-v)" />
         </svg>
 
-        <div class="hero-media" data-parallax data-depth="10" data-axis="y" aria-hidden="true">
-          <img
-            src="https://i.ytimg.com/vi/R2XtefrMNhg/maxresdefault.jpg"
-            alt=""
-          />
-        </div>
-        <div id="glow-a" class="glow amber" data-parallax data-depth="16" data-axis="both"></div>
-        <div id="glow-c" class="glow moss" data-parallax data-depth="-10" data-axis="both"></div>
+        <div
+          class="hero-media"
+          data-parallax
+          data-depth="10"
+          data-axis="y"
+          aria-hidden="true"
+        ></div>
+        <div
+          id="glow-a"
+          class="glow amber"
+          data-parallax
+          data-depth="16"
+          data-axis="both"
+        ></div>
+        <div
+          id="glow-c"
+          class="glow moss"
+          data-parallax
+          data-depth="-10"
+          data-axis="both"
+        ></div>
         <div id="hero-scan" aria-hidden="true"></div>
-        <div id="hero-ghost" data-parallax data-depth="28" data-axis="y" aria-hidden="true">ARCHEOS</div>
+        <div
+          id="hero-ghost"
+          data-parallax
+          data-depth="28"
+          data-axis="y"
+          aria-hidden="true"
+        >
+          ARCHEOS
+        </div>
 
         <div id="hero-mouse-layer" aria-hidden="true">
           <div
@@ -159,9 +204,12 @@
         </div>
 
         <div class="hero-copy section-shell">
-          <h1 class="hero-title">
-            <span class="clip-line">Archeos</span>
-            <span class="hero-subline">recompose le passé.</span>
+          <h1 class="hero-title" aria-label="Archeos recompose le passé.">
+            <span
+              class="wordmark-mask hero-wordmark clip-line"
+              style="--wordmark-url: url(&quot;%BASE_URL%Archeos.svg&quot;)"
+              aria-hidden="true"
+            ></span>
           </h1>
           <p class="hero-lead rv d1">
             Une expérience de vulgarisation cinématique où scans, archives et
@@ -181,7 +229,15 @@
       </section>
 
       <section id="concept" class="scene section-pad">
-        <div class="ghost-num" data-parallax data-depth="18" data-axis="y" aria-hidden="true">01</div>
+        <div
+          class="ghost-num"
+          data-parallax
+          data-depth="18"
+          data-axis="y"
+          aria-hidden="true"
+        >
+          01
+        </div>
         <div class="section-shell split-layout">
           <div class="rv">
             <p class="slbl">01 - Concept de chaîne</p>
@@ -194,7 +250,12 @@
           </div>
 
           <div class="concept-grid">
-            <article class="ccard tilt-surface rv d1" data-parallax data-depth="4" data-axis="y">
+            <article
+              class="ccard tilt-surface rv d1"
+              data-parallax
+              data-depth="4"
+              data-axis="y"
+            >
               <span class="card-index">A01</span>
               <h3>Thématique</h3>
               <p>
@@ -202,7 +263,12 @@
                 humaines relues par l'imagerie moderne.
               </p>
             </article>
-            <article class="ccard tilt-surface rv d2" data-parallax data-depth="-3" data-axis="y">
+            <article
+              class="ccard tilt-surface rv d2"
+              data-parallax
+              data-depth="-3"
+              data-axis="y"
+            >
               <span class="card-index">A02</span>
               <h3>Ligne éditoriale</h3>
               <p>
@@ -210,7 +276,12 @@
                 immersif et une direction visuelle forte.
               </p>
             </article>
-            <article class="ccard wide tilt-surface rv d3" data-parallax data-depth="5" data-axis="y">
+            <article
+              class="ccard wide tilt-surface rv d3"
+              data-parallax
+              data-depth="5"
+              data-axis="y"
+            >
               <span class="card-index">A03</span>
               <h3>Promesse</h3>
               <p>
@@ -236,11 +307,36 @@
               alt=""
             />
           </div>
-          <div class="abyss-layer abyss-back" data-parallax data-depth="10" data-axis="y"></div>
-          <div class="abyss-layer abyss-mid" data-parallax data-depth="18" data-axis="y"></div>
-          <div class="abyss-layer abyss-front" data-parallax data-depth="28" data-axis="y"></div>
-          <div class="abyss-rays" data-parallax data-depth="-8" data-axis="both"></div>
-          <div class="abyss-caustics" data-parallax data-depth="12" data-axis="both"></div>
+          <div
+            class="abyss-layer abyss-back"
+            data-parallax
+            data-depth="10"
+            data-axis="y"
+          ></div>
+          <div
+            class="abyss-layer abyss-mid"
+            data-parallax
+            data-depth="18"
+            data-axis="y"
+          ></div>
+          <div
+            class="abyss-layer abyss-front"
+            data-parallax
+            data-depth="28"
+            data-axis="y"
+          ></div>
+          <div
+            class="abyss-rays"
+            data-parallax
+            data-depth="-8"
+            data-axis="both"
+          ></div>
+          <div
+            class="abyss-caustics"
+            data-parallax
+            data-depth="12"
+            data-axis="both"
+          ></div>
           <div class="abyss-cursor-light" data-abyss-light></div>
         </div>
 
@@ -271,7 +367,7 @@
               data-artifact-trigger
             >
               <span class="trigger-mark"></span>
-              <span>Analyser l’artefact</span>
+              <span>Déverrouiller l’archive</span>
             </button>
 
             <div class="artifact-hud" data-artifact-hud>
@@ -280,15 +376,11 @@
               <span>ARCHIVE READY</span>
             </div>
 
-            <div class="analysis-capsule vframe" data-analysis-capsule>
+            <div class="analysis-capsule cinema-panel vframe" data-analysis-capsule>
               <div class="capsule-topline">
-                <span>ARCHIVE REMONTÉE</span>
-                <span>EXPEDITION // TITANIC</span>
+                <span>ARCHIVE // TITANIC</span>
+                <span>3D RECONSTRUCTION</span>
               </div>
-              <div class="corner tl"></div>
-              <div class="corner tr"></div>
-              <div class="corner bl"></div>
-              <div class="corner br"></div>
               <div class="video-shell">
                 <iframe
                   data-video-embed
@@ -314,7 +406,7 @@
                   data-video-play
                   aria-label="Lancer la vidéo"
                 >
-                  <span>Lancer la vidéo</span>
+                  <span>Lancer</span>
                 </button>
               </div>
             </div>
@@ -323,7 +415,15 @@
       </section>
 
       <section id="shorts" class="scene section-pad">
-        <div class="ghost-num left" data-parallax data-depth="-16" data-axis="y" aria-hidden="true">03</div>
+        <div
+          class="ghost-num left"
+          data-parallax
+          data-depth="-16"
+          data-axis="y"
+          aria-hidden="true"
+        >
+          03
+        </div>
         <div class="section-shell">
           <div class="section-head">
             <div class="rv">
@@ -337,7 +437,12 @@
           </div>
 
           <div class="shorts-grid">
-            <article class="short-card tilt-surface rv" data-parallax data-depth="5" data-axis="y">
+            <article
+              class="short-card tilt-surface rv"
+              data-parallax
+              data-depth="5"
+              data-axis="y"
+            >
               <div class="short-visual bronze">
                 <i data-lucide="scan-line"></i>
               </div>
@@ -347,7 +452,12 @@
                 Un détail invisible en photo devient lisible grâce au relevé 3D.
               </p>
             </article>
-            <article class="short-card tall tilt-surface rv d1" data-parallax data-depth="-7" data-axis="y">
+            <article
+              class="short-card tall tilt-surface rv d1"
+              data-parallax
+              data-depth="-7"
+              data-axis="y"
+            >
               <div class="short-visual moss">
                 <i data-lucide="waves"></i>
               </div>
@@ -358,7 +468,12 @@
                 l'histoire.
               </p>
             </article>
-            <article class="short-card tilt-surface rv d2" data-parallax data-depth="6" data-axis="y">
+            <article
+              class="short-card tilt-surface rv d2"
+              data-parallax
+              data-depth="6"
+              data-axis="y"
+            >
               <div class="short-visual stone">
                 <i data-lucide="layers-3"></i>
               </div>
@@ -374,13 +489,46 @@
       </section>
 
       <section id="cta" class="scene">
-        <div id="cta-ghost" data-parallax data-depth="16" data-axis="y" aria-hidden="true">S'ABONNER</div>
+        <div
+          id="cta-ghost"
+          data-parallax
+          data-depth="16"
+          data-axis="y"
+          aria-hidden="true"
+        >
+          S'ABONNER
+        </div>
         <div class="light-rays" aria-hidden="true">
-          <span data-parallax data-depth="-7" data-axis="y" style="--i: -18deg; --x: 38%; --d: 0s"></span>
-          <span data-parallax data-depth="-11" data-axis="y" style="--i: -6deg; --x: 46%; --d: 0.5s"></span>
-          <span data-parallax data-depth="-15" data-axis="y" style="--i: 0deg; --x: 50%; --d: 0.1s"></span>
-          <span data-parallax data-depth="-11" data-axis="y" style="--i: 6deg; --x: 54%; --d: 0.8s"></span>
-          <span data-parallax data-depth="-7" data-axis="y" style="--i: 18deg; --x: 62%; --d: 0.3s"></span>
+          <span
+            data-parallax
+            data-depth="-7"
+            data-axis="y"
+            style="--i: -18deg; --x: 38%; --d: 0s"
+          ></span>
+          <span
+            data-parallax
+            data-depth="-11"
+            data-axis="y"
+            style="--i: -6deg; --x: 46%; --d: 0.5s"
+          ></span>
+          <span
+            data-parallax
+            data-depth="-15"
+            data-axis="y"
+            style="--i: 0deg; --x: 50%; --d: 0.1s"
+          ></span>
+          <span
+            data-parallax
+            data-depth="-11"
+            data-axis="y"
+            style="--i: 6deg; --x: 54%; --d: 0.8s"
+          ></span>
+          <span
+            data-parallax
+            data-depth="-7"
+            data-axis="y"
+            style="--i: 18deg; --x: 62%; --d: 0.3s"
+          ></span>
         </div>
         <div class="corner tl"></div>
         <div class="corner tr"></div>
