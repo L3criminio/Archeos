@@ -1,7 +1,15 @@
 import Lenis from "lenis";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { createIcons, Compass, Layers3, Play, ScanLine, SquarePlay, Waves } from "lucide";
+import {
+  createIcons,
+  Compass,
+  Layers3,
+  Play,
+  ScanLine,
+  SquarePlay,
+  Waves,
+} from "lucide";
 import "./styles.css";
 
 createIcons({
@@ -104,6 +112,17 @@ const setupCursor = () => {
     el.addEventListener("mouseenter", () => document.body.classList.add("hov"));
     el.addEventListener("mouseleave", () => document.body.classList.remove("hov"));
   });
+
+  const titanicSection = document.querySelector("[data-titanic-experience]");
+  if (titanicSection) {
+    titanicSection.addEventListener("pointerenter", () => {
+      document.body.classList.add("cursor-off");
+      document.body.classList.remove("hov");
+    });
+    titanicSection.addEventListener("pointerleave", () => {
+      document.body.classList.remove("cursor-off");
+    });
+  }
 };
 
 setupCursor();
@@ -232,6 +251,16 @@ const setupInteractiveTilt = () => {
   });
 };
 
+const setupTeamOrbitPause = () => {
+  document.querySelectorAll(".team-member").forEach((card) => {
+    const ring = card.closest(".team-ring");
+    if (!ring) return;
+
+    card.addEventListener("pointerenter", () => ring.classList.add("is-paused"));
+    card.addEventListener("pointerleave", () => ring.classList.remove("is-paused"));
+  });
+};
+
 const setupPremiumSectionTransitions = () => {
   gsap.fromTo(
     "#video .abyss-stage",
@@ -304,6 +333,7 @@ if (!prefersReducedMotion) {
   gsap.set(".rv-sc", { opacity: 0, y: 52, scale: 0.96 });
   setupDepthParallax();
   setupInteractiveTilt();
+  setupTeamOrbitPause();
   setupPremiumSectionTransitions();
 
   gsap

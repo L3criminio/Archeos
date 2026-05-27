@@ -188,6 +188,7 @@ export async function initTitanicExperience({ section, gsap, ScrollTrigger, redu
   const target = { x: 0, y: 0 };
   const current = { x: 0, y: 0 };
   const scrollState = { depth: 0 };
+  const frameState = { modelScale: 1, cameraZ: 9.4, cameraY: 0.62, fov: 35 };
 
   let model = null;
   let modelBaseScale = 1;
@@ -200,12 +201,19 @@ export async function initTitanicExperience({ section, gsap, ScrollTrigger, redu
   let lastFrameTime = 0;
 
   const resize = () => {
-    const rect = section.getBoundingClientRect();
+    const rect = canvas.getBoundingClientRect();
     const width = Math.max(1, rect.width);
-    const height = Math.max(1, Math.min(rect.height, window.innerHeight * 1.15));
+    const height = Math.max(1, rect.height);
+    const aspect = width / height;
+
+    frameState.fov = aspect < 1.18 ? 39 : aspect < 1.42 ? 37 : aspect > 1.72 ? 33 : 35;
+    frameState.cameraZ = aspect < 1.18 ? 10.9 : aspect < 1.42 ? 10.35 : 9.65;
+    frameState.cameraY = aspect < 1.18 ? 0.5 : 0.58;
+    frameState.modelScale = aspect < 1.18 ? 0.82 : aspect < 1.42 ? 0.9 : 0.96;
+
     renderer.setSize(width, height, false);
-    camera.aspect = width / height;
-    camera.fov = width / height > 1.55 ? 33 : 35;
+    camera.aspect = aspect;
+    camera.fov = frameState.fov;
     camera.updateProjectionMatrix();
   };
 
@@ -234,8 +242,6 @@ export async function initTitanicExperience({ section, gsap, ScrollTrigger, redu
     target.y = localY - 0.5;
     section.style.setProperty("--abyss-x", `${localX * 100}%`);
     section.style.setProperty("--abyss-y", `${localY * 100}%`);
-    section.classList.add("is-pointer-inside");
-
     const inArtifactZone = localY > 0.42 && localY < 0.96 && Math.abs(localX - 0.5) < 0.48;
     setHover(inArtifactZone);
   };
@@ -247,7 +253,6 @@ export async function initTitanicExperience({ section, gsap, ScrollTrigger, redu
   const onPointerLeave = () => {
     target.x = 0;
     target.y = 0;
-    section.classList.remove("is-pointer-inside");
     setHover(false);
   };
 
@@ -260,6 +265,12 @@ export async function initTitanicExperience({ section, gsap, ScrollTrigger, redu
   section.addEventListener("pointerleave", onPointerLeave);
   section.addEventListener("click", onClick);
   window.addEventListener("resize", resize);
+
+  const resizeObserver = "ResizeObserver" in window
+    ? new ResizeObserver(() => resize())
+    : null;
+  resizeObserver?.observe(section);
+  resizeObserver?.observe(canvas);
 
   const loader = new GLTFLoader();
   loader.setMeshoptDecoder(MeshoptDecoder);
@@ -324,8 +335,8 @@ export async function initTitanicExperience({ section, gsap, ScrollTrigger, redu
     current.y += (target.y - current.y) * 0.045;
 
     camera.position.x = current.x * 1.2;
-    camera.position.y = 0.62 - current.y * 0.7 - scrollState.depth * 0.7;
-    camera.position.z = 9.4 - scrollState.depth * 1.35;
+    camera.position.y = frameState.cameraY - current.y * 0.62 - scrollState.depth * 0.62;
+    camera.position.z = frameState.cameraZ - scrollState.depth * 1.18;
     camera.lookAt(0, 0.04, 0);
 
     particles.rotation.y = elapsed * 0.018;
@@ -338,7 +349,7 @@ export async function initTitanicExperience({ section, gsap, ScrollTrigger, redu
       model.position.x = modelBasePosition.x - 0.18 + current.x * 0.18;
       model.position.y = modelBasePosition.y - 0.1 - scrollState.depth * 0.38 + Math.sin(elapsed * 0.45) * 0.04;
       model.position.z = modelBasePosition.z;
-      const hoverScale = 1 + (hovered ? 0.025 : 0);
+      const hoverScale = frameState.modelScale + (hovered ? 0.018 : 0);
       model.scale.setScalar(modelBaseScale * hoverScale);
     }
 
@@ -365,6 +376,7 @@ export async function initTitanicExperience({ section, gsap, ScrollTrigger, redu
       section.removeEventListener("pointerleave", onPointerLeave);
       section.removeEventListener("click", onClick);
       window.removeEventListener("resize", resize);
+      resizeObserver?.disconnect();
       document.removeEventListener("visibilitychange", onVisibilityChange);
       visibilityObserver?.disconnect();
       renderer.dispose();

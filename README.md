@@ -1,82 +1,118 @@
 # Archeos
 
-Landing page immersive pour la chaîne YouTube **Archeos**.
+**Archeos** is an immersive landing page prototype for a YouTube project about archaeology, exploration and 3D reconstruction.
 
-Le site garde une direction archéologie futuriste avec une palette sombre dominée par l'ambre bronze `#CA8A24`. La section vidéo est une rupture volontaire : une descente abyssale autour du Titanic, avec scène 3D desktop-first et fallback image sur mobile ou si WebGL échoue.
+The experience is designed as a cinematic digital artifact: dark, mineral, atmospheric, and built around a premium amber identity. The main video section breaks into an abyssal Titanic sequence, with a desktop-first Three.js model, scroll depth, cursor scanning and a cinematic video reveal.
 
-## Installation
+## Live Site
+
+```text
+https://l3criminio.github.io/Archeos/
+```
+
+## Concept
+
+Archeos presents historical subjects as visual investigations.
+
+The landing page follows the idea of descending through digital layers:
+
+- the surface identity of the channel;
+- editorial and visual concept cards;
+- an abyssal Titanic reconstruction sequence;
+- short-form content teasers;
+- a final subscription call to action.
+
+The visual direction mixes archaeology, dark sci-fi interfaces, cinematic documentary language and restrained premium motion.
+
+## Highlights
+
+- Immersive hero with custom Archeos SVG wordmark.
+- Dark amber visual identity based around `#CA8A24`.
+- Smooth scroll and parallax motion with Lenis and GSAP.
+- Desktop-first Titanic 3D scene using Three.js.
+- Mobile and reduced-motion fallbacks.
+- Main video reveal modes:
+  - `?reveal=archive`
+  - `?reveal=scan`
+  - `?reveal=vortex`
+- GitHub Pages deployment through GitHub Actions.
+
+## Tech Stack
+
+| Layer | Tools |
+| --- | --- |
+| Build | Vite |
+| Styling | Tailwind CSS + custom CSS |
+| Motion | GSAP, ScrollTrigger, Lenis |
+| 3D | Three.js, GLTFLoader, Meshopt |
+| Icons | Lucide |
+| Hosting | GitHub Pages |
+
+## Getting Started
+
+Install dependencies:
 
 ```bash
 npm install
 ```
 
-## Développement
+Start the local dev server:
 
 ```bash
 npm run dev
 ```
 
-## Build
+Create a production build:
 
 ```bash
 npm run build
 ```
 
-## Assets de marque
-
-Les logos, favicons et icônes d'installation sont dans `public/`.
-
-```text
-public/favicon-archeos-16px.png
-public/favicon-archeos-32px.png
-public/apple-touch-icon.png
-public/android-chrome-192x192.png
-public/android-chrome-512x512.png
-public/site.webmanifest
-```
-
-Le HTML utilise `%BASE_URL%` pour que ces assets fonctionnent aussi sur GitHub Pages quand le site est publié dans un sous-dossier de dépôt.
-
-## Modèle 3D Titanic
-
-Place le modèle GLB ici :
-
-```text
-public/models/titanic.glb
-```
-
-Notes :
-- Le modèle est chargé uniquement quand la section vidéo approche du viewport.
-- Le GLB actuel est optimisé avec glTF Transform : compression Meshopt, textures WebP et taille ramenée à environ 3.3 MB.
-- Desktop : scène Three.js avec modèle 3D, scan au curseur et capsule vidéo.
-- Mobile, `prefers-reduced-motion` ou échec WebGL : fallback image premium, sans écran noir.
-- Si le GLB source est remplacé plus tard, il faut viser une version finale sous 5 MB avant publication.
-
-## Publication GitHub
+Preview the production build:
 
 ```bash
-git init
-git add .
-git commit -m "Initial Archeos landing page"
-git branch -M main
-git remote add origin https://github.com/<utilisateur>/<repo>.git
-git push -u origin main
+npm run preview
 ```
 
-Remplace `<utilisateur>` et `<repo>` par le compte et le dépôt GitHub.
-
-## Déploiement GitHub Pages
-
-Le projet contient un workflow prêt à l'emploi :
+## Project Structure
 
 ```text
-.github/workflows/deploy.yml
+.
+|-- index.html
+|-- src/
+|   |-- main.js
+|   |-- styles.css
+|   `-- titanicExperience.js
+|-- public/
+|   |-- Archeos.svg
+|   |-- models/titanic.glb
+|   `-- site.webmanifest
+`-- .github/workflows/deploy.yml
 ```
 
-À vérifier dans GitHub :
-- Va dans `Settings > Pages`.
-- Dans `Build and deployment`, choisis `GitHub Actions`.
-- Push sur `greg`, puis attends la fin de l'action `Deploy GitHub Pages`.
-- Le workflow construit `dist`, l'envoie comme artifact, puis le publie avec l'action officielle GitHub Pages.
+## Deployment
 
-La config Vite ajuste automatiquement le `base` pour GitHub Pages avec `GITHUB_REPOSITORY`. Pour ce repo, le build Pages utilisera donc `/Archeos/`.
+The project deploys to GitHub Pages from the `greg` branch.
+
+On every push to `greg`, the workflow:
+
+1. installs dependencies with `npm ci`;
+2. builds the Vite project;
+3. uploads `dist` as a GitHub Pages artifact;
+4. deploys the artifact with the official Pages action.
+
+GitHub Pages must be configured like this:
+
+```text
+Settings > Pages > Build and deployment > Source: GitHub Actions
+```
+
+## Maintenance
+
+Operational notes, update workflow, asset locations and deployment troubleshooting are documented in:
+
+[INSTRUCTIONS.md](./INSTRUCTIONS.md)
+
+## Credits
+
+Designed and developed as part of a student YouTube competition project.
