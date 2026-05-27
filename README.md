@@ -2,7 +2,7 @@
 
 Landing page immersive pour la chaîne YouTube **Archeos**.
 
-Le site garde une direction archéologie futuriste avec une palette sombre dominée par le terracotta `#912810`. La section vidéo est une rupture volontaire : une descente abyssale autour du Titanic, avec scène 3D desktop-first et fallback image sur mobile ou si WebGL échoue.
+Le site garde une direction archéologie futuriste avec une palette sombre dominée par l'ambre bronze `#CA8A24`. La section vidéo est une rupture volontaire : une descente abyssale autour du Titanic, avec scène 3D desktop-first et fallback image sur mobile ou si WebGL échoue.
 
 ## Installation
 

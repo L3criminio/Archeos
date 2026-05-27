@@ -81,7 +81,7 @@ export async function initTitanicExperience({ section, gsap, ScrollTrigger, redu
   fill.position.set(4, 1, -3);
   scene.add(fill);
 
-  const terracotta = new THREE.PointLight(0x912810, 5.2, 18);
+  const terracotta = new THREE.PointLight(0xca8a24, 5.2, 18);
   terracotta.position.set(4, -1.5, 3);
   scene.add(terracotta);
 
@@ -108,6 +108,7 @@ export async function initTitanicExperience({ section, gsap, ScrollTrigger, redu
     const height = Math.max(1, Math.min(rect.height, window.innerHeight * 1.15));
     renderer.setSize(width, height, false);
     camera.aspect = width / height;
+    camera.fov = width / height > 1.55 ? 33 : 35;
     camera.updateProjectionMatrix();
   };
 
@@ -118,7 +119,7 @@ export async function initTitanicExperience({ section, gsap, ScrollTrigger, redu
 
     if (abyssMaterials?.mesh) {
       abyssMaterials.mesh.color.setHex(value ? 0x769391 : 0x3d5c5b);
-      abyssMaterials.mesh.emissive.setHex(value ? 0x42130d : 0x020809);
+    abyssMaterials.mesh.emissive.setHex(value ? 0x4a310c : 0x020809);
       abyssMaterials.mesh.emissiveIntensity = value ? 0.32 : 0.12;
     }
 
@@ -235,12 +236,13 @@ export async function initTitanicExperience({ section, gsap, ScrollTrigger, redu
 
     if (model) {
       model.rotation.x = -0.08 + current.y * 0.05;
-      model.rotation.y = -0.34 + current.x * 0.16 + Math.sin(elapsed * 0.35) * 0.025;
+      model.rotation.y = -0.2 + current.x * 0.1 + Math.sin(elapsed * 0.35) * 0.018;
       model.rotation.z = Math.sin(elapsed * 0.22) * 0.015;
-      model.position.x = modelBasePosition.x + current.x * 0.25;
+      model.position.x = modelBasePosition.x - 0.18 + current.x * 0.18;
       model.position.y = modelBasePosition.y - 0.1 - scrollState.depth * 0.38 + Math.sin(elapsed * 0.45) * 0.04;
       model.position.z = modelBasePosition.z;
-      model.scale.setScalar(modelBaseScale * (1 + (hovered ? 0.025 : 0)));
+      const hoverScale = 1 + (hovered ? 0.025 : 0);
+      model.scale.setScalar(modelBaseScale * hoverScale);
     }
 
     terracotta.intensity = hovered ? 6 : 3.8;
@@ -280,7 +282,7 @@ function prepareModel(THREE, model) {
   box.getCenter(center);
 
   const maxAxis = Math.max(size.x, size.y, size.z) || 1;
-  const scale = 6.45 / maxAxis;
+  const scale = 7.15 / maxAxis;
   model.scale.setScalar(scale);
   model.position.sub(center.multiplyScalar(scale));
   model.position.y -= 0.2;

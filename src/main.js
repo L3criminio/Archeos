@@ -168,9 +168,143 @@ const setupTitanicExperienceLoader = () => {
 
 setupTitanicExperienceLoader();
 
+const setupDepthParallax = () => {
+  if (window.matchMedia("(max-width: 900px)").matches) return;
+
+  document.querySelectorAll("[data-parallax]").forEach((el) => {
+    const depth = Number.parseFloat(el.dataset.depth || "8");
+    const axis = el.dataset.axis || "y";
+    const rotate = Number.parseFloat(el.dataset.rotate || "0");
+    const trigger = el.closest(".scene") || el;
+    const fromVars = { ease: "none" };
+    const toVars = {
+      ease: "none",
+      scrollTrigger: {
+        trigger,
+        start: "top bottom",
+        end: "bottom top",
+        scrub: 1.35,
+      },
+    };
+
+    if (axis === "x" || axis === "both") {
+      fromVars["--parallax-x"] = `${(-depth * 0.18).toFixed(2)}%`;
+      toVars["--parallax-x"] = `${(depth * 0.18).toFixed(2)}%`;
+    }
+
+    if (axis === "y" || axis === "both") {
+      fromVars["--parallax-y"] = `${depth.toFixed(2)}%`;
+      toVars["--parallax-y"] = `${(-depth).toFixed(2)}%`;
+    }
+
+    if (rotate) {
+      fromVars["--parallax-rotate"] = `${-rotate}deg`;
+      toVars["--parallax-rotate"] = `${rotate}deg`;
+    }
+
+    gsap.fromTo(el, fromVars, toVars);
+  });
+};
+
+const setupInteractiveTilt = () => {
+  if (window.matchMedia("(max-width: 900px)").matches) return;
+
+  document.querySelectorAll(".tilt-surface").forEach((surface) => {
+    const tiltX = gsap.quickTo(surface, "--tilt-x", { duration: 0.45, ease: "power3.out" });
+    const tiltY = gsap.quickTo(surface, "--tilt-y", { duration: 0.45, ease: "power3.out" });
+
+    surface.addEventListener(
+      "mousemove",
+      (event) => {
+        const rect = surface.getBoundingClientRect();
+        const x = (event.clientX - rect.left) / rect.width - 0.5;
+        const y = (event.clientY - rect.top) / rect.height - 0.5;
+        tiltX(`${(-y * 4).toFixed(2)}deg`);
+        tiltY(`${(x * 5).toFixed(2)}deg`);
+      },
+      { passive: true },
+    );
+
+    surface.addEventListener("mouseleave", () => {
+      tiltX("0deg");
+      tiltY("0deg");
+    });
+  });
+};
+
+const setupPremiumSectionTransitions = () => {
+  gsap.fromTo(
+    "#video .abyss-stage",
+    { yPercent: -4, scale: 1.08, opacity: 0.62 },
+    {
+      yPercent: 0,
+      scale: 1,
+      opacity: 1,
+      ease: "none",
+      scrollTrigger: {
+        trigger: "#video",
+        start: "top bottom",
+        end: "top 18%",
+        scrub: 1.4,
+      },
+    },
+  );
+
+  gsap.fromTo(
+    "#video .abyss-head",
+    { yPercent: 8, opacity: 0.76 },
+    {
+      yPercent: -5,
+      opacity: 1,
+      ease: "none",
+      scrollTrigger: {
+        trigger: "#video",
+        start: "top 85%",
+        end: "center 45%",
+        scrub: 1.2,
+      },
+    },
+  );
+
+  gsap.fromTo(
+    "#cta .light-rays",
+    { yPercent: 8, opacity: 0.32 },
+    {
+      yPercent: -8,
+      opacity: 0.9,
+      ease: "none",
+      scrollTrigger: {
+        trigger: "#cta",
+        start: "top bottom",
+        end: "center center",
+        scrub: 1.6,
+      },
+    },
+  );
+
+  gsap.fromTo(
+    "#cta .cta-inner",
+    { y: 56, scale: 0.96 },
+    {
+      y: -16,
+      scale: 1,
+      ease: "none",
+      scrollTrigger: {
+        trigger: "#cta",
+        start: "top 92%",
+        end: "center 48%",
+        scrub: 1.4,
+      },
+    },
+  );
+};
+
 if (!prefersReducedMotion) {
   gsap.set(".rv", { opacity: 0, y: 44, clipPath: "inset(12% 0 0 0)" });
   gsap.set(".rv-sc", { opacity: 0, y: 52, scale: 0.96 });
+  setupDepthParallax();
+  setupInteractiveTilt();
+  setupPremiumSectionTransitions();
 
   gsap
     .timeline({ defaults: { ease: "power4.out" } })
@@ -179,53 +313,6 @@ if (!prefersReducedMotion) {
     .from(".clip-line", { clipPath: "inset(100% 0 0 0)", y: 42, duration: 1.1 }, "-=.65")
     .from(".hero-subline", { opacity: 0, y: 26, duration: 0.85 }, "-=.5")
     .to(".hero .rv", { opacity: 1, y: 0, clipPath: "inset(0% 0 0 0)", duration: 0.9, stagger: 0.08 }, "-=.55");
-
-  gsap.to("#hero-ghost", {
-    yPercent: 32,
-    ease: "none",
-    scrollTrigger: {
-      trigger: "#hero",
-      start: "top top",
-      end: "bottom top",
-      scrub: 1.6,
-    },
-  });
-
-  gsap.to("#hero-grid", {
-    yPercent: 14,
-    scale: 1.08,
-    ease: "none",
-    scrollTrigger: {
-      trigger: "#hero",
-      start: "top top",
-      end: "bottom top",
-      scrub: 2.2,
-    },
-  });
-
-  gsap.to("#glow-a", {
-    yPercent: 24,
-    xPercent: -5,
-    ease: "none",
-    scrollTrigger: {
-      trigger: "#hero",
-      start: "top top",
-      end: "bottom top",
-      scrub: 1.3,
-    },
-  });
-
-  gsap.to(".hero-media img", {
-    yPercent: 12,
-    scale: 1.15,
-    ease: "none",
-    scrollTrigger: {
-      trigger: "#hero",
-      start: "top top",
-      end: "bottom top",
-      scrub: 1.7,
-    },
-  });
 
   const hero = document.getElementById("hero");
   const mouseLayer = document.getElementById("hero-mouse-layer");
@@ -310,6 +397,7 @@ if (!prefersReducedMotion) {
   });
 
   document.querySelectorAll(".ghost-num, .artifact-ghost").forEach((el) => {
+    if (el.matches("[data-parallax]")) return;
     gsap.fromTo(
       el,
       { yPercent: 5 },
@@ -327,6 +415,7 @@ if (!prefersReducedMotion) {
   });
 
   document.querySelectorAll(".fsh").forEach((shape, index) => {
+    if (shape.matches("[data-parallax]")) return;
     gsap.to(shape, {
       y: -50 + index * 12,
       rotate: index % 2 ? -12 : 12,
@@ -372,21 +461,6 @@ if (!prefersReducedMotion) {
       },
     );
   });
-
-  gsap.fromTo(
-    "#cta-ghost",
-    { yPercent: 8 },
-    {
-      yPercent: -8,
-      ease: "none",
-      scrollTrigger: {
-        trigger: "#cta",
-        start: "top bottom",
-        end: "bottom top",
-        scrub: 1.8,
-      },
-    },
-  );
 
   ScrollTrigger.refresh();
 } else {

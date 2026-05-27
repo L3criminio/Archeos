@@ -16,19 +16,19 @@
   --fog: #817062;
   --sand: #c8b895;
   --sand-l: #f0dfc2;
-  --terracotta: #912810;
-  --terracotta-soft: #c24725;
-  --terracotta-glow: #ff6a3d;
-  --bronze: #912810;
-  --amber: #e4aa37;
-  --ember: #c24725;
-  --oxide: #912810;
-  --moss: #41712e;
-  --moss-soft: #5d9b45;
+  --terracotta: #ca8a24;
+  --terracotta-soft: #d9a33a;
+  --terracotta-glow: #f0b94a;
+  --bronze: #8a5715;
+  --amber: #ca8a24;
+  --ember: #b8751f;
+  --oxide: #6f4512;
+  --moss: #7c6a2c;
+  --moss-soft: #a58534;
   --border: rgb(200 184 149 / 0.08);
   --border-strong: rgb(200 184 149 / 0.18);
-  --moss-border: rgb(65 113 46 / 0.24);
-  --terracotta-border: rgb(145 40 16 / 0.42);
+  --moss-border: rgb(124 106 44 / 0.24);
+  --terracotta-border: rgb(202 138 36 / 0.42);
   color: var(--sand-l);
   background: var(--void);
   font-family: Syne, ui-sans-serif, system-ui, sans-serif;
@@ -55,15 +55,15 @@ body {
   overflow-x: hidden;
   cursor: none;
   background:
-    radial-gradient(circle at 18% 0%, rgb(145 40 16 / 0.16), transparent 34rem),
+    radial-gradient(circle at 18% 0%, rgb(202 138 36 / 0.16), transparent 34rem),
     radial-gradient(
       circle at 78% 18%,
-      rgb(227 167 47 / 0.12),
+      rgb(217 163 58 / 0.12),
       transparent 30rem
     ),
     radial-gradient(
       circle at 52% 82%,
-      rgb(143 171 79 / 0.08),
+      rgb(124 106 44 / 0.08),
       transparent 34rem
     ),
     linear-gradient(180deg, var(--void), #090706 45%, var(--void));
@@ -118,7 +118,7 @@ em {
 }
 
 ::selection {
-  background: rgb(145 40 16 / 0.46);
+  background: rgb(202 138 36 / 0.46);
   color: white;
 }
 
@@ -145,7 +145,7 @@ em {
   z-index: 9998;
   width: 34px;
   height: 34px;
-  border: 1px solid rgb(145 40 16 / 0.52);
+  border: 1px solid rgb(202 138 36 / 0.52);
   border-radius: 50%;
   transform: translate(-50%, -50%);
   transition:
@@ -192,7 +192,7 @@ body.hov #c-dot {
 body.hov #c-ring {
   width: 54px;
   height: 54px;
-  border-color: rgb(145 40 16 / 0.68);
+  border-color: rgb(202 138 36 / 0.68);
 }
 
 .section-shell {
@@ -265,7 +265,7 @@ body.hov #c-ring {
   content: "";
   position: absolute;
   inset: -5px;
-  border: 1px solid rgb(145 40 16 / 0.16);
+  border: 1px solid rgb(202 138 36 / 0.16);
 }
 
 .nav-links {
@@ -331,7 +331,7 @@ body.hov #c-ring {
 }
 
 .btn-p {
-  border: 1px solid rgb(145 40 16 / 0.66);
+  border: 1px solid rgb(202 138 36 / 0.66);
   background: linear-gradient(
     135deg,
     var(--oxide),
@@ -339,7 +339,7 @@ body.hov #c-ring {
     var(--amber)
   );
   color: var(--void);
-  box-shadow: 0 0 38px rgb(145 40 16 / 0.28);
+  box-shadow: 0 0 38px rgb(202 138 36 / 0.28);
 }
 
 .btn-s {
@@ -441,7 +441,7 @@ body.hov #c-ring {
   right: 5%;
   width: 28rem;
   height: 18rem;
-  background: rgb(145 40 16 / 0.28);
+  background: rgb(202 138 36 / 0.28);
 }
 
 .glow.moss {
@@ -449,7 +449,7 @@ body.hov #c-ring {
   left: 10%;
   width: 24rem;
   height: 22rem;
-  background: rgb(65 113 46 / 0.06);
+  background: rgb(124 106 44 / 0.06);
 }
 
 #hero-scan {
@@ -460,7 +460,7 @@ body.hov #c-ring {
   background: linear-gradient(
     180deg,
     transparent,
-    rgb(145 40 16 / 0.18),
+    rgb(202 138 36 / 0.18),
     transparent
   );
   height: 22%;
@@ -503,13 +503,13 @@ body.hov #c-ring {
 .shape-triangle {
   clip-path: polygon(50% 0, 100% 100%, 0 100%);
   border: 1px solid var(--terracotta);
-  background: linear-gradient(135deg, rgb(145 40 16 / 0.12), transparent);
+  background: linear-gradient(135deg, rgb(202 138 36 / 0.12), transparent);
 }
 
 .shape-diamond {
   rotate: 45deg;
   border: 1px solid var(--moss);
-  background: rgb(143 171 79 / 0.035);
+  background: rgb(124 106 44 / 0.035);
 }
 
 .shape-ring {
@@ -661,7 +661,7 @@ body.hov #c-ring {
   display: inline-flex;
   align-items: center;
   border: 1px solid var(--terracotta-border);
-  background: rgb(145 40 16 / 0.09);
+  background: rgb(202 138 36 / 0.09);
   color: var(--terracotta-soft);
   padding: 0.5rem 0.7rem;
   font-family: "Space Mono", monospace;
@@ -671,8 +671,8 @@ body.hov #c-ring {
 }
 
 .tag.amber {
-  border-color: rgb(227 167 47 / 0.28);
-  background: rgb(227 167 47 / 0.08);
+  border-color: rgb(217 163 58 / 0.28);
+  background: rgb(217 163 58 / 0.08);
   color: var(--amber);
 }
 
@@ -715,13 +715,13 @@ body.hov #c-ring {
   inset: auto -10% -40% 20%;
   height: 60%;
   rotate: -8deg;
-  background: linear-gradient(180deg, rgb(145 40 16 / 0.08), transparent);
+  background: linear-gradient(180deg, rgb(202 138 36 / 0.08), transparent);
   pointer-events: none;
 }
 
 .ccard:hover,
 .short-card:hover {
-  transform: translateY(-6px);
+  --hover-y: -6px;
   border-color: var(--terracotta-border);
 }
 
@@ -760,12 +760,12 @@ body.hov #c-ring {
   background:
     radial-gradient(
       circle at 70% 20%,
-      rgb(145 40 16 / 0.12),
+      rgb(202 138 36 / 0.12),
       transparent 32rem
     ),
     radial-gradient(
       circle at 18% 72%,
-      rgb(145 40 16 / 0.14),
+      rgb(202 138 36 / 0.14),
       transparent 28rem
     ),
     linear-gradient(180deg, #090604, #100907 58%, #070504);
@@ -862,7 +862,7 @@ body.hov #c-ring {
   opacity: 0.42;
   background:
     radial-gradient(circle at 18% 26%, rgb(83 145 145 / 0.12), transparent 10rem),
-    radial-gradient(circle at 86% 52%, rgb(145 40 16 / 0.1), transparent 18rem),
+    radial-gradient(circle at 86% 52%, rgb(202 138 36 / 0.1), transparent 18rem),
     repeating-radial-gradient(circle at 52% 38%, transparent 0 1.4rem, rgb(120 200 205 / 0.035) 1.48rem);
   animation: abyssDrift 24s ease-in-out infinite;
 }
@@ -896,7 +896,7 @@ body.hov #c-ring {
   background:
     linear-gradient(104deg, transparent 0 38%, rgb(100 190 205 / 0.1) 43%, transparent 54%),
     linear-gradient(82deg, transparent 0 48%, rgb(100 190 205 / 0.08) 52%, transparent 61%),
-    linear-gradient(96deg, transparent 0 58%, rgb(145 40 16 / 0.08) 62%, transparent 72%);
+    linear-gradient(96deg, transparent 0 58%, rgb(202 138 36 / 0.08) 62%, transparent 72%);
   mix-blend-mode: screen;
   transform-origin: center top;
   animation: abyssRays 11s ease-in-out infinite;
@@ -982,7 +982,7 @@ body.hov #c-ring {
   display: inline-flex;
   align-items: center;
   gap: 0.75rem;
-  border: 1px solid rgb(145 40 16 / 0.58);
+  border: 1px solid rgb(202 138 36 / 0.58);
   background: rgb(7 5 10 / 0.45);
   color: var(--sand-l);
   padding: 0.85rem 1rem;
@@ -994,7 +994,7 @@ body.hov #c-ring {
   transform: translate3d(-50%, -50%, 0);
   box-shadow:
     0 0 0 1px rgb(100 190 205 / 0.08) inset,
-    0 0 28px rgb(145 40 16 / 0.2);
+    0 0 28px rgb(202 138 36 / 0.2);
   transition:
     border-color 220ms ease,
     background 220ms ease,
@@ -1131,11 +1131,11 @@ body.hov #c-ring {
   padding: clamp(0.75rem, 2vw, 1.2rem);
   border: 1px solid var(--border-strong);
   background:
-    linear-gradient(135deg, rgb(145 40 16 / 0.09), transparent 28%),
+    linear-gradient(135deg, rgb(202 138 36 / 0.09), transparent 28%),
     rgb(226 216 200 / 0.025);
   box-shadow:
     0 3rem 8rem rgb(0 0 0 / 0.45),
-    inset 0 0 0 1px rgb(145 40 16 / 0.08);
+    inset 0 0 0 1px rgb(202 138 36 / 0.08);
 }
 
 .corner {
@@ -1257,12 +1257,12 @@ body.hov #c-ring {
   background:
     radial-gradient(
       circle at 15% 30%,
-      rgb(145 40 16 / 0.14),
+      rgb(202 138 36 / 0.14),
       transparent 30rem
     ),
     radial-gradient(
       circle at 84% 70%,
-      rgb(145 40 16 / 0.12),
+      rgb(202 138 36 / 0.12),
       transparent 28rem
     ),
     linear-gradient(180deg, var(--void), #0b0706);
@@ -1320,14 +1320,14 @@ body.hov #c-ring {
 
 .short-visual.bronze {
   background:
-    radial-gradient(circle, rgb(145 40 16 / 0.28), transparent 35%),
+    radial-gradient(circle, rgb(202 138 36 / 0.28), transparent 35%),
     linear-gradient(135deg, #231811, #0e0c0a);
   color: var(--terracotta-soft);
 }
 
 .short-visual.moss {
   background:
-    radial-gradient(circle, rgb(143 171 79 / 0.18), transparent 35%),
+    radial-gradient(circle, rgb(124 106 44 / 0.18), transparent 35%),
     linear-gradient(135deg, #16190d, #090806);
   color: var(--moss);
 }
@@ -1354,10 +1354,10 @@ body.hov #c-ring {
   background:
     radial-gradient(
       circle at 50% 40%,
-      rgb(145 40 16 / 0.12),
+      rgb(202 138 36 / 0.12),
       transparent 36rem
     ),
-    radial-gradient(circle at 12% 72%, rgb(145 40 16 / 0.12), transparent 30rem),
+    radial-gradient(circle at 12% 72%, rgb(202 138 36 / 0.12), transparent 30rem),
     linear-gradient(180deg, #0b090b, #080608);
 }
 
@@ -1391,7 +1391,7 @@ body.hov #c-ring {
   background: linear-gradient(
     180deg,
     transparent,
-    rgb(145 40 16 / 0.42),
+    rgb(202 138 36 / 0.42),
     transparent
   );
 }
@@ -1437,7 +1437,7 @@ body.hov #c-ring {
   border: 1px solid var(--terracotta);
   background: var(--void);
   rotate: 45deg;
-  box-shadow: 0 0 0 0.6rem rgb(145 40 16 / 0.1);
+  box-shadow: 0 0 0 0.6rem rgb(202 138 36 / 0.1);
 }
 
 .artifact-media {
@@ -1464,14 +1464,14 @@ body.hov #c-ring {
 
 .relief-b {
   background:
-    radial-gradient(circle at 30% 30%, rgb(143 171 79 / 0.2), transparent 20%),
+    radial-gradient(circle at 30% 30%, rgb(124 106 44 / 0.2), transparent 20%),
     linear-gradient(135deg, #17190e, #140d0a 70%);
 }
 
 .relief-c {
   background:
-    radial-gradient(circle at 70% 20%, rgb(145 40 16 / 0.24), transparent 20%),
-    radial-gradient(circle at 25% 80%, rgb(145 40 16 / 0.18), transparent 24%),
+    radial-gradient(circle at 70% 20%, rgb(202 138 36 / 0.24), transparent 20%),
+    radial-gradient(circle at 25% 80%, rgb(202 138 36 / 0.18), transparent 24%),
     linear-gradient(135deg, #211912, #0c0b0d);
 }
 
@@ -1482,17 +1482,17 @@ body.hov #c-ring {
   background:
     radial-gradient(
       circle at 50% 32%,
-      rgb(145 40 16 / 0.24),
+      rgb(202 138 36 / 0.24),
       transparent 26rem
     ),
     radial-gradient(
       circle at 44% 52%,
-      rgb(145 40 16 / 0.16),
+      rgb(202 138 36 / 0.16),
       transparent 32rem
     ),
     radial-gradient(
       circle at 56% 62%,
-      rgb(143 171 79 / 0.08),
+      rgb(124 106 44 / 0.08),
       transparent 30rem
     ),
     linear-gradient(180deg, #080608, #050406);
@@ -1529,8 +1529,8 @@ body.hov #c-ring {
   transform-origin: top;
   background: linear-gradient(
     180deg,
-    rgb(145 40 16 / 0),
-    rgb(145 40 16 / 0.38),
+    rgb(202 138 36 / 0),
+    rgb(202 138 36 / 0.38),
     transparent
   );
   animation: ray 4s ease-in-out infinite;
@@ -1562,6 +1562,29 @@ body.hov #c-ring {
   will-change: transform, opacity;
 }
 
+[data-parallax] {
+  --parallax-x: 0%;
+  --parallax-y: 0%;
+  --parallax-rotate: 0deg;
+  transform: translate3d(var(--parallax-x), var(--parallax-y), 0) rotate(var(--parallax-rotate));
+  will-change: transform;
+}
+
+.tilt-surface {
+  --hover-y: 0px;
+  --tilt-x: 0deg;
+  --tilt-y: 0deg;
+  transform:
+    perspective(1000px)
+    translate3d(var(--parallax-x, 0%), var(--parallax-y, 0%), 0)
+    rotate(var(--parallax-rotate, 0deg))
+    translate3d(0, var(--hover-y), 0)
+    rotateX(var(--tilt-x))
+    rotateY(var(--tilt-y));
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
 @keyframes scan {
   0% {
     translate: 0 -40%;
@@ -1574,10 +1597,12 @@ body.hov #c-ring {
 @keyframes float {
   0%,
   100% {
-    transform: translate3d(0, 0, 0) rotate(0deg);
+    translate: 0 0;
+    rotate: 0deg;
   }
   50% {
-    transform: translate3d(0.8rem, -1.2rem, 0) rotate(6deg);
+    translate: 0.8rem -1.2rem;
+    rotate: 6deg;
   }
 }
 
@@ -1596,19 +1621,21 @@ body.hov #c-ring {
 @keyframes abyssDrift {
   0%,
   100% {
-    transform: translate3d(-1%, -1%, 0) scale(1);
+    translate: -1% -1%;
+    scale: 1;
   }
   50% {
-    transform: translate3d(1.5%, 1%, 0) scale(1.04);
+    translate: 1.5% 1%;
+    scale: 1.04;
   }
 }
 
 @keyframes abyssParticles {
   0% {
-    transform: translate3d(0, 0, 0);
+    translate: 0 0;
   }
   100% {
-    transform: translate3d(0, -9rem, 0);
+    translate: 0 -9rem;
   }
 }
 
@@ -1616,21 +1643,23 @@ body.hov #c-ring {
   0%,
   100% {
     opacity: 0.34;
-    transform: translate3d(-1%, 0, 0) skewX(-2deg);
+    translate: -1% 0;
   }
   50% {
     opacity: 0.58;
-    transform: translate3d(1%, 1.5%, 0) skewX(2deg);
+    translate: 1% 1.5%;
   }
 }
 
 @keyframes caustics {
   0%,
   100% {
-    transform: translate3d(-2%, -1%, 0) rotate(0deg);
+    translate: -2% -1%;
+    rotate: 0deg;
   }
   50% {
-    transform: translate3d(2%, 1%, 0) rotate(3deg);
+    translate: 2% 1%;
+    rotate: 3deg;
   }
 }
 
@@ -1809,6 +1838,18 @@ body.hov #c-ring {
 
   .artifact-media {
     min-height: 14rem;
+  }
+
+  [data-parallax],
+  .tilt-surface {
+    transform: none !important;
+    will-change: auto;
+  }
+
+  .tilt-surface {
+    --hover-y: 0px;
+    --tilt-x: 0deg;
+    --tilt-y: 0deg;
   }
 }
 
