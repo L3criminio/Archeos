@@ -7,9 +7,21 @@ const setupContactForm = () => {
   if (!form || !status) return;
 
   const submitButton = form.querySelector('button[type="submit"]');
+  const nameInput = document.getElementById("name");
+  const emailInput = document.getElementById("email");
+  const messageInput = document.getElementById("message");
+
+  if (!submitButton || !nameInput || !emailInput || !messageInput) return;
 
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
+
+    if (submitButton.disabled) return;
+
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
 
     status.style.display = "block";
     status.textContent = "Envoi en cours...";
@@ -17,9 +29,9 @@ const setupContactForm = () => {
     submitButton.disabled = true;
 
     const payload = {
-      name: document.getElementById("name").value,
-      email: document.getElementById("email").value,
-      message: document.getElementById("message").value,
+      name: nameInput.value.trim(),
+      email: emailInput.value.trim(),
+      message: messageInput.value.trim(),
     };
 
     try {
@@ -30,15 +42,15 @@ const setupContactForm = () => {
       });
 
       if (response.ok) {
-        status.textContent = "✅ Message envoyé ! Vérifiez votre boîte mail.";
+        status.textContent = "Message envoyé. Vérifiez votre boîte mail.";
         status.dataset.state = "success";
         event.target.reset();
       } else {
-        status.textContent = "❌ Une erreur est survenue, réessayez.";
+        status.textContent = "Une erreur est survenue. Réessayez plus tard.";
         status.dataset.state = "error";
       }
     } catch {
-      status.textContent = "❌ Connexion impossible.";
+      status.textContent = "Une erreur est survenue. Réessayez plus tard.";
       status.dataset.state = "error";
     } finally {
       submitButton.disabled = false;

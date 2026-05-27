@@ -7,6 +7,11 @@
       name="description"
       content="Archeos explore l'archéologie, les civilisations enfouies et les reconstructions 3D à travers une expérience YouTube cinématique."
     />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://i.ytimg.com; frame-src https://www.youtube.com https://www.youtube-nocookie.com; connect-src 'self' https://hook.eu1.make.com ws:; form-action 'self';"
+    />
     <meta name="theme-color" content="#07050a" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -39,7 +44,7 @@
         class="btn-p nav-cta"
         href="https://www.youtube.com/@archeosx"
         target="_blank"
-        rel="noreferrer"
+        rel="noopener noreferrer"
       >
         <i data-lucide="square-play"></i>
         YouTube
@@ -391,7 +396,14 @@
           <form id="contact-form" class="contact-form rv d3">
             <div class="contact-fields">
               <input type="text" id="name" placeholder="Votre nom" required />
-              <input type="email" id="email" placeholder="Votre email" required />
+              <input
+                type="email"
+                id="email"
+                placeholder="Votre email"
+                required
+                maxlength="254"
+                autocomplete="email"
+              />
             </div>
             <textarea id="message" placeholder="Votre message"></textarea>
             <button type="submit" class="btn-p">Envoyer</button>
@@ -401,7 +413,7 @@
             class="btn-s rv d3"
             href="https://youtube.com"
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
           >
             <i data-lucide="square-play"></i>
             Suivre Archeos
