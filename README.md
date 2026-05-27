@@ -75,10 +75,8 @@ Le projet contient un workflow prêt à l'emploi :
 
 À vérifier dans GitHub :
 - Va dans `Settings > Pages`.
-- Dans `Build and deployment`, choisis `Deploy from a branch`.
-- Branche : `gh-pages`.
-- Dossier : `/ (root)`.
+- Dans `Build and deployment`, choisis `GitHub Actions`.
 - Push sur `greg`, puis attends la fin de l'action `Deploy GitHub Pages`.
-- Le workflow construit `dist`, puis publie automatiquement son contenu sur la branche `gh-pages`.
+- Le workflow construit `dist`, l'envoie comme artifact, puis le publie avec l'action officielle GitHub Pages.
 
 La config Vite ajuste automatiquement le `base` pour GitHub Pages avec `GITHUB_REPOSITORY`. Pour ce repo, le build Pages utilisera donc `/Archeos/`.
