@@ -2837,9 +2837,12 @@ body.titanic-video-open .titanic-video-modal {
 .section-head > .rv {
   --reveal-safe-inline: clamp(1.5rem, 1.85vw, 2.55rem);
   --reveal-safe-block: clamp(0.5rem, 0.68vw, 1rem);
+  --reveal-safe-top: clamp(0.65rem, 0.85vw, 1.15rem);
   width: calc(100% + var(--reveal-safe-inline));
+  padding-top: var(--reveal-safe-top);
   padding-right: var(--reveal-safe-inline);
   padding-bottom: var(--reveal-safe-block);
+  margin-top: calc(-1 * var(--reveal-safe-top));
   margin-right: calc(-1 * var(--reveal-safe-inline));
   margin-bottom: calc(-1 * var(--reveal-safe-block));
 }

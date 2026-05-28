@@ -389,9 +389,9 @@ const showStaticContent = () => {
 };
 
 const setupDesktopMotion = (gsap, ScrollTrigger) => {
-  const revealClip = "inset(0 0 0 0)";
+  const revealClip = "inset(-12% 0 0 0)";
 
-  gsap.set(".rv", { opacity: 0, y: 44, clipPath: "inset(12% 0 0 0)" });
+  gsap.set(".rv", { opacity: 0, y: 44, clipPath: "inset(-12% 0 18% 0)" });
   gsap.set(".rv-sc", { opacity: 0, y: 52, scale: 0.96 });
   setupDepthParallax(gsap);
   setupInteractiveTilt(gsap);
