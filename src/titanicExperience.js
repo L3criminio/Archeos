@@ -36,6 +36,7 @@ export async function initTitanicExperience({ section, gsap, ScrollTrigger, redu
   const videoClosers = section.querySelectorAll("[data-titanic-video-close]");
   const videoState = section.querySelector("[data-titanic-video-state]");
   let modalTimeline = null;
+  let lastFocusedElement = null;
 
   section.classList.toggle("has-titanic-video", hasVideoId);
   section.classList.toggle("is-video-placeholder", !hasVideoId);
@@ -69,8 +70,10 @@ export async function initTitanicExperience({ section, gsap, ScrollTrigger, redu
     if (!videoModal || !videoPanel || section.classList.contains("is-video-modal-open")) return;
 
     resetVideo();
+    lastFocusedElement = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    videoModal.hidden = false;
+    videoModal.removeAttribute("aria-hidden");
     section.classList.add("is-video-modal-open");
-    videoModal.setAttribute("aria-hidden", "false");
     document.body.classList.add("titanic-video-open");
     document.documentElement.classList.add("titanic-video-open");
 
@@ -89,7 +92,8 @@ export async function initTitanicExperience({ section, gsap, ScrollTrigger, redu
         { opacity: 0, y: 28, scale: 0.975, filter: "blur(10px)" },
         { opacity: 1, y: 0, scale: 1, filter: "blur(0px)", duration: 0.62, ease: "expo.out" },
         0.04,
-      );
+      )
+      .call(() => videoPanel.focus?.({ preventScroll: true }));
   };
 
   const closeVideo = () => {
@@ -98,12 +102,14 @@ export async function initTitanicExperience({ section, gsap, ScrollTrigger, redu
     modalTimeline?.kill();
     section.classList.remove("is-video-modal-open");
     videoModal.setAttribute("aria-hidden", "true");
+    videoModal.hidden = true;
     document.body.classList.remove("titanic-video-open");
     document.documentElement.classList.remove("titanic-video-open");
     resetVideo();
     if (gsap) {
       gsap.set([videoModal, videoPanel].filter(Boolean), { clearProps: "all" });
     }
+    lastFocusedElement?.focus?.({ preventScroll: true });
   };
 
   const playVideo = () => {
@@ -116,6 +122,32 @@ export async function initTitanicExperience({ section, gsap, ScrollTrigger, redu
   const onKeydown = (event) => {
     if (event.key === "Escape") {
       closeVideo();
+      return;
+    }
+
+    if (event.key !== "Tab" || !videoModal || videoModal.hidden) return;
+
+    const focusable = Array.from(
+      videoModal.querySelectorAll(
+        'a[href], button:not([disabled]), iframe, [tabindex]:not([tabindex="-1"])',
+      ),
+    ).filter((element) => !element.hidden && element.getAttribute("aria-hidden") !== "true");
+
+    if (!focusable.length) {
+      event.preventDefault();
+      videoPanel?.focus?.({ preventScroll: true });
+      return;
+    }
+
+    const first = focusable[0];
+    const last = focusable.at(-1);
+
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
     }
   };
 
@@ -250,7 +282,7 @@ export async function initTitanicExperience({ section, gsap, ScrollTrigger, redu
     target.y = localY - 0.5;
     section.style.setProperty("--abyss-x", `${localX * 100}%`);
     section.style.setProperty("--abyss-y", `${localY * 100}%`);
-    const inArtifactZone = localY > 0.46 && localY < 0.78 && Math.abs(localX - 0.5) < 0.38;
+    const inArtifactZone = localY > 0.43 && localY < 0.82 && Math.abs(localX - 0.5) < 0.42;
     setHover(inArtifactZone);
   };
 

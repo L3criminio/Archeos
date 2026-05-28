@@ -1,6 +1,3 @@
-import Lenis from "lenis";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
   createIcons,
   Compass,
@@ -23,9 +20,8 @@ createIcons({
   },
 });
 
-gsap.registerPlugin(ScrollTrigger);
-
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const isCompactViewport = window.matchMedia("(max-width: 900px)").matches;
 const nav = document.getElementById("nav");
 
 const updateNav = (scroll = window.scrollY) => {
@@ -47,8 +43,15 @@ updateClock();
 setInterval(updateClock, 1000);
 
 let lenis;
+let nativeScrollBound = false;
 
-if (!prefersReducedMotion) {
+const setupNativeScroll = () => {
+  if (nativeScrollBound) return;
+  nativeScrollBound = true;
+  window.addEventListener("scroll", () => updateNav(), { passive: true });
+};
+
+const setupSmoothScroll = (Lenis, gsap, ScrollTrigger) => {
   lenis = new Lenis({
     duration: 1.22,
     easing: (t) => Math.min(1, 1.001 - 2 ** (-10 * t)),
@@ -64,9 +67,7 @@ if (!prefersReducedMotion) {
 
   gsap.ticker.add((time) => lenis.raf(time * 1000));
   gsap.ticker.lagSmoothing(0);
-} else {
-  window.addEventListener("scroll", () => updateNav(), { passive: true });
-}
+};
 
 updateNav();
 
@@ -74,7 +75,7 @@ const setupCursor = () => {
   const dot = document.getElementById("c-dot");
   const ring = document.getElementById("c-ring");
   const cross = document.getElementById("c-cross");
-  if (!dot || !ring || !cross || window.matchMedia("(max-width: 900px)").matches) return;
+  if (!dot || !ring || !cross || isCompactViewport) return;
 
   let mx = window.innerWidth / 2;
   let my = window.innerHeight / 2;
@@ -108,7 +109,7 @@ const setupCursor = () => {
 
   animate();
 
-  document.querySelectorAll("a, button, iframe").forEach((el) => {
+  document.querySelectorAll("a, button, iframe, input, label, summary").forEach((el) => {
     el.addEventListener("mouseenter", () => document.body.classList.add("hov"));
     el.addEventListener("mouseleave", () => document.body.classList.remove("hov"));
   });
@@ -141,6 +142,8 @@ const setupVideoScrollLayer = () => {
     if (!iframe) return;
 
     const currentSrc = iframe.dataset.videoSrc || iframe.src;
+    if (!currentSrc) return;
+
     const separator = currentSrc.includes("?") ? "&" : "?";
     iframe.src = currentSrc.includes("autoplay=1")
       ? currentSrc
@@ -172,7 +175,30 @@ const setupVideoScrollLayer = () => {
 
 setupVideoScrollLayer();
 
-const setupTitanicExperienceLoader = () => {
+const setupGalleryCarousel = () => {
+  const carousel = document.querySelector("[data-gallery-carousel]");
+  if (!carousel) return;
+
+  const slides = Array.from(carousel.querySelectorAll("[data-gallery-slide]"));
+
+  slides.forEach((slide) => {
+    const image = slide.querySelector("img");
+    if (!image) return;
+
+    const markMissing = () => {
+      slide.classList.add("is-missing");
+      image.hidden = true;
+      image.setAttribute("aria-hidden", "true");
+    };
+
+    image.addEventListener("error", markMissing, { once: true });
+    if (image.complete && image.naturalWidth === 0) markMissing();
+  });
+};
+
+setupGalleryCarousel();
+
+const setupTitanicExperienceLoader = ({ gsap = null, ScrollTrigger = null } = {}) => {
   const section = document.querySelector("[data-titanic-experience]");
   if (!section) return;
 
@@ -187,9 +213,9 @@ const setupTitanicExperienceLoader = () => {
         section,
         gsap,
         ScrollTrigger,
-        reducedMotion: prefersReducedMotion,
+        reducedMotion: prefersReducedMotion || isCompactViewport,
       });
-      ScrollTrigger.refresh();
+      ScrollTrigger?.refresh?.();
     } catch {
       section.classList.add("is-fallback");
     }
@@ -212,10 +238,8 @@ const setupTitanicExperienceLoader = () => {
   observer.observe(section);
 };
 
-setupTitanicExperienceLoader();
-
-const setupDepthParallax = () => {
-  if (window.matchMedia("(max-width: 900px)").matches) return;
+const setupDepthParallax = (gsap) => {
+  if (isCompactViewport || !gsap) return;
 
   document.querySelectorAll("[data-parallax]").forEach((el) => {
     const depth = Number.parseFloat(el.dataset.depth || "8");
@@ -252,8 +276,8 @@ const setupDepthParallax = () => {
   });
 };
 
-const setupInteractiveTilt = () => {
-  if (window.matchMedia("(max-width: 900px)").matches) return;
+const setupInteractiveTilt = (gsap) => {
+  if (isCompactViewport || !gsap) return;
 
   document.querySelectorAll(".tilt-surface").forEach((surface) => {
     const tiltX = gsap.quickTo(surface, "--tilt-x", { duration: 0.45, ease: "power3.out" });
@@ -278,7 +302,9 @@ const setupInteractiveTilt = () => {
   });
 };
 
-const setupPremiumSectionTransitions = () => {
+const setupPremiumSectionTransitions = (gsap) => {
+  if (!gsap) return;
+
   gsap.fromTo(
     "#video .abyss-stage",
     { yPercent: -4, scale: 1.08, opacity: 0.62 },
@@ -345,12 +371,20 @@ const setupPremiumSectionTransitions = () => {
   );
 };
 
-if (!prefersReducedMotion) {
+const showStaticContent = () => {
+  document.querySelectorAll(".rv, .rv-sc").forEach((el) => {
+    el.style.opacity = "1";
+    el.style.transform = "none";
+    el.style.clipPath = "none";
+  });
+};
+
+const setupDesktopMotion = (gsap, ScrollTrigger) => {
   gsap.set(".rv", { opacity: 0, y: 44, clipPath: "inset(12% 0 0 0)" });
   gsap.set(".rv-sc", { opacity: 0, y: 52, scale: 0.96 });
-  setupDepthParallax();
-  setupInteractiveTilt();
-  setupPremiumSectionTransitions();
+  setupDepthParallax(gsap);
+  setupInteractiveTilt(gsap);
+  setupPremiumSectionTransitions(gsap);
 
   gsap
     .timeline({ defaults: { ease: "power4.out" } })
@@ -509,10 +543,34 @@ if (!prefersReducedMotion) {
   });
 
   ScrollTrigger.refresh();
-} else {
-  document.querySelectorAll(".rv, .rv-sc").forEach((el) => {
-    el.style.opacity = "1";
-    el.style.transform = "none";
-    el.style.clipPath = "none";
-  });
-}
+};
+
+const initExperience = async () => {
+  if (!prefersReducedMotion && !isCompactViewport) {
+    try {
+      const [{ default: Lenis }, gsapModule, scrollTriggerModule] =
+        await Promise.all([
+          import("lenis"),
+          import("gsap"),
+          import("gsap/ScrollTrigger"),
+        ]);
+      const { gsap } = gsapModule;
+      const { ScrollTrigger } = scrollTriggerModule;
+
+      gsap.registerPlugin(ScrollTrigger);
+      setupSmoothScroll(Lenis, gsap, ScrollTrigger);
+      setupTitanicExperienceLoader({ gsap, ScrollTrigger });
+      setupDesktopMotion(gsap, ScrollTrigger);
+      return;
+    } catch {
+      setupNativeScroll();
+    }
+  } else {
+    setupNativeScroll();
+  }
+
+  showStaticContent();
+  setupTitanicExperienceLoader();
+};
+
+initExperience();

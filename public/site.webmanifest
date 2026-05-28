@@ -1,7 +1,7 @@
 {
   "name": "Archeos",
   "short_name": "Archeos",
-  "description": "Landing page immersive pour la chaine YouTube Archeos.",
+  "description": "Landing page immersive pour la chaîne YouTube Archeos.",
   "start_url": ".",
   "scope": ".",
   "display": "standalone",

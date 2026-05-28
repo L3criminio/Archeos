@@ -1,11 +1,16 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="fr">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Archeos explore l'archéologie, les civilisations enfouies et les reconstructions 3D à travers une expérience YouTube cinématique."
+      content="Découvrez Archeos, une chaîne YouTube étudiante qui explore l'archéologie, les civilisations anciennes et les reconstructions 3D dans une expérience immersive."
+    />
+    <meta name="author" content="Équipe Archeos" />
+    <meta
+      name="robots"
+      content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
     />
     <meta name="theme-color" content="#050403" />
     <meta name="application-name" content="Archeos" />
@@ -14,6 +19,38 @@
       name="apple-mobile-web-app-status-bar-style"
       content="black-translucent"
     />
+    <link rel="canonical" href="https://l3criminio.github.io/Archeos/" />
+    <meta
+      property="og:title"
+      content="Archeos - Archéologie, exploration et reconstructions 3D"
+    />
+    <meta
+      property="og:description"
+      content="Une landing page cinématique pour découvrir Archeos, chaîne YouTube dédiée à l'archéologie, aux archives visuelles et aux reconstitutions 3D."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:site_name" content="Archeos" />
+    <meta property="og:url" content="https://l3criminio.github.io/Archeos/" />
+    <meta
+      property="og:image"
+      content="https://l3criminio.github.io/Archeos/android-chrome-512x512.png"
+    />
+    <meta property="og:image:alt" content="Logo Archeos" />
+    <meta name="twitter:card" content="summary" />
+    <meta
+      name="twitter:title"
+      content="Archeos - Archéologie, exploration et reconstructions 3D"
+    />
+    <meta
+      name="twitter:description"
+      content="Une expérience web immersive pour la chaîne YouTube Archeos."
+    />
+    <meta
+      name="twitter:image"
+      content="https://l3criminio.github.io/Archeos/android-chrome-512x512.png"
+    />
+    <meta name="twitter:image:alt" content="Logo Archeos" />
     <link
       rel="icon"
       type="image/png"
@@ -32,9 +69,27 @@
       href="%BASE_URL%apple-touch-icon.png"
     />
     <link rel="manifest" href="%BASE_URL%site.webmanifest" />
-    <title>Archeos</title>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Archeos",
+        "url": "https://l3criminio.github.io/Archeos/",
+        "inLanguage": "fr-FR",
+        "description": "Landing page immersive pour une chaîne YouTube étudiante dédiée à l'archéologie, l'exploration et les reconstructions 3D.",
+        "publisher": {
+          "@type": "Organization",
+          "name": "Archeos",
+          "url": "https://www.youtube.com/@archeosx",
+          "sameAs": ["https://www.youtube.com/@archeosx"]
+        }
+      }
+    </script>
+    <title>Archeos - Archéologie et reconstructions 3D</title>
   </head>
   <body>
+    <a class="skip-link" href="#main-content">Aller au contenu</a>
+
     <div id="c-dot" aria-hidden="true"></div>
     <div id="c-ring" aria-hidden="true"></div>
     <div id="c-cross" aria-hidden="true"></div>
@@ -52,6 +107,7 @@
       </a>
 
       <nav class="nav-links" aria-label="Navigation principale">
+        <a href="#gallery" class="nav-lnk">Galerie</a>
         <a href="#concept" class="nav-lnk">Concept</a>
         <a href="#latest" class="nav-lnk">Latest</a>
         <a href="#video" class="nav-lnk">Vidéo</a>
@@ -69,7 +125,7 @@
       </a>
     </header>
 
-    <main>
+    <main id="main-content">
       <section id="hero" class="scene">
         <svg
           id="hero-grid"
@@ -205,7 +261,8 @@
         </div>
 
         <div class="hero-copy section-shell">
-          <h1 class="hero-title" aria-label="Archeos recompose le passé.">
+          <h1 class="hero-title">
+            <span class="sr-only">Archeos recompose le passé.</span>
             <span
               class="wordmark-mask hero-wordmark clip-line"
               style="--wordmark-url: url(&quot;%BASE_URL%Archeos.svg&quot;)"
@@ -225,6 +282,418 @@
               <i data-lucide="compass"></i>
               Entrer dans la strate
             </a>
+          </div>
+        </div>
+      </section>
+
+      <section
+        id="gallery"
+        class="scene gallery-section"
+        aria-label="Galerie Archeos"
+      >
+        <div
+          class="ghost-num"
+          data-parallax
+          data-depth="14"
+          data-axis="y"
+          aria-hidden="true"
+        >
+          00
+        </div>
+        <div class="gallery-gridline" aria-hidden="true"></div>
+
+        <div class="section-shell gallery-transition-shell">
+          <div class="gallery-shell rv-sc" data-gallery-carousel>
+            <div class="gallery-viewport" aria-live="polite">
+              <div class="gallery-row">
+                <div class="gallery-track">
+                  <div class="gallery-slide" data-gallery-slide>
+                    <img
+                      src="%BASE_URL%carousel/gallery-01.webp"
+                      alt="Archive visuelle Archeos 01"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <div class="gallery-fallback" aria-hidden="true"></div>
+                  </div>
+                  <div class="gallery-slide" data-gallery-slide>
+                    <img
+                      src="%BASE_URL%carousel/gallery-02.webp"
+                      alt="Archive visuelle Archeos 02"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <div class="gallery-fallback" aria-hidden="true"></div>
+                  </div>
+                  <div class="gallery-slide" data-gallery-slide>
+                    <img
+                      src="%BASE_URL%carousel/gallery-03.webp"
+                      alt="Archive visuelle Archeos 03"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <div class="gallery-fallback" aria-hidden="true"></div>
+                  </div>
+                  <div class="gallery-slide" data-gallery-slide>
+                    <img
+                      src="%BASE_URL%carousel/gallery-04.webp"
+                      alt="Archive visuelle Archeos 04"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <div class="gallery-fallback" aria-hidden="true"></div>
+                  </div>
+                  <div class="gallery-slide" data-gallery-slide>
+                    <img
+                      src="%BASE_URL%carousel/gallery-05.webp"
+                      alt="Archive visuelle Archeos 05"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <div class="gallery-fallback" aria-hidden="true"></div>
+                  </div>
+                  <div class="gallery-slide" data-gallery-slide>
+                    <img
+                      src="%BASE_URL%carousel/gallery-06.webp"
+                      alt="Archive visuelle Archeos 06"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <div class="gallery-fallback" aria-hidden="true"></div>
+                  </div>
+                  <div
+                    class="gallery-slide"
+                    data-gallery-slide
+                    aria-hidden="true"
+                  >
+                    <img
+                      src="%BASE_URL%carousel/gallery-01.webp"
+                      alt=""
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <div class="gallery-fallback" aria-hidden="true"></div>
+                  </div>
+                  <div
+                    class="gallery-slide"
+                    data-gallery-slide
+                    aria-hidden="true"
+                  >
+                    <img
+                      src="%BASE_URL%carousel/gallery-02.webp"
+                      alt=""
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <div class="gallery-fallback" aria-hidden="true"></div>
+                  </div>
+                  <div
+                    class="gallery-slide"
+                    data-gallery-slide
+                    aria-hidden="true"
+                  >
+                    <img
+                      src="%BASE_URL%carousel/gallery-03.webp"
+                      alt=""
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <div class="gallery-fallback" aria-hidden="true"></div>
+                  </div>
+                  <div
+                    class="gallery-slide"
+                    data-gallery-slide
+                    aria-hidden="true"
+                  >
+                    <img
+                      src="%BASE_URL%carousel/gallery-04.webp"
+                      alt=""
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <div class="gallery-fallback" aria-hidden="true"></div>
+                  </div>
+                  <div
+                    class="gallery-slide"
+                    data-gallery-slide
+                    aria-hidden="true"
+                  >
+                    <img
+                      src="%BASE_URL%carousel/gallery-05.webp"
+                      alt=""
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <div class="gallery-fallback" aria-hidden="true"></div>
+                  </div>
+                  <div
+                    class="gallery-slide"
+                    data-gallery-slide
+                    aria-hidden="true"
+                  >
+                    <img
+                      src="%BASE_URL%carousel/gallery-06.webp"
+                      alt=""
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <div class="gallery-fallback" aria-hidden="true"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="gallery-row is-reverse">
+                <div class="gallery-track">
+                  <div class="gallery-slide" data-gallery-slide>
+                    <img
+                      src="%BASE_URL%carousel/gallery-07.webp"
+                      alt="Archive visuelle Archeos 07"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <div class="gallery-fallback" aria-hidden="true"></div>
+                  </div>
+                  <div class="gallery-slide" data-gallery-slide>
+                    <img
+                      src="%BASE_URL%carousel/gallery-08.webp"
+                      alt="Archive visuelle Archeos 08"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <div class="gallery-fallback" aria-hidden="true"></div>
+                  </div>
+                  <div class="gallery-slide" data-gallery-slide>
+                    <img
+                      src="%BASE_URL%carousel/gallery-09.webp"
+                      alt="Archive visuelle Archeos 09"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <div class="gallery-fallback" aria-hidden="true"></div>
+                  </div>
+                  <div class="gallery-slide" data-gallery-slide>
+                    <img
+                      src="%BASE_URL%carousel/gallery-10.webp"
+                      alt="Archive visuelle Archeos 10"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <div class="gallery-fallback" aria-hidden="true"></div>
+                  </div>
+                  <div class="gallery-slide" data-gallery-slide>
+                    <img
+                      src="%BASE_URL%carousel/gallery-11.webp"
+                      alt="Archive visuelle Archeos 11"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <div class="gallery-fallback" aria-hidden="true"></div>
+                  </div>
+                  <div class="gallery-slide" data-gallery-slide>
+                    <img
+                      src="%BASE_URL%carousel/gallery-12.webp"
+                      alt="Archive visuelle Archeos 12"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <div class="gallery-fallback" aria-hidden="true"></div>
+                  </div>
+                  <div
+                    class="gallery-slide"
+                    data-gallery-slide
+                    aria-hidden="true"
+                  >
+                    <img
+                      src="%BASE_URL%carousel/gallery-07.webp"
+                      alt=""
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <div class="gallery-fallback" aria-hidden="true"></div>
+                  </div>
+                  <div
+                    class="gallery-slide"
+                    data-gallery-slide
+                    aria-hidden="true"
+                  >
+                    <img
+                      src="%BASE_URL%carousel/gallery-08.webp"
+                      alt=""
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <div class="gallery-fallback" aria-hidden="true"></div>
+                  </div>
+                  <div
+                    class="gallery-slide"
+                    data-gallery-slide
+                    aria-hidden="true"
+                  >
+                    <img
+                      src="%BASE_URL%carousel/gallery-09.webp"
+                      alt=""
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <div class="gallery-fallback" aria-hidden="true"></div>
+                  </div>
+                  <div
+                    class="gallery-slide"
+                    data-gallery-slide
+                    aria-hidden="true"
+                  >
+                    <img
+                      src="%BASE_URL%carousel/gallery-10.webp"
+                      alt=""
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <div class="gallery-fallback" aria-hidden="true"></div>
+                  </div>
+                  <div
+                    class="gallery-slide"
+                    data-gallery-slide
+                    aria-hidden="true"
+                  >
+                    <img
+                      src="%BASE_URL%carousel/gallery-11.webp"
+                      alt=""
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <div class="gallery-fallback" aria-hidden="true"></div>
+                  </div>
+                  <div
+                    class="gallery-slide"
+                    data-gallery-slide
+                    aria-hidden="true"
+                  >
+                    <img
+                      src="%BASE_URL%carousel/gallery-12.webp"
+                      alt=""
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <div class="gallery-fallback" aria-hidden="true"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="gallery-row">
+                <div class="gallery-track">
+                  <div class="gallery-slide" data-gallery-slide>
+                    <img
+                      src="%BASE_URL%carousel/gallery-13.webp"
+                      alt="Archive visuelle Archeos 13"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <div class="gallery-fallback" aria-hidden="true"></div>
+                  </div>
+                  <div class="gallery-slide" data-gallery-slide>
+                    <img
+                      src="%BASE_URL%carousel/gallery-14.webp"
+                      alt="Archive visuelle Archeos 14"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <div class="gallery-fallback" aria-hidden="true"></div>
+                  </div>
+                  <div class="gallery-slide" data-gallery-slide>
+                    <img
+                      src="%BASE_URL%carousel/gallery-15.webp"
+                      alt="Archive visuelle Archeos 15"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <div class="gallery-fallback" aria-hidden="true"></div>
+                  </div>
+                  <div class="gallery-slide" data-gallery-slide>
+                    <img
+                      src="%BASE_URL%carousel/gallery-16.webp"
+                      alt="Archive visuelle Archeos 16"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <div class="gallery-fallback" aria-hidden="true"></div>
+                  </div>
+                  <div class="gallery-slide" data-gallery-slide>
+                    <img
+                      src="%BASE_URL%carousel/gallery-17.webp"
+                      alt="Archive visuelle Archeos 17"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <div class="gallery-fallback" aria-hidden="true"></div>
+                  </div>
+                  <div
+                    class="gallery-slide"
+                    data-gallery-slide
+                    aria-hidden="true"
+                  >
+                    <img
+                      src="%BASE_URL%carousel/gallery-13.webp"
+                      alt=""
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <div class="gallery-fallback" aria-hidden="true"></div>
+                  </div>
+                  <div
+                    class="gallery-slide"
+                    data-gallery-slide
+                    aria-hidden="true"
+                  >
+                    <img
+                      src="%BASE_URL%carousel/gallery-14.webp"
+                      alt=""
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <div class="gallery-fallback" aria-hidden="true"></div>
+                  </div>
+                  <div
+                    class="gallery-slide"
+                    data-gallery-slide
+                    aria-hidden="true"
+                  >
+                    <img
+                      src="%BASE_URL%carousel/gallery-15.webp"
+                      alt=""
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <div class="gallery-fallback" aria-hidden="true"></div>
+                  </div>
+                  <div
+                    class="gallery-slide"
+                    data-gallery-slide
+                    aria-hidden="true"
+                  >
+                    <img
+                      src="%BASE_URL%carousel/gallery-16.webp"
+                      alt=""
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <div class="gallery-fallback" aria-hidden="true"></div>
+                  </div>
+                  <div
+                    class="gallery-slide"
+                    data-gallery-slide
+                    aria-hidden="true"
+                  >
+                    <img
+                      src="%BASE_URL%carousel/gallery-17.webp"
+                      alt=""
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <div class="gallery-fallback" aria-hidden="true"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -321,7 +790,7 @@
             <div class="latest-video-shell">
               <iframe
                 data-latest-video-embed
-                src="https://www.youtube.com/embed/videoseries?list=UUi4LQcbzEj3Lp2HzUbh6QkQ&amp;rel=0&amp;modestbranding=1"
+                data-video-src="https://www.youtube.com/embed/videoseries?list=UUi4LQcbzEj3Lp2HzUbh6QkQ&amp;rel=0&amp;modestbranding=1"
                 title="Dernière vidéo de la chaîne Archeos"
                 allow="
                   accelerometer;
@@ -360,6 +829,8 @@
             <img
               src="https://i.ytimg.com/vi/R2XtefrMNhg/maxresdefault.jpg"
               alt=""
+              loading="lazy"
+              decoding="async"
             />
           </div>
           <div
@@ -434,7 +905,7 @@
               role="dialog"
               aria-modal="true"
               aria-labelledby="titanic-video-title"
-              aria-hidden="true"
+              hidden
             >
               <div
                 class="titanic-video-backdrop"
@@ -457,7 +928,12 @@
                   <span></span>
                 </button>
 
-                <h3 id="titanic-video-title"></h3>
+                <h3 id="titanic-video-title">Archive Titanic</h3>
+                <p class="titanic-video-meta">
+                  <span>ARCHIVE // TITANIC</span>
+                  <span>3D RECONSTRUCTION</span>
+                  <span>NORTH ATLANTIC</span>
+                </p>
 
                 <div class="titanic-video-frame" data-titanic-video-frame>
                   <div class="titanic-video-placeholder">
@@ -523,7 +999,7 @@
               <div class="short-video-shell">
                 <iframe
                   data-short-video-embed
-                  src="https://www.youtube.com/embed/gbLYxXXHmx0?rel=0&amp;modestbranding=1"
+                  data-video-src="https://www.youtube.com/embed/gbLYxXXHmx0?rel=0&amp;modestbranding=1"
                   title="Making-of Archeos"
                   allow="
                     accelerometer;
@@ -642,97 +1118,163 @@
             et mettre en scène l'exploration Archeos.
           </p>
 
-          <div class="team-orbit rv d3" aria-label="Membres de l'équipe">
-            <div class="team-ring">
-              <article class="team-member">
+          <div class="team-orbit rv d3">
+            <ul class="team-ring">
+              <li class="team-member">
                 <div class="team-avatar">
                   <img
                     src="%BASE_URL%team/ludivine-huynh.jpeg"
                     alt="Portrait de HUYNH Ludivine"
                     loading="lazy"
+                    decoding="async"
                   />
                 </div>
                 <span>Membre 01</span>
                 <h3>HUYNH Ludivine</h3>
                 <p>Chef de projet</p>
-              </article>
-              <article class="team-member">
+              </li>
+              <li class="team-member">
                 <div class="team-avatar">
                   <img
                     src="%BASE_URL%team/sheedan-hyman.jpeg"
                     alt="Portrait de HYMAN Sheedan"
                     loading="lazy"
+                    decoding="async"
                   />
                 </div>
                 <span>Membre 02</span>
                 <h3>HYMAN Sheedan</h3>
                 <p>Chef de projet | Dev</p>
-              </article>
-              <article class="team-member">
+              </li>
+              <li class="team-member">
                 <div class="team-avatar">
                   <img
                     src="%BASE_URL%team/gregory-compastie.jpeg"
                     alt="Portrait de COMPASTIE Grégory"
                     loading="lazy"
+                    decoding="async"
                   />
                 </div>
                 <span>Membre 03</span>
                 <h3>COMPASTIE Grégory</h3>
                 <p>Dev</p>
-              </article>
-              <article class="team-member">
+              </li>
+              <li class="team-member">
                 <div class="team-avatar">
                   <img
                     src="%BASE_URL%team/enzo-gantsu.jpeg"
                     alt="Portrait de GANTSU Enzo"
                     loading="lazy"
+                    decoding="async"
                   />
                 </div>
                 <span>Membre 04</span>
                 <h3>GANTSU Enzo</h3>
                 <p>Design | Montage | Lights</p>
-              </article>
-              <article class="team-member">
+              </li>
+              <li class="team-member">
                 <div class="team-avatar photo-valentin">
                   <img
                     src="%BASE_URL%team/valentin-pelicot.jpeg"
                     alt="Portrait de PELICOT Valentin"
                     loading="lazy"
+                    decoding="async"
                   />
                 </div>
                 <span>Membre 05</span>
                 <h3>PELICOT Valentin</h3>
                 <p>Design | Montage | Cadrage</p>
-              </article>
-              <article class="team-member">
+              </li>
+              <li class="team-member">
                 <div class="team-avatar">
                   <img
                     src="%BASE_URL%team/julie-lecoeur.jpeg"
                     alt="Portrait de LECOEUR Julie"
                     loading="lazy"
+                    decoding="async"
                   />
                 </div>
                 <span>Membre 06</span>
                 <h3>LECOEUR Julie</h3>
                 <p>Strat | Son</p>
-              </article>
-              <article class="team-member">
+              </li>
+              <li class="team-member">
                 <div class="team-avatar photo-lauric">
                   <img
                     src="%BASE_URL%team/lauric-tridon.jpeg"
                     alt="Portrait de TRIDON Lauric"
                     loading="lazy"
+                    decoding="async"
                   />
                 </div>
                 <span>Membre 07</span>
                 <h3>TRIDON Lauric</h3>
                 <p>Script | Strat | Presentateur</p>
-              </article>
-            </div>
+              </li>
+            </ul>
           </div>
         </div>
       </section>
     </main>
+
+    <footer class="site-footer" id="mentions-legales">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <span
+            class="wordmark-mask footer-wordmark"
+            style="--wordmark-url: url(&quot;%BASE_URL%Archeos.svg&quot;)"
+            aria-hidden="true"
+          ></span>
+          <p>
+            Landing page réalisée dans le cadre d'une compétition YouTube
+            étudiante.
+          </p>
+        </div>
+
+        <details class="legal-details">
+          <summary>Mentions légales</summary>
+          <div class="legal-grid">
+            <p>
+              <strong>Éditeur</strong>
+              Équipe Archeos, projet étudiant réalisé dans le cadre d'une
+              compétition YouTube.
+            </p>
+            <p>
+              <strong>Responsables de publication</strong>
+              HUYNH Ludivine, HYMAN Sheedan, COMPASTIE Grégory, GANTSU Enzo,
+              PELICOT Valentin, LECOEUR Julie et TRIDON Lauric.
+            </p>
+            <p>
+              <strong>Contact</strong>
+              <a
+                href="https://www.youtube.com/@archeosx"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Chaîne YouTube Archeos
+              </a>
+            </p>
+            <p>
+              <strong>Hébergement</strong>
+              Site hébergé via GitHub Pages, service proposé par GitHub, Inc.,
+              88 Colin P. Kelly Jr. Street, San Francisco, CA 94107,
+              États-Unis.
+            </p>
+            <p>
+              <strong>Données personnelles</strong>
+              Ce site ne contient pas de formulaire de collecte. Les lecteurs
+              YouTube et l'hébergement GitHub Pages peuvent appliquer leurs
+              propres règles de confidentialité.
+            </p>
+            <p>
+              <strong>Propriété intellectuelle</strong>
+              Les textes, visuels, logos et éléments graphiques appartiennent à
+              leurs auteurs respectifs.
+            </p>
+          </div>
+        </details>
+      </div>
+    </footer>
 
     <script type="module" src="/src/main.js"></script>
   </body>
