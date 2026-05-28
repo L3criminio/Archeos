@@ -389,9 +389,9 @@ const showStaticContent = () => {
 };
 
 const setupDesktopMotion = (gsap, ScrollTrigger) => {
-  const revealClip = "inset(-12% 0 0 0)";
+  const revealClip = "inset(-16% -1.25rem -32% -1.25rem)";
 
-  gsap.set(".rv", { opacity: 0, y: 44, clipPath: "inset(-12% 0 18% 0)" });
+  gsap.set(".rv", { opacity: 0, y: 44, clipPath: revealClip });
   gsap.set(".rv-sc", { opacity: 0, y: 52, scale: 0.96 });
   setupDepthParallax(gsap);
   setupInteractiveTilt(gsap);
@@ -401,7 +401,7 @@ const setupDesktopMotion = (gsap, ScrollTrigger) => {
     .timeline({ defaults: { ease: "power4.out" } })
     .from(".brand, .nav-lnk, .nav-cta", { opacity: 0, y: -16, duration: 0.75, stagger: 0.04 })
     .from("#hero-grid", { opacity: 0, scale: 1.08, duration: 1.2 }, "-=.45")
-    .from(".clip-line", { clipPath: "inset(100% 0 0 0)", y: 42, duration: 1.1 }, "-=.65")
+    .from(".clip-line", { clipPath: "inset(100% -1.25rem -32% -1.25rem)", y: 42, duration: 1.1 }, "-=.65")
     .from(".hero-subline", { opacity: 0, y: 26, duration: 0.85 }, "-=.5")
     .to(
       ".hero .rv",
