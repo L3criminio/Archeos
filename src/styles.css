@@ -804,10 +804,6 @@ body.hov #c-ring {
   animation-name: galleryMarqueeReverse;
 }
 
-.gallery-shell:hover .gallery-track {
-  animation-play-state: paused;
-}
-
 .gallery-slide {
   position: relative;
   flex: 0 0 clamp(12rem, 24vw, 22rem);
