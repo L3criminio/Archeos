@@ -754,8 +754,8 @@ body.hov #c-ring {
 
 .stitle {
   margin: 0;
-  padding-right: 0.08em;
-  padding-bottom: 0.06em;
+  padding-right: 0.16em;
+  padding-bottom: 0.08em;
   color: var(--sand-l);
   font-family: var(--font-sans);
   font-size: clamp(3.4rem, 7vw, 8rem);
@@ -767,7 +767,7 @@ body.hov #c-ring {
 
 .stitle em {
   display: inline-block;
-  padding-right: 0.04em;
+  padding-right: 0.08em;
 }
 
 .mono-copy,
@@ -1731,7 +1731,10 @@ body.titanic-video-open .titanic-video-modal {
   background:
     linear-gradient(180deg, rgb(240 223 194 / 0.055), transparent 24%),
     rgb(3 6 8 / 0.9);
-  padding: clamp(0.56rem, 1vw, 0.82rem);
+  padding:
+    clamp(0.9rem, 1.35vw, 1.15rem)
+    clamp(0.56rem, 1vw, 0.82rem)
+    clamp(0.56rem, 1vw, 0.82rem);
   box-shadow:
     0 3rem 9rem rgb(0 0 0 / 0.68),
     inset 0 1px 0 rgb(255 255 255 / 0.08),
@@ -1776,7 +1779,10 @@ body.titanic-video-open .titanic-video-modal {
 }
 
 .titanic-video-panel h3 {
-  margin: 0 2.8rem 0.42rem 0.1rem;
+  min-height: 2.15rem;
+  margin: 0 3.35rem 0.58rem 0.1rem;
+  display: flex;
+  align-items: center;
   color: var(--sand-l);
   font-family: var(--font-sans);
   font-size: clamp(0.92rem, 1.18vw, 1.12rem);
@@ -1807,31 +1813,42 @@ body.titanic-video-open .titanic-video-modal {
 .titanic-video-close {
   position: absolute;
   z-index: 6;
-  top: 0.56rem;
-  right: 0.56rem;
+  top: clamp(0.68rem, 1.05vw, 0.92rem);
+  right: clamp(0.68rem, 1.05vw, 0.92rem);
   display: grid;
   place-items: center;
   width: 2.15rem;
   height: 2.15rem;
+  padding: 0;
   border: 1px solid rgb(240 223 194 / 0.18);
   border-radius: 50%;
   background: rgb(2 8 10 / 0.72);
   color: var(--sand-l);
+  line-height: 0;
 }
 
 .titanic-video-close span {
+  display: none;
+}
+
+.titanic-video-close::before,
+.titanic-video-close::after {
+  content: "";
   position: absolute;
+  top: 50%;
+  left: 50%;
   width: 0.86rem;
   height: 1px;
   background: currentColor;
+  transform-origin: center;
 }
 
-.titanic-video-close span:first-child {
-  rotate: 45deg;
+.titanic-video-close::before {
+  transform: translate(-50%, -50%) rotate(45deg);
 }
 
-.titanic-video-close span:last-child {
-  rotate: -45deg;
+.titanic-video-close::after {
+  transform: translate(-50%, -50%) rotate(-45deg);
 }
 
 .titanic-video-frame {
@@ -2818,8 +2835,8 @@ body.titanic-video-open .titanic-video-modal {
 .split-layout > .rv,
 .latest-copy.rv,
 .section-head > .rv {
-  --reveal-safe-inline: 0.7rem;
-  --reveal-safe-block: 0.28rem;
+  --reveal-safe-inline: clamp(1rem, 1.2vw, 1.8rem);
+  --reveal-safe-block: clamp(0.35rem, 0.45vw, 0.75rem);
   width: calc(100% + var(--reveal-safe-inline));
   padding-right: var(--reveal-safe-inline);
   padding-bottom: var(--reveal-safe-block);
