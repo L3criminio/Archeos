@@ -1,0 +1,22 @@
+[33maf62b05[m[33m ([m[1;31morigin/image[m[33m)[m Remove unused gallery slide hover animation and clean up CSS
+[33mf381042[m Refactor code structure for improved readability and maintainability
+[33m42b8a93[m Update README and HTML structure; refine CSS styles for consistency
+[33m819cc17[m Merge remote-tracking branch 'origin/sheedan' into image
+[33m1c03891[m Refactor code structure for improved readability and maintainability
+[33ma3a1ad5[m[33m ([m[1;31morigin/sheedan[m[33m)[m Enhance security and functionality of contact form and landing page
+[33m4069719[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m overall changes
+[33ma445503[m Merge branch 'greg' of github.com:L3criminio/Archeos into greg
+[33m7d03df5[m fix & feat
+[33mb91dc6e[m Delete CNAME
+[33m18ee379[m Update CNAME
+[33m4474041[m Update CNAME
+[33mc8ab539[m Create CNAME
+[33m3ab520e[m Delete CNAME
+[33mac5d5d0[m Create CNAME
+[33mdcda57f[m fix: deploy fix n2
+[33md15dcfd[m fix: deploy fixes
+[33m9418ed4[m feat: section video titanic modèle 3D
+[33mfb4fc8b[m Extract contact form script
+[33m6f6c788[m Add Make contact form integration
+[33m0767e69[m Initial Archeos landing page
+[33m7922736[m Initial Archeos landing page
