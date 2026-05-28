@@ -1925,13 +1925,8 @@ body.hov #c-ring {
 .cta-title {
   margin: 1.35rem 0 0.8rem;
   color: var(--sand-l);
-<<<<<<< HEAD
   font-family: var(--font-sans);
   font-size: clamp(4rem, 10vw, 10rem);
-=======
-  font-family: "Instrument Serif", serif;
-  font-size: clamp(3.2rem, 7vw, 7.2rem);
->>>>>>> origin/sheedan
   line-height: 0.86;
 }
 
@@ -2213,14 +2208,11 @@ body.hov #c-ring {
     cursor: pointer;
   }
 
-<<<<<<< HEAD
-=======
   input,
   textarea {
     cursor: text;
   }
 
->>>>>>> origin/sheedan
   #c-dot,
   #c-ring,
   #c-cross {

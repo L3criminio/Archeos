@@ -22,7 +22,12 @@ npm run dev
 npm run build
 ```
 
-<<<<<<< HEAD
+## Prévisualisation production
+
+```bash
+npm run preview
+```
+
 ## Assets de marque
 
 Les logos, favicons et icônes d'installation sont dans `public/`.
@@ -54,15 +59,16 @@ Notes :
 - Si le GLB source est remplacé plus tard, il faut viser une version finale sous 5 MB avant publication.
 
 ## Publication GitHub
-=======
-## Prévisualisation production
->>>>>>> origin/sheedan
 
 ```bash
-npm run preview
+git init
+git add .
+git commit -m "Initial Archeos landing page"
+git branch -M main
+git remote add origin https://github.com/<utilisateur>/<repo>.git
+git push -u origin main
 ```
 
-<<<<<<< HEAD
 Remplace `<utilisateur>` et `<repo>` par le compte et le dépôt GitHub.
 
 ## Déploiement GitHub Pages
@@ -80,7 +86,7 @@ Le projet contient un workflow prêt à l'emploi :
 - Si tu travailles depuis la branche `greg`, le workflow se lance aussi au push sur `greg`.
 
 La config Vite ajuste automatiquement le `base` pour GitHub Pages avec `GITHUB_REPOSITORY`. Pour ce repo, le build Pages utilisera donc `/Archeos/`.
-=======
+
 ## Sécurité et GitHub Pages
 
 GitHub Pages sert automatiquement le site en HTTPS si l'option est activée dans les réglages du dépôt. Active l'option **Enforce HTTPS**, vérifie le domaine publié, puis teste le formulaire après publication.
@@ -122,4 +128,3 @@ git push origin chore/security-landing-page
 ```
 
 Ne push pas automatiquement sans avoir relu le diff.
->>>>>>> origin/sheedan
