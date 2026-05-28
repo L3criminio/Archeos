@@ -2811,6 +2811,10 @@ body.titanic-video-open .titanic-video-modal {
   will-change: transform, opacity;
 }
 
+.rv {
+  overflow: visible;
+}
+
 [data-parallax] {
   --parallax-x: 0%;
   --parallax-y: 0%;
