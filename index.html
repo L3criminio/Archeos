@@ -53,6 +53,7 @@
 
       <nav class="nav-links" aria-label="Navigation principale">
         <a href="#concept" class="nav-lnk">Concept</a>
+        <a href="#latest" class="nav-lnk">Latest</a>
         <a href="#video" class="nav-lnk">Vidéo</a>
         <a href="#shorts" class="nav-lnk">Shorts</a>
       </nav>
@@ -285,7 +286,7 @@
               <span class="card-index">A03</span>
               <h3>Promesse</h3>
               <p>
-                Chaque vidéo devient un artifact numérique : on part d'une
+                Chaque vidéo devient un artéfact numérique : on part d'une
                 trace, on traverse la donnée, puis on reconstruit une scène qui
                 donne envie de comprendre.
               </p>
@@ -294,10 +295,64 @@
         </div>
       </section>
 
+      <section id="latest" class="scene section-pad latest-channel">
+        <div
+          class="ghost-num latest-ghost"
+          data-parallax
+          data-depth="-14"
+          data-axis="y"
+          aria-hidden="true"
+        >
+          LIVE
+        </div>
+        <div class="section-shell latest-layout">
+          <div class="latest-copy rv">
+            <p class="slbl">01B - Dernière publication</p>
+            <h2 class="stitle">Notre vidéo la plus <em>récente.</em></h2>
+            <p class="mono-copy"></p>
+          </div>
+
+          <div
+            class="latest-frame rv d2"
+            data-parallax
+            data-depth="5"
+            data-axis="y"
+          >
+            <div class="latest-video-shell">
+              <iframe
+                data-latest-video-embed
+                src="https://www.youtube.com/embed/videoseries?list=UUi4LQcbzEj3Lp2HzUbh6QkQ&amp;rel=0&amp;modestbranding=1"
+                title="Dernière vidéo de la chaîne Archeos"
+                allow="
+                  accelerometer;
+                  autoplay;
+                  clipboard-write;
+                  encrypted-media;
+                  gyroscope;
+                  picture-in-picture;
+                  web-share;
+                "
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen
+              ></iframe>
+              <button
+                class="latest-video-overlay"
+                type="button"
+                data-latest-video-play
+                aria-label="Activer la vidéo YouTube"
+              >
+                <span aria-hidden="true"></span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section
         id="video"
         class="scene section-pad video-abyss"
         data-titanic-experience
+        data-titanic-video-id="REPLACE_WITH_VIDEO_ID"
       >
         <div class="abyss-stage" data-abyss-stage aria-hidden="true">
           <canvas class="titanic-canvas" data-titanic-canvas></canvas>
@@ -347,8 +402,8 @@
             </div>
             <p class="head-copy rv d2">
               La strate terrestre s’efface. L’épave apparaît dans le noir
-              abyssal, scannée comme une relique engloutie avant de révéler
-              l’archive vidéo.
+              abyssal, scannée comme une relique engloutie dans un espace de
+              découverte sous-marine.
             </p>
           </div>
 
@@ -360,56 +415,80 @@
               <span>3D RECONSTRUCTION</span>
             </div>
 
-            <button
-              class="artifact-trigger"
-              type="button"
-              data-artifact-trigger
-            >
-              <span class="trigger-mark"></span>
-              <span>Déverrouiller l’archive</span>
-            </button>
-
             <div class="artifact-hud" data-artifact-hud>
               <span>SCAN TARGET LOCKED</span>
               <span>COORD 41.7325 N / 49.9469 W</span>
-              <span>ARCHIVE READY</span>
+              <span data-titanic-video-state>ARCHIVE VIDEO READY</span>
+              <button
+                class="artifact-video-cta"
+                type="button"
+                data-titanic-video-trigger
+              >
+                Voir l’archive vidéo
+              </button>
             </div>
 
             <div
-              class="analysis-capsule cinema-panel vframe"
-              data-analysis-capsule
+              class="titanic-video-modal"
+              data-titanic-video-modal
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="titanic-video-title"
+              aria-hidden="true"
             >
-              <div class="capsule-topline">
-                <span>ARCHIVE // TITANIC</span>
-                <span>3D RECONSTRUCTION</span>
-              </div>
-              <div class="video-shell">
-                <iframe
-                  data-video-embed
-                  data-video-src="https://www.youtube.com/embed/R2XtefrMNhg?autoplay=1&amp;rel=0&amp;modestbranding=1"
-                  src="https://www.youtube.com/embed/R2XtefrMNhg?rel=0&amp;modestbranding=1"
-                  srcdoc="<style>*{box-sizing:border-box}body{margin:0;background:#07050a}img{width:100%;height:100%;object-fit:cover;filter:brightness(.52) contrast(1.12) saturate(.8)}</style><img src='https://i.ytimg.com/vi/R2XtefrMNhg/maxresdefault.jpg' alt='Reconstruction 3D du Titanic'>"
-                  title="Scan of Titanic reveals wreck as never seen before - BBC News"
-                  allow="
-                    accelerometer;
-                    autoplay;
-                    clipboard-write;
-                    encrypted-media;
-                    gyroscope;
-                    picture-in-picture;
-                    web-share;
-                  "
-                  referrerpolicy="strict-origin-when-cross-origin"
-                  allowfullscreen
-                ></iframe>
+              <div
+                class="titanic-video-backdrop"
+                data-titanic-video-close
+                aria-hidden="true"
+              ></div>
+
+              <div
+                class="titanic-video-panel"
+                data-titanic-video-panel
+                tabindex="-1"
+              >
                 <button
-                  class="video-play-overlay"
+                  class="titanic-video-close"
                   type="button"
-                  data-video-play
-                  aria-label="Lancer la vidéo"
+                  data-titanic-video-close
+                  aria-label="Fermer l’archive vidéo"
                 >
-                  <span>Lancer</span>
+                  <span></span>
+                  <span></span>
                 </button>
+
+                <h3 id="titanic-video-title"></h3>
+
+                <div class="titanic-video-frame" data-titanic-video-frame>
+                  <div class="titanic-video-placeholder">
+                    <span data-titanic-video-placeholder
+                      >ID vidéo à renseigner</span
+                    >
+                  </div>
+                  <iframe
+                    data-titanic-video-embed
+                    title="Vidéo principale Archeos"
+                    allow="
+                      accelerometer;
+                      autoplay;
+                      clipboard-write;
+                      encrypted-media;
+                      gyroscope;
+                      picture-in-picture;
+                      web-share;
+                    "
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    allowfullscreen
+                  ></iframe>
+                  <button
+                    class="titanic-video-play"
+                    type="button"
+                    data-titanic-video-play
+                    aria-label="Lancer la vidéo principale"
+                  >
+                    <span aria-hidden="true"></span>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -429,30 +508,46 @@
         <div class="section-shell">
           <div class="section-head">
             <div class="rv">
-              <p class="slbl">03 - Contenus courts</p>
+              <p class="slbl">03 - Shorts</p>
               <h2 class="stitle">Les <em>Shorts.</em></h2>
             </div>
-            <p class="head-copy rv d2">
-              Des capsules verticales pour prolonger l'expédition : un détail,
-              une hypothèse, une image qui accroche.
-            </p>
           </div>
 
           <div class="shorts-grid">
             <article
-              class="short-card tilt-surface rv"
+              class="short-card short-embed-card tilt-surface rv"
               data-parallax
               data-depth="5"
               data-axis="y"
             >
-              <div class="short-visual bronze">
-                <i data-lucide="scan-line"></i>
+              <div class="short-video-shell">
+                <iframe
+                  data-short-video-embed
+                  src="https://www.youtube.com/embed/gbLYxXXHmx0?rel=0&amp;modestbranding=1"
+                  title="Making-of Archeos"
+                  allow="
+                    accelerometer;
+                    autoplay;
+                    clipboard-write;
+                    encrypted-media;
+                    gyroscope;
+                    picture-in-picture;
+                    web-share;
+                  "
+                  referrerpolicy="strict-origin-when-cross-origin"
+                  allowfullscreen
+                ></iframe>
+                <button
+                  class="short-video-overlay"
+                  type="button"
+                  data-short-video-play
+                  aria-label="Activer le Short Archeos"
+                >
+                  <span aria-hidden="true"></span>
+                </button>
               </div>
               <span>#SHORT 01</span>
-              <h3>Le scan révèle la coque</h3>
-              <p>
-                Un détail invisible en photo devient lisible grâce au relevé 3D.
-              </p>
+              <h3>Making-of Archeos</h3>
             </article>
             <article
               class="short-card tall tilt-surface rv d1"

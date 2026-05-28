@@ -113,34 +113,61 @@ const setupCursor = () => {
     el.addEventListener("mouseleave", () => document.body.classList.remove("hov"));
   });
 
-  const titanicSection = document.querySelector("[data-titanic-experience]");
-  if (titanicSection) {
-    titanicSection.addEventListener("pointerenter", () => {
-      document.body.classList.add("cursor-off");
-      document.body.classList.remove("hov");
+  let cursorOffDepth = 0;
+  document
+    .querySelectorAll(
+      "[data-titanic-experience], .latest-video-shell, .short-video-shell",
+    )
+    .forEach((zone) => {
+      zone.addEventListener("pointerenter", () => {
+        cursorOffDepth += 1;
+        document.body.classList.add("cursor-off");
+        document.body.classList.remove("hov");
+      });
+
+      zone.addEventListener("pointerleave", () => {
+        cursorOffDepth = Math.max(0, cursorOffDepth - 1);
+        if (cursorOffDepth === 0) {
+          document.body.classList.remove("cursor-off");
+        }
+      });
     });
-    titanicSection.addEventListener("pointerleave", () => {
-      document.body.classList.remove("cursor-off");
-    });
-  }
 };
 
 setupCursor();
 
 const setupVideoScrollLayer = () => {
-  document.querySelectorAll(".video-shell").forEach((shell) => {
-    const iframe = shell.querySelector("[data-video-embed]");
-    const playButton = shell.querySelector("[data-video-play]");
-    if (!iframe || !playButton) return;
+  const playEmbeddedVideo = (shell, iframe) => {
+    if (!iframe) return;
+
+    const currentSrc = iframe.dataset.videoSrc || iframe.src;
+    const separator = currentSrc.includes("?") ? "&" : "?";
+    iframe.src = currentSrc.includes("autoplay=1")
+      ? currentSrc
+      : `${currentSrc}${separator}autoplay=1`;
+    shell.classList.add("is-playing");
+  };
+
+  document.querySelectorAll(".latest-video-shell").forEach((shell) => {
+    const playButton = shell.querySelector("[data-latest-video-play]");
+    const iframe = shell.querySelector("[data-latest-video-embed]");
+    if (!playButton) return;
 
     playButton.addEventListener("click", () => {
-      if (!shell.classList.contains("is-playing")) {
-        iframe.removeAttribute("srcdoc");
-        iframe.src = iframe.dataset.videoSrc || iframe.src;
-        shell.classList.add("is-playing");
-      }
+      playEmbeddedVideo(shell, iframe);
     });
   });
+
+  document.querySelectorAll(".short-video-shell").forEach((shell) => {
+    const playButton = shell.querySelector("[data-short-video-play]");
+    const iframe = shell.querySelector("[data-short-video-embed]");
+    if (!playButton) return;
+
+    playButton.addEventListener("click", () => {
+      playEmbeddedVideo(shell, iframe);
+    });
+  });
+
 };
 
 setupVideoScrollLayer();
@@ -251,16 +278,6 @@ const setupInteractiveTilt = () => {
   });
 };
 
-const setupTeamOrbitPause = () => {
-  document.querySelectorAll(".team-member").forEach((card) => {
-    const ring = card.closest(".team-ring");
-    if (!ring) return;
-
-    card.addEventListener("pointerenter", () => ring.classList.add("is-paused"));
-    card.addEventListener("pointerleave", () => ring.classList.remove("is-paused"));
-  });
-};
-
 const setupPremiumSectionTransitions = () => {
   gsap.fromTo(
     "#video .abyss-stage",
@@ -333,7 +350,6 @@ if (!prefersReducedMotion) {
   gsap.set(".rv-sc", { opacity: 0, y: 52, scale: 0.96 });
   setupDepthParallax();
   setupInteractiveTilt();
-  setupTeamOrbitPause();
   setupPremiumSectionTransitions();
 
   gsap

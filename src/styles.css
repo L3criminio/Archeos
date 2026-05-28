@@ -204,6 +204,23 @@ body.cursor-off #c-cross {
   opacity: 0;
 }
 
+html.titanic-video-open,
+body.titanic-video-open {
+  overflow: hidden;
+  scrollbar-width: none;
+}
+
+html.titanic-video-open::-webkit-scrollbar,
+body.titanic-video-open::-webkit-scrollbar {
+  display: none;
+}
+
+body.titanic-video-open #nav {
+  opacity: 0;
+  transform: translateY(-110%);
+  pointer-events: none;
+}
+
 body.hov #c-dot {
   width: 12px;
   height: 12px;
@@ -773,8 +790,7 @@ body.hov #c-ring {
 
 .card-index,
 .short-card span,
-.artifact-copy span,
-.video-hud span {
+.artifact-copy span {
   color: var(--terracotta-soft);
   font-family: var(--font-mono);
   font-size: 0.58rem;
@@ -797,6 +813,144 @@ body.hov #c-ring {
   font-size: 0.9rem;
 }
 
+.latest-channel {
+  background:
+    radial-gradient(
+      circle at 18% 28%,
+      rgb(202 138 36 / 0.16),
+      transparent 28rem
+    ),
+    radial-gradient(
+      circle at 82% 58%,
+      rgb(124 106 44 / 0.12),
+      transparent 30rem
+    ),
+    linear-gradient(180deg, #0b0706, #070504 62%, #080506);
+}
+
+.latest-ghost {
+  right: auto;
+  left: -0.08em;
+  top: 0.06em;
+  font-size: clamp(7rem, 18vw, 20rem);
+  letter-spacing: 0.06em;
+}
+
+.latest-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.35fr);
+  align-items: center;
+  gap: clamp(2rem, 6vw, 6rem);
+}
+
+.latest-copy .mono-copy {
+  max-width: 500px;
+}
+
+.latest-frame {
+  position: relative;
+  border: 1px solid rgb(202 138 36 / 0.24);
+  background:
+    linear-gradient(135deg, rgb(240 223 194 / 0.055), transparent),
+    rgb(7 5 10 / 0.54);
+  padding: clamp(0.8rem, 1.8vw, 1.25rem);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.055),
+    0 1.6rem 4rem rgb(0 0 0 / 0.38);
+}
+
+.latest-frame::before,
+.latest-frame::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+}
+
+.latest-frame::before {
+  inset: -1px auto auto -1px;
+  width: 7rem;
+  height: 1px;
+  background: var(--terracotta);
+}
+
+.latest-frame::after {
+  inset: auto -8% -18% 18%;
+  height: 42%;
+  rotate: -6deg;
+  background: linear-gradient(180deg, rgb(202 138 36 / 0.1), transparent);
+}
+
+.latest-meta {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin-bottom: 0.75rem;
+  color: var(--terracotta-soft);
+  font-family: var(--font-mono);
+  font-size: 0.56rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.latest-meta span {
+  border: 1px solid rgb(202 138 36 / 0.24);
+  background: rgb(202 138 36 / 0.07);
+  padding: 0.45rem 0.6rem;
+}
+
+.latest-video-shell {
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  border: 1px solid rgb(240 223 194 / 0.12);
+  background: #050403;
+}
+
+.latest-video-shell iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  pointer-events: none;
+}
+
+.latest-video-shell.is-playing iframe {
+  pointer-events: auto;
+}
+
+.latest-video-overlay {
+  position: absolute;
+  z-index: 3;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  border: 0;
+  background: linear-gradient(180deg, transparent, rgb(5 4 3 / 0.28));
+}
+
+.latest-video-overlay span {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid rgb(240 223 194 / 0.22);
+  border-radius: 999px;
+  background: rgb(240 223 194 / 0.92);
+  color: #050403;
+  padding: 0.78rem 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.56rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  box-shadow: 0 1rem 3rem rgb(0 0 0 / 0.34);
+}
+
+.latest-video-shell.is-playing .latest-video-overlay {
+  opacity: 0;
+  pointer-events: none;
+}
+
 #video {
   background:
     radial-gradient(
@@ -816,7 +970,7 @@ body.hov #c-ring {
   --abyss-x: 50%;
   --abyss-y: 46%;
   min-height: 145svh;
-  padding-block: clamp(7rem, 13vw, 12rem);
+  padding-block: clamp(4.5rem, 8vw, 7rem) clamp(7rem, 13vw, 12rem);
   cursor: auto;
   background:
     radial-gradient(
@@ -871,66 +1025,6 @@ body.hov #c-ring {
     );
 }
 
-.video-abyss.is-opening {
-  cursor: wait;
-}
-
-.video-abyss.reveal-archive.is-opening::before {
-  opacity: 1;
-  background:
-    linear-gradient(
-      90deg,
-      transparent 0 33%,
-      rgb(202 138 36 / 0.18) 48%,
-      rgb(108 214 220 / 0.12) 50%,
-      rgb(202 138 36 / 0.18) 52%,
-      transparent 67% 100%
-    ),
-    radial-gradient(
-      circle at 50% 76%,
-      rgb(202 138 36 / 0.22),
-      transparent 18rem
-    );
-  animation: archiveLift 1100ms cubic-bezier(0.19, 1, 0.22, 1) both;
-}
-
-.video-abyss.reveal-scan.is-opening::before {
-  opacity: 1;
-  background:
-    linear-gradient(
-      180deg,
-      transparent 0 38%,
-      rgb(174 226 222 / 0.18) 44%,
-      rgb(202 138 36 / 0.14) 48%,
-      transparent 56% 100%
-    ),
-    repeating-linear-gradient(
-      0deg,
-      transparent 0 0.75rem,
-      rgb(174 226 222 / 0.055) 0.8rem 0.86rem
-    ),
-    repeating-linear-gradient(
-      90deg,
-      transparent 0 5.5rem,
-      rgb(202 138 36 / 0.045) 5.55rem 5.62rem
-    );
-  animation: scanReveal 950ms cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-
-.video-abyss.reveal-vortex.is-opening::before {
-  opacity: 1;
-  background:
-    radial-gradient(
-      circle at 50% 50%,
-      transparent 0 8rem,
-      rgb(108 214 220 / 0.16) 9rem,
-      rgb(202 138 36 / 0.12) 10.5rem,
-      transparent 16rem
-    ),
-    radial-gradient(circle at 50% 50%, rgb(5 18 24 / 0.82), transparent 42rem);
-  animation: vortexOpen 900ms cubic-bezier(0.19, 1, 0.22, 1) both;
-}
-
 .abyss-stage {
   position: absolute;
   z-index: -2;
@@ -940,6 +1034,7 @@ body.hov #c-ring {
     radial-gradient(circle at 50% 48%, rgb(15 80 94 / 0.22), transparent 34rem),
     linear-gradient(180deg, #050403 0%, #051017 32%, #02070b 100%);
   transform-origin: center;
+  transition: filter 420ms ease;
   will-change: transform, filter;
 }
 
@@ -1107,7 +1202,7 @@ body.hov #c-ring {
 }
 
 .abyss-head {
-  min-height: 22rem;
+  min-height: 16rem;
 }
 
 .abyss-interface {
@@ -1116,13 +1211,8 @@ body.hov #c-ring {
   perspective: 1200px;
 }
 
-.video-abyss.is-archive-open .abyss-interface {
-  padding-bottom: clamp(2rem, 5vw, 4rem);
-}
-
 .abyss-readout,
-.artifact-hud,
-.capsule-topline {
+.artifact-hud {
   display: flex;
   flex-wrap: wrap;
   gap: 0.75rem;
@@ -1136,97 +1226,24 @@ body.hov #c-ring {
 .abyss-readout {
   position: absolute;
   z-index: 8;
-  top: -3rem;
+  top: 11rem;
   left: 0;
   width: min(620px, 100%);
 }
 
 .abyss-readout span,
-.artifact-hud span,
-.capsule-topline span {
+.artifact-hud span {
   border: 1px solid rgb(100 190 205 / 0.22);
   background: rgb(2 12 16 / 0.42);
   padding: 0.55rem 0.7rem;
   backdrop-filter: blur(14px);
 }
 
-.artifact-trigger {
-  position: absolute;
-  z-index: 9;
-  left: 50%;
-  top: 29%;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.75rem;
-  border: 1px solid rgb(202 138 36 / 0.58);
-  background: rgb(7 5 10 / 0.45);
-  color: var(--sand-l);
-  padding: 0.85rem 1rem;
-  font-family: var(--font-mono);
-  font-size: 0.62rem;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  transform: translate3d(-50%, -50%, 0);
-  box-shadow:
-    0 0 0 1px rgb(100 190 205 / 0.08) inset,
-    0 0 28px rgb(202 138 36 / 0.2);
-  transition:
-    border-color 220ms ease,
-    background 220ms ease,
-    color 220ms ease,
-    opacity 320ms ease,
-    transform 320ms ease;
-}
-
-.artifact-trigger:hover,
-.video-abyss.is-artifact-hover .artifact-trigger {
-  border-color: rgb(100 190 205 / 0.48);
-  background: rgb(4 22 30 / 0.62);
-  color: rgb(203 239 236);
-}
-
-.video-abyss.is-archive-open .artifact-trigger {
-  opacity: 0;
-  pointer-events: none;
-  transform: translate3d(-50%, -30%, 0) scale(0.96);
-}
-
-.trigger-mark {
-  position: relative;
-  display: block;
-  width: 1.35rem;
-  aspect-ratio: 1;
-  border: 1px solid var(--terracotta);
-  border-radius: 50%;
-}
-
-.trigger-mark::before,
-.trigger-mark::after {
-  content: "";
-  position: absolute;
-  background: var(--terracotta);
-}
-
-.trigger-mark::before {
-  top: 50%;
-  left: -0.35rem;
-  width: 2rem;
-  height: 1px;
-}
-
-.trigger-mark::after {
-  top: -0.35rem;
-  left: 50%;
-  width: 1px;
-  height: 2rem;
-}
-
 .artifact-hud {
   position: absolute;
   z-index: 8;
   right: 0;
-  bottom: 44%;
+  bottom: 15%;
   justify-content: flex-end;
   max-width: 520px;
   opacity: 0;
@@ -1236,103 +1253,367 @@ body.hov #c-ring {
     transform 300ms ease;
 }
 
-.video-abyss.is-artifact-hover .artifact-hud,
-.video-abyss.is-archive-open .artifact-hud {
+.video-abyss.is-artifact-hover .artifact-hud {
   opacity: 1;
   transform: translateY(0);
 }
 
-.analysis-capsule {
-  position: relative;
-  z-index: 10;
-  right: auto;
-  bottom: auto;
-  width: min(1040px, 100%);
-  margin: clamp(28rem, 48vw, 36rem) auto 0;
-  opacity: 0;
-  pointer-events: none;
-  transform: translate3d(0, 5rem, 0) scale(0.96);
-  transform-origin: center bottom;
-  border: 1px solid rgb(240 223 194 / 0.12);
-  border-radius: 0.65rem;
-  background: rgb(4 8 10 / 0.88);
-  transition:
-    opacity 720ms cubic-bezier(0.19, 1, 0.22, 1),
-    transform 900ms cubic-bezier(0.19, 1, 0.22, 1),
-    box-shadow 720ms ease;
-  backdrop-filter: blur(18px);
-  will-change: transform, opacity, filter, clip-path;
+.artifact-video-cta {
+  display: none;
+  border: 1px solid rgb(202 138 36 / 0.42);
+  background: rgb(202 138 36 / 0.1);
+  color: var(--sand-l);
+  padding: 0.55rem 0.7rem;
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  backdrop-filter: blur(14px);
 }
 
-.analysis-capsule::before {
+.video-abyss.is-fallback .artifact-video-cta,
+.video-abyss.is-video-placeholder .artifact-video-cta {
+  display: inline-flex;
+}
+
+.video-abyss.is-artifact-hover::before {
+  opacity: 0.72;
+  background:
+    radial-gradient(
+      circle at var(--abyss-x) var(--abyss-y),
+      rgb(202 138 36 / 0.12),
+      transparent 9rem
+    ),
+    repeating-linear-gradient(
+      0deg,
+      transparent 0 0.72rem,
+      rgb(174 226 222 / 0.025) 0.78rem 0.84rem
+    );
+}
+
+.video-abyss.is-video-modal-open .abyss-stage {
+  filter: brightness(0.62) blur(4px);
+}
+
+.video-abyss.is-video-modal-open .abyss-readout,
+.video-abyss.is-video-modal-open .artifact-hud {
+  opacity: 0.12;
+}
+
+.titanic-video-modal {
+  position: fixed;
+  z-index: 80;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: clamp(0.9rem, 3vw, 2rem);
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+  overflow: hidden;
+}
+
+.video-abyss.is-video-modal-open .titanic-video-modal {
+  opacity: 1;
+  pointer-events: auto;
+  visibility: visible;
+}
+
+.titanic-video-backdrop {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(
+      ellipse at 12% 36%,
+      rgb(48 122 126 / 0.34),
+      transparent 26rem
+    ),
+    radial-gradient(
+      ellipse at 88% 62%,
+      rgb(18 86 98 / 0.34),
+      transparent 28rem
+    ),
+    radial-gradient(
+      circle at 50% 92%,
+      rgb(202 138 36 / 0.1),
+      transparent 22rem
+    ),
+    linear-gradient(180deg, rgb(1 13 18 / 0.88), rgb(0 4 8 / 0.96));
+  backdrop-filter: blur(22px);
+}
+
+.titanic-video-backdrop::before,
+.titanic-video-backdrop::after {
   content: "";
   position: absolute;
   pointer-events: none;
-  opacity: 0;
-  z-index: 4;
-  inset: 0;
-  border-radius: inherit;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgb(240 223 194 / 0.12),
-    transparent
-  );
-  mix-blend-mode: screen;
-  transform: translateX(-115%);
+  inset: -12%;
 }
 
-.video-abyss.is-archive-open .analysis-capsule {
-  opacity: 1;
-  pointer-events: auto;
-  transform: translate3d(0, 0, 0) scale(1);
+.titanic-video-backdrop::before {
+  opacity: 0.36;
+  background:
+    linear-gradient(
+      112deg,
+      transparent 0 32%,
+      rgb(100 190 205 / 0.1) 38%,
+      transparent 52%
+    ),
+    linear-gradient(
+      78deg,
+      transparent 0 55%,
+      rgb(174 226 222 / 0.08) 60%,
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse at 8% 58%,
+      rgb(100 190 205 / 0.16),
+      transparent 18rem
+    ),
+    radial-gradient(
+      ellipse at 93% 42%,
+      rgb(174 226 222 / 0.12),
+      transparent 20rem
+    );
+  animation: archiveModalDrift 14s ease-in-out infinite;
+}
+
+.titanic-video-backdrop::after {
+  opacity: 0.18;
+  background-image:
+    radial-gradient(circle, rgb(210 235 226 / 0.34) 0 1px, transparent 1.8px),
+    radial-gradient(circle, rgb(108 214 220 / 0.14) 0 1px, transparent 2px);
+  background-size:
+    7rem 9rem,
+    12rem 15rem;
+  animation: abyssParticles 18s linear infinite;
+}
+
+.titanic-video-panel {
+  position: relative;
+  z-index: 2;
+  width: min(840px, calc(100vw - clamp(2rem, 9vw, 7rem)));
+  max-height: calc(100svh - clamp(2.5rem, 9vw, 5.5rem));
+  overflow: hidden;
+  border: 1px solid rgb(240 223 194 / 0.16);
+  border-radius: 0.55rem;
+  background:
+    linear-gradient(180deg, rgb(240 223 194 / 0.055), transparent 24%),
+    rgb(3 6 8 / 0.9);
+  padding: clamp(0.56rem, 1vw, 0.82rem);
   box-shadow:
-    0 2.5rem 7rem rgb(0 0 0 / 0.54),
+    0 3rem 9rem rgb(0 0 0 / 0.68),
+    inset 0 1px 0 rgb(255 255 255 / 0.08),
     0 0 0 1px rgb(202 138 36 / 0.08) inset;
+  backdrop-filter: blur(20px);
 }
 
-.video-abyss.is-opening .analysis-capsule {
+.titanic-video-panel::before,
+.titanic-video-panel::after {
+  content: "";
+  position: absolute;
   pointer-events: none;
 }
 
-.video-abyss.reveal-archive.is-opening .analysis-capsule::before {
-  opacity: 1;
-  animation: capsuleBeam 980ms cubic-bezier(0.19, 1, 0.22, 1) both;
+.titanic-video-panel::before {
+  inset: 0.42rem;
+  border: 1px solid rgb(202 138 36 / 0.16);
+  border-radius: 0.35rem;
 }
 
-.video-abyss.reveal-scan.is-opening .analysis-capsule::before {
-  opacity: 1;
+.titanic-video-panel::after {
+  top: 0;
+  left: 8%;
+  right: 8%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgb(202 138 36 / 0.72),
+    transparent
+  );
+}
+
+.titanic-video-panel h3 {
+  margin: 0 2.8rem 0.42rem 0.1rem;
+  color: var(--sand-l);
+  font-family: var(--font-sans);
+  font-size: clamp(0.92rem, 1.18vw, 1.12rem);
+  font-weight: 500;
+  letter-spacing: 0;
+}
+
+.titanic-video-meta {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-bottom: 0.38rem;
+  color: rgb(240 223 194 / 0.5);
+  font-family: var(--font-mono);
+  font-size: 0.48rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.titanic-video-meta span {
+  border: 1px solid rgb(100 190 205 / 0.18);
+  background: rgb(2 12 16 / 0.34);
+  padding: 0.34rem 0.48rem;
+}
+
+.titanic-video-close {
+  position: absolute;
+  z-index: 6;
+  top: 0.56rem;
+  right: 0.56rem;
+  display: grid;
+  place-items: center;
+  width: 2.15rem;
+  height: 2.15rem;
+  border: 1px solid rgb(240 223 194 / 0.18);
+  border-radius: 50%;
+  background: rgb(2 8 10 / 0.72);
+  color: var(--sand-l);
+}
+
+.titanic-video-close span {
+  position: absolute;
+  width: 0.86rem;
+  height: 1px;
+  background: currentColor;
+}
+
+.titanic-video-close span:first-child {
+  rotate: 45deg;
+}
+
+.titanic-video-close span:last-child {
+  rotate: -45deg;
+}
+
+.titanic-video-frame {
+  position: relative;
+  z-index: 2;
+  aspect-ratio: 16 / 9;
+  width: min(100%, 800px);
+  max-height: min(58svh, 472px);
+  margin-inline: auto;
+  overflow: hidden;
+  border: 1px solid rgb(240 223 194 / 0.1);
+  border-radius: 0.45rem;
   background:
+    radial-gradient(
+      circle at 50% 48%,
+      rgb(44 119 128 / 0.14),
+      transparent 18rem
+    ),
+    #020203;
+  box-shadow:
+    inset 0 0 0 1px rgb(0 0 0 / 0.36),
+    0 1.8rem 5rem rgb(0 0 0 / 0.42);
+}
+
+.titanic-video-frame iframe,
+.titanic-video-placeholder {
+  position: absolute;
+  inset: 0;
+}
+
+.titanic-video-frame iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.titanic-video-frame.is-playing iframe {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.titanic-video-placeholder {
+  display: grid;
+  place-items: center;
+  color: rgb(240 223 194 / 0.62);
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  background:
+    linear-gradient(180deg, rgb(5 4 3 / 0.12), rgb(5 4 3 / 0.62)),
     repeating-linear-gradient(
       0deg,
-      transparent 0 0.62rem,
-      rgb(174 226 222 / 0.18) 0.68rem 0.75rem
-    ),
-    linear-gradient(90deg, transparent, rgb(202 138 36 / 0.2), transparent);
-  animation: capsuleScan 900ms cubic-bezier(0.22, 1, 0.36, 1) both;
+      transparent 0 0.85rem,
+      rgb(174 226 222 / 0.05) 0.9rem 0.95rem
+    );
 }
 
-.video-abyss.reveal-vortex.is-opening .analysis-capsule::before {
-  inset: -20%;
-  opacity: 1;
-  background: radial-gradient(
-    circle at 50% 50%,
-    transparent 0 18%,
-    rgb(108 214 220 / 0.2) 22%,
-    transparent 44%
-  );
-  animation: capsuleVortex 900ms cubic-bezier(0.19, 1, 0.22, 1) both;
+.titanic-video-frame.is-playing .titanic-video-placeholder {
+  opacity: 0;
 }
 
-.capsule-topline {
-  position: relative;
+.titanic-video-play {
+  position: absolute;
   z-index: 5;
-  justify-content: space-between;
-  margin-bottom: 0.7rem;
-  padding: 0 0.1rem;
-  color: rgb(240 223 194 / 0.54);
-  font-size: 0.52rem;
-  letter-spacing: 0.14em;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  border: 0;
+  background:
+    radial-gradient(circle at 50% 48%, rgb(5 4 3 / 0.18), transparent 11rem),
+    transparent;
+}
+
+.titanic-video-play span {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 3.75rem;
+  height: 3.75rem;
+  border: 1px solid rgb(240 223 194 / 0.22);
+  border-radius: 50%;
+  background: rgb(240 223 194 / 0.9);
+  box-shadow: 0 1rem 3rem rgb(0 0 0 / 0.34);
+  transition:
+    transform 220ms ease,
+    background 220ms ease,
+    box-shadow 220ms ease,
+    opacity 180ms ease;
+}
+
+.titanic-video-play span::before {
+  content: "";
+  width: 0;
+  height: 0;
+  margin-left: 0.18rem;
+  border-block: 0.48rem solid transparent;
+  border-left: 0.72rem solid #050403;
+}
+
+.titanic-video-play:hover span {
+  transform: scale(1.06);
+  background: rgb(255 238 205 / 0.96);
+  box-shadow:
+    0 1rem 3rem rgb(0 0 0 / 0.38),
+    0 0 2rem rgb(202 138 36 / 0.2);
+}
+
+.titanic-video-play:disabled {
+  cursor: not-allowed;
+}
+
+.titanic-video-play:disabled span {
+  opacity: 0.28;
+  transform: none;
+}
+
+.titanic-video-frame.is-playing .titanic-video-play {
+  opacity: 0;
+  pointer-events: none;
 }
 
 #video::before {
@@ -1421,101 +1702,6 @@ body.hov #c-ring {
   rotate: 180deg;
 }
 
-.video-shell {
-  position: relative;
-  z-index: 3;
-  aspect-ratio: 16 / 9;
-  overflow: hidden;
-  border: 1px solid rgb(240 223 194 / 0.1);
-  border-radius: 0.45rem;
-  background: #020203;
-  box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.35);
-}
-
-.video-shell::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  pointer-events: none;
-  border: 1px solid rgb(202 138 36 / 0.1);
-  border-radius: inherit;
-}
-
-.video-shell iframe {
-  width: 100%;
-  height: 100%;
-  border: 0;
-  pointer-events: none;
-}
-
-.video-shell.is-playing iframe {
-  pointer-events: auto;
-}
-
-.video-play-overlay {
-  position: absolute;
-  z-index: 6;
-  inset: 0;
-  display: grid;
-  place-items: center;
-  border: 0;
-  background: transparent;
-  color: var(--void);
-  touch-action: pan-y;
-  cursor: pointer;
-}
-
-.video-play-overlay span {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.6rem;
-  border: 1px solid rgb(240 223 194 / 0.22);
-  border-radius: 999px;
-  padding: 0.78rem 1rem;
-  background: rgb(240 223 194 / 0.92);
-  color: #050403;
-  font-family: var(--font-mono);
-  font-size: 0.56rem;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  box-shadow:
-    0 1rem 3rem rgb(0 0 0 / 0.34),
-    0 0 0 0.5rem rgb(240 223 194 / 0.05);
-  transition:
-    opacity 180ms ease,
-    transform 180ms ease;
-}
-
-.video-play-overlay span::before {
-  content: "";
-  width: 0;
-  height: 0;
-  border-top: 7px solid transparent;
-  border-bottom: 7px solid transparent;
-  border-left: 11px solid var(--void);
-}
-
-.video-shell.is-playing .video-play-overlay span {
-  opacity: 0;
-  transform: scale(0.96);
-}
-
-.video-shell.is-playing .video-play-overlay {
-  pointer-events: none;
-  opacity: 0;
-}
-
-.video-hud {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 0.75rem;
-  border-top: 1px solid var(--border);
-  padding: 0.95rem 0.2rem 0.1rem;
-}
-
 #shorts {
   background:
     radial-gradient(
@@ -1562,6 +1748,11 @@ body.hov #c-ring {
   margin-top: 1.8rem;
 }
 
+.short-embed-card {
+  min-height: 36rem;
+  background: #050403;
+}
+
 .short-visual {
   position: absolute;
   inset: 0;
@@ -1600,6 +1791,143 @@ body.hov #c-ring {
     radial-gradient(circle, rgb(196 184 156 / 0.15), transparent 35%),
     linear-gradient(135deg, #1b1915, #09090a);
   color: var(--sand);
+}
+
+.short-video-shell {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  background: #050403;
+}
+
+.short-video-shell::after {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      180deg,
+      rgb(5 4 3 / 0.08),
+      rgb(5 4 3 / 0.12) 42%,
+      rgb(5 4 3 / 0.86)
+    ),
+    radial-gradient(circle at 50% 58%, transparent, rgb(5 4 3 / 0.38));
+}
+
+.short-video-shell iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  pointer-events: none;
+}
+
+.short-video-shell.is-playing iframe {
+  pointer-events: auto;
+}
+
+.short-video-overlay {
+  position: absolute;
+  z-index: 4;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  border: 0;
+  background:
+    radial-gradient(circle at 50% 48%, rgb(5 4 3 / 0.18), transparent 11rem),
+    transparent;
+}
+
+.short-video-overlay span {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 3.75rem;
+  height: 3.75rem;
+  border: 1px solid rgb(240 223 194 / 0.22);
+  border-radius: 50%;
+  background: rgb(240 223 194 / 0.9);
+  color: #050403;
+  box-shadow: 0 1rem 3rem rgb(0 0 0 / 0.34);
+  transition:
+    transform 220ms ease,
+    background 220ms ease,
+    box-shadow 220ms ease;
+}
+
+.short-video-overlay span::before {
+  content: "";
+  width: 0;
+  height: 0;
+  margin-left: 0.18rem;
+  border-block: 0.48rem solid transparent;
+  border-left: 0.72rem solid #050403;
+}
+
+.short-video-overlay:hover span {
+  transform: scale(1.06);
+  background: rgb(255 238 205 / 0.96);
+  box-shadow:
+    0 1rem 3rem rgb(0 0 0 / 0.38),
+    0 0 2rem rgb(202 138 36 / 0.2);
+}
+
+.latest-video-overlay,
+.short-video-overlay {
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(circle at 50% 48%, rgb(5 4 3 / 0.18), transparent 11rem),
+    transparent;
+}
+
+.latest-video-overlay span,
+.short-video-overlay span {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 3.75rem;
+  height: 3.75rem;
+  gap: 0;
+  border: 1px solid rgb(240 223 194 / 0.22);
+  border-radius: 50%;
+  padding: 0;
+  background: rgb(240 223 194 / 0.9);
+  color: #050403;
+  font-size: 0;
+  letter-spacing: 0;
+  box-shadow: 0 1rem 3rem rgb(0 0 0 / 0.34);
+  transition:
+    transform 220ms ease,
+    background 220ms ease,
+    box-shadow 220ms ease,
+    opacity 180ms ease;
+}
+
+.latest-video-overlay span::before,
+.short-video-overlay span::before {
+  content: "";
+  width: 0;
+  height: 0;
+  margin-left: 0.18rem;
+  border-block: 0.48rem solid transparent;
+  border-left: 0.72rem solid #050403;
+}
+
+.latest-video-overlay:hover span,
+.short-video-overlay:hover span {
+  transform: scale(1.06);
+  background: rgb(255 238 205 / 0.96);
+  box-shadow:
+    0 1rem 3rem rgb(0 0 0 / 0.38),
+    0 0 2rem rgb(202 138 36 / 0.2);
+}
+
+.short-video-shell.is-playing .short-video-overlay {
+  opacity: 0;
+  pointer-events: none;
 }
 
 .short-card > span,
@@ -1829,9 +2157,9 @@ body.hov #c-ring {
   position: relative;
   display: grid;
   place-items: center;
-  width: min(100%, 80rem);
-  height: clamp(23.5rem, 37vw, 31rem);
-  margin: 0.2rem auto 1rem;
+  width: min(100%, 86rem);
+  height: clamp(29.5rem, 45vw, 39rem);
+  margin: 0.2rem auto 5.8rem;
   overflow: visible;
   perspective: 1200px;
   perspective-origin: 50% 48%;
@@ -1864,11 +2192,6 @@ body.hov #c-ring {
   transform-style: preserve-3d;
   animation: teamOrbit 28s linear infinite;
   will-change: transform;
-}
-
-.team-ring.is-paused,
-.team-ring:focus-within {
-  animation-play-state: paused;
 }
 
 .team-member {
@@ -1926,18 +2249,6 @@ body.hov #c-ring {
 
 .team-member:nth-child(7) {
   --team-angle: 308.568deg;
-}
-
-.team-member:hover,
-.team-member:focus-within {
-  --team-pop: 1.2rem;
-  --team-scale: 1.045;
-  border-color: rgb(202 138 36 / 0.72);
-  filter: brightness(1.12);
-  box-shadow:
-    inset 0 1px 0 rgb(255 255 255 / 0.12),
-    0 1.6rem 4rem rgb(0 0 0 / 0.48),
-    0 0 2rem rgb(202 138 36 / 0.16);
 }
 
 .team-avatar {
@@ -2164,80 +2475,14 @@ body.hov #c-ring {
   }
 }
 
-@keyframes archiveLift {
-  0% {
-    opacity: 0;
-    translate: 0 18%;
-    scale: 0.92 1;
-  }
-  36% {
-    opacity: 1;
-  }
+@keyframes archiveModalDrift {
+  0%,
   100% {
-    opacity: 0;
-    translate: 0 -18%;
-    scale: 1.08 1;
+    transform: translate3d(-1.5%, -1%, 0) rotate(-1deg);
   }
-}
 
-@keyframes scanReveal {
-  0% {
-    opacity: 0;
-    clip-path: inset(0 0 100% 0);
-  }
-  34% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-    clip-path: inset(100% 0 0 0);
-  }
-}
-
-@keyframes vortexOpen {
-  0% {
-    opacity: 0;
-    scale: 0.46;
-    rotate: -12deg;
-    filter: blur(9px);
-  }
-  42% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-    scale: 1.7;
-    rotate: 10deg;
-    filter: blur(0);
-  }
-}
-
-@keyframes capsuleBeam {
-  0% {
-    transform: translateX(-115%);
-  }
-  100% {
-    transform: translateX(115%);
-  }
-}
-
-@keyframes capsuleScan {
-  0% {
-    transform: translateY(-115%);
-  }
-  100% {
-    transform: translateY(115%);
-  }
-}
-
-@keyframes capsuleVortex {
-  0% {
-    scale: 0.4;
-    rotate: -18deg;
-  }
-  100% {
-    scale: 1.55;
-    rotate: 16deg;
+  50% {
+    transform: translate3d(1.2%, 1.4%, 0) rotate(1deg);
   }
 }
 
@@ -2315,9 +2560,14 @@ body.hov #c-ring {
 
   .split-layout,
   .concept-grid,
+  .latest-layout,
   .shorts-grid,
   .artifact-item {
     grid-template-columns: 1fr;
+  }
+
+  .latest-frame {
+    margin-top: 1.5rem;
   }
 
   .section-head {
@@ -2327,12 +2577,6 @@ body.hov #c-ring {
   .video-abyss {
     min-height: auto;
     padding-block: 5.5rem 6.5rem;
-  }
-
-  .video-abyss.is-opening::before,
-  .video-abyss.is-opening .analysis-capsule::before {
-    animation: none;
-    opacity: 0;
   }
 
   .abyss-head {
@@ -2362,33 +2606,39 @@ body.hov #c-ring {
     justify-content: flex-start;
   }
 
-  .artifact-trigger {
-    top: 12rem;
-    width: min(100%, 22rem);
-    justify-content: center;
-  }
-
   .artifact-hud {
     margin-top: 18rem;
     opacity: 1;
     transform: none;
   }
 
-  .analysis-capsule {
-    width: 100%;
-    margin-top: 1.5rem;
-    opacity: 1;
-    pointer-events: auto;
-    transform: none;
-    border-radius: 0.5rem;
+  .artifact-video-cta {
+    display: inline-flex;
   }
 
-  .capsule-topline {
+  .titanic-video-modal {
+    padding: 0.75rem;
+  }
+
+  .titanic-video-panel {
+    width: min(34rem, calc(100vw - 2rem));
+    max-height: calc(100svh - 2rem);
+    padding: 0.6rem;
+    border-radius: 0.55rem;
+  }
+
+  .titanic-video-meta {
     gap: 0.45rem;
+    padding-right: 3rem;
   }
 
-  .video-shell {
-    border-radius: 0.4rem;
+  .titanic-video-panel h3 {
+    margin-right: 3rem;
+  }
+
+  .titanic-video-frame {
+    width: min(100%, 31rem);
+    max-height: 52svh;
   }
 
   .head-copy {
@@ -2416,6 +2666,7 @@ body.hov #c-ring {
   .team-orbit {
     display: block;
     height: auto;
+    margin-bottom: 2rem;
     overflow: visible;
     perspective: none;
   }
@@ -2504,10 +2755,6 @@ body.hov #c-ring {
     font-size: clamp(3rem, 15vw, 4.4rem);
   }
 
-  .video-hud {
-    display: none;
-  }
-
   #cta .corner {
     display: none;
   }
@@ -2518,13 +2765,6 @@ body.hov #c-ring {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .video-abyss.is-opening::before,
-  .video-abyss.is-opening .analysis-capsule::before {
-    animation: none;
-    opacity: 0;
-  }
-
-  .analysis-capsule,
   .abyss-stage {
     filter: none !important;
     transform: none !important;

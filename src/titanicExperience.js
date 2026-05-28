@@ -1,7 +1,7 @@
 const MODEL_URL = `${import.meta.env.BASE_URL}models/titanic.glb`;
 const MAX_RENDER_DPR = 1;
 const TARGET_FRAME_MS = 1000 / 28;
-const REVEAL_MODES = new Set(["archive", "scan", "vortex"]);
+const VIDEO_ID_PLACEHOLDER = "REPLACE_WITH_VIDEO_ID";
 
 const isSmallViewport = () => window.matchMedia("(max-width: 1024px)").matches;
 
@@ -20,113 +20,124 @@ const canUseWebGL = () => {
   }
 };
 
-const getRevealMode = () => {
-  const mode = new URLSearchParams(window.location.search).get("reveal") ?? "archive";
-  return REVEAL_MODES.has(mode) ? mode : "archive";
-};
-
 export async function initTitanicExperience({ section, gsap, ScrollTrigger, reducedMotion = false }) {
   if (!section) return null;
 
   const canvas = section.querySelector("[data-titanic-canvas]");
-  const trigger = section.querySelector("[data-artifact-trigger]");
-  const capsule = section.querySelector("[data-analysis-capsule]");
-  const shell = capsule?.querySelector(".video-shell");
-  const readoutItems = section.querySelectorAll(".abyss-readout span");
-  const hudItems = section.querySelectorAll(".artifact-hud span");
-  const stage = section.querySelector("[data-abyss-stage]");
-  const revealMode = getRevealMode();
-  const simplifiedReveal = reducedMotion || isSmallViewport() || isConstrainedDevice();
-  let opening = false;
-  let openTimeline = null;
+  const videoId = section.dataset.titanicVideoId?.trim() ?? "";
+  const hasVideoId = Boolean(videoId && videoId !== VIDEO_ID_PLACEHOLDER);
+  const videoModal = section.querySelector("[data-titanic-video-modal]");
+  const videoPanel = section.querySelector("[data-titanic-video-panel]");
+  const videoFrame = section.querySelector("[data-titanic-video-frame]");
+  const videoIframe = section.querySelector("[data-titanic-video-embed]");
+  const videoPlay = section.querySelector("[data-titanic-video-play]");
+  const videoPlaceholder = section.querySelector("[data-titanic-video-placeholder]");
+  const videoTriggers = section.querySelectorAll("[data-titanic-video-trigger]");
+  const videoClosers = section.querySelectorAll("[data-titanic-video-close]");
+  const videoState = section.querySelector("[data-titanic-video-state]");
+  let modalTimeline = null;
 
-  section.classList.add(`reveal-${revealMode}`);
+  section.classList.toggle("has-titanic-video", hasVideoId);
+  section.classList.toggle("is-video-placeholder", !hasVideoId);
+  if (videoState && !hasVideoId) {
+    videoState.textContent = "ID VIDEO A RENSEIGNER";
+  }
+  if (videoPlaceholder) {
+    videoPlaceholder.textContent = hasVideoId ? "Lancer l'archive video" : "ID video a renseigner";
+  }
+  if (videoPlay) {
+    videoPlay.disabled = !hasVideoId;
+  }
 
-  const finishOpening = () => {
-    opening = false;
-    section.classList.remove("is-opening");
+  const getVideoSrc = (autoplay = false) => {
+    const params = new URLSearchParams({
+      rel: "0",
+      modestbranding: "1",
+    });
+    if (autoplay) params.set("autoplay", "1");
+    return `https://www.youtube.com/embed/${videoId}?${params.toString()}`;
   };
 
-  const openArchive = () => {
-    if (opening || section.classList.contains("is-archive-open")) return;
+  const resetVideo = () => {
+    if (!videoIframe || !videoFrame) return;
 
-    opening = true;
-    section.classList.add("is-archive-open");
-    section.classList.add("is-opening");
-    capsule?.scrollIntoView({ behavior: simplifiedReveal ? "auto" : "smooth", block: "center" });
+    videoFrame.classList.remove("is-playing");
+    videoIframe.removeAttribute("src");
+  };
 
-    if (!gsap || simplifiedReveal || !capsule) {
-      finishOpening();
+  const openVideo = () => {
+    if (!videoModal || !videoPanel || section.classList.contains("is-video-modal-open")) return;
+
+    resetVideo();
+    section.classList.add("is-video-modal-open");
+    videoModal.setAttribute("aria-hidden", "false");
+    document.body.classList.add("titanic-video-open");
+    document.documentElement.classList.add("titanic-video-open");
+
+    if (!gsap || reducedMotion) {
+      videoPanel.focus?.({ preventScroll: true });
       return;
     }
 
-    openTimeline?.kill();
-    const animatedTargets = [capsule, shell, trigger, stage, ...readoutItems, ...hudItems].filter(Boolean);
-    gsap.killTweensOf(animatedTargets);
-
-    const commonEase = "power3.out";
-    const capsuleIn = {
-      archive: {
-        from: { y: 150, scale: 0.92, rotateX: 0, opacity: 0, filter: "blur(14px)", clipPath: "inset(34% 8% 0% 8%)" },
-        to: { y: 0, scale: 1, rotateX: 0, opacity: 1, filter: "blur(0px)", clipPath: "inset(0% 0% 0% 0%)", duration: 1.1, ease: "expo.out" },
-      },
-      scan: {
-        from: { y: 34, scale: 0.98, rotateX: 0, opacity: 0, filter: "blur(8px)", clipPath: "inset(0% 100% 0% 0%)" },
-        to: { y: 0, scale: 1, rotateX: 0, opacity: 1, filter: "blur(0px)", clipPath: "inset(0% 0% 0% 0%)", duration: 1, ease: commonEase },
-      },
-      vortex: {
-        from: { y: 70, scale: 0.9, rotateX: 0, opacity: 0, filter: "blur(10px)", clipPath: "circle(0% at 50% 50%)" },
-        to: { y: 0, scale: 1, rotateX: 0, opacity: 1, filter: "blur(0px)", clipPath: "circle(142% at 50% 50%)", duration: 1, ease: "expo.out" },
-      },
-    }[revealMode];
-
-    openTimeline = gsap.timeline({
-      defaults: { overwrite: true },
-      onComplete: finishOpening,
-    });
-
-    openTimeline
-      .to(trigger, { opacity: 0, y: -18, scale: 0.96, duration: 0.26, ease: "power2.in" }, 0)
-      .to(stage, {
-        scale: revealMode === "vortex" ? 1.045 : 1.015,
-        filter: revealMode === "scan" ? "brightness(1.12) contrast(1.08)" : "brightness(0.94)",
-        duration: 0.46,
-        yoyo: true,
-        repeat: 1,
-        ease: "sine.inOut",
-      }, 0)
-      .fromTo(readoutItems, { opacity: 0.42, y: 10 }, {
-        opacity: 1,
-        y: 0,
-        duration: 0.38,
-        stagger: 0.055,
-        ease: "power2.out",
-      }, 0.08)
-      .fromTo(hudItems, { opacity: 0, y: 12 }, {
-        opacity: 1,
-        y: 0,
-        duration: 0.4,
-        stagger: 0.065,
-        ease: commonEase,
-      }, 0.18)
-      .fromTo(capsule, capsuleIn.from, capsuleIn.to, revealMode === "archive" ? 0.34 : 0.28)
-      .fromTo(shell, { opacity: 0, scale: revealMode === "vortex" ? 0.94 : 0.985 }, {
-        opacity: 1,
-        scale: 1,
-        duration: 0.62,
-        ease: commonEase,
-      }, revealMode === "archive" ? 0.82 : 0.64);
+    modalTimeline?.kill();
+    gsap.killTweensOf([videoModal, videoPanel]);
+    modalTimeline = gsap.timeline({ defaults: { overwrite: true } });
+    modalTimeline
+      .set(videoModal, { autoAlpha: 1, pointerEvents: "auto" }, 0)
+      .fromTo(
+        videoPanel,
+        { opacity: 0, y: 28, scale: 0.975, filter: "blur(10px)" },
+        { opacity: 1, y: 0, scale: 1, filter: "blur(0px)", duration: 0.62, ease: "expo.out" },
+        0.04,
+      );
   };
 
-  trigger?.addEventListener("click", openArchive);
+  const closeVideo = () => {
+    if (!videoModal || !section.classList.contains("is-video-modal-open")) return;
+
+    modalTimeline?.kill();
+    section.classList.remove("is-video-modal-open");
+    videoModal.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("titanic-video-open");
+    document.documentElement.classList.remove("titanic-video-open");
+    resetVideo();
+    if (gsap) {
+      gsap.set([videoModal, videoPanel].filter(Boolean), { clearProps: "all" });
+    }
+  };
+
+  const playVideo = () => {
+    if (!hasVideoId || !videoIframe || !videoFrame) return;
+
+    videoIframe.src = getVideoSrc(true);
+    videoFrame.classList.add("is-playing");
+  };
+
+  const onKeydown = (event) => {
+    if (event.key === "Escape") {
+      closeVideo();
+    }
+  };
+
+  videoTriggers.forEach((trigger) => trigger.addEventListener("click", openVideo));
+  videoClosers.forEach((closer) => closer.addEventListener("click", closeVideo));
+  videoPlay?.addEventListener("click", playVideo);
+  document.addEventListener("keydown", onKeydown);
+
+  const destroyVideoControls = () => {
+    modalTimeline?.kill();
+    videoTriggers.forEach((trigger) => trigger.removeEventListener("click", openVideo));
+    videoClosers.forEach((closer) => closer.removeEventListener("click", closeVideo));
+    videoPlay?.removeEventListener("click", playVideo);
+    document.removeEventListener("keydown", onKeydown);
+    document.body.classList.remove("titanic-video-open");
+    document.documentElement.classList.remove("titanic-video-open");
+  };
 
   if (!canvas || reducedMotion || isSmallViewport() || isConstrainedDevice() || !canUseWebGL()) {
     section.classList.add("is-fallback");
     return {
-      destroy: () => {
-        openTimeline?.kill();
-        trigger?.removeEventListener("click", openArchive);
-      },
+      destroy: destroyVideoControls,
     };
   }
 
@@ -141,10 +152,7 @@ export async function initTitanicExperience({ section, gsap, ScrollTrigger, redu
   } catch {
     section.classList.add("is-fallback");
     return {
-      destroy: () => {
-        openTimeline?.kill();
-        trigger?.removeEventListener("click", openArchive);
-      },
+      destroy: destroyVideoControls,
     };
   }
 
@@ -225,7 +233,7 @@ export async function initTitanicExperience({ section, gsap, ScrollTrigger, redu
     if (abyssMaterials?.mesh) {
       abyssMaterials.mesh.color.setHex(value ? 0x769391 : 0x3d5c5b);
       abyssMaterials.mesh.emissive.setHex(value ? 0x4a310c : 0x020809);
-      abyssMaterials.mesh.emissiveIntensity = value ? 0.32 : 0.12;
+      abyssMaterials.mesh.emissiveIntensity = value ? 0.22 : 0.12;
     }
 
     if (abyssMaterials?.line) {
@@ -242,7 +250,7 @@ export async function initTitanicExperience({ section, gsap, ScrollTrigger, redu
     target.y = localY - 0.5;
     section.style.setProperty("--abyss-x", `${localX * 100}%`);
     section.style.setProperty("--abyss-y", `${localY * 100}%`);
-    const inArtifactZone = localY > 0.42 && localY < 0.96 && Math.abs(localX - 0.5) < 0.48;
+    const inArtifactZone = localY > 0.46 && localY < 0.78 && Math.abs(localX - 0.5) < 0.38;
     setHover(inArtifactZone);
   };
 
@@ -257,8 +265,8 @@ export async function initTitanicExperience({ section, gsap, ScrollTrigger, redu
   };
 
   const onClick = (event) => {
-    if (event.target.closest("button, a, iframe")) return;
-    if (hovered) openArchive();
+    if (event.target.closest("button, a, iframe, [data-titanic-video-modal]")) return;
+    if (hovered) openVideo();
   };
 
   section.addEventListener("pointermove", onPointerMove, { passive: true });
@@ -353,7 +361,7 @@ export async function initTitanicExperience({ section, gsap, ScrollTrigger, redu
       model.scale.setScalar(modelBaseScale * hoverScale);
     }
 
-    terracotta.intensity = hovered ? 6 : 3.8;
+    terracotta.intensity = hovered ? 4.8 : 3.8;
     terracotta.position.x = 4 + current.x * 3;
     terracotta.position.y = -1.5 - current.y * 2;
 
@@ -370,8 +378,7 @@ export async function initTitanicExperience({ section, gsap, ScrollTrigger, redu
       cancelAnimationFrame(frameId);
       scrollTween?.scrollTrigger?.kill();
       scrollTween?.kill();
-      openTimeline?.kill();
-      trigger?.removeEventListener("click", openArchive);
+      destroyVideoControls();
       section.removeEventListener("pointermove", onPointerMove);
       section.removeEventListener("pointerleave", onPointerLeave);
       section.removeEventListener("click", onClick);
