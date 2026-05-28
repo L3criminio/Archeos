@@ -1,7 +1,15 @@
 import Lenis from "lenis";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { createIcons, Compass, Layers3, Play, ScanLine, SquarePlay, Waves } from "lucide";
+import {
+  Compass,
+  Layers3,
+  Play,
+  ScanLine,
+  SquarePlay,
+  Waves,
+  createIcons,
+} from "lucide";
 import "./styles.css";
 
 createIcons({
@@ -125,6 +133,29 @@ const setupVideoScrollLayer = () => {
 };
 
 setupVideoScrollLayer();
+
+const setupGalleryCarousel = () => {
+  const carousel = document.querySelector("[data-gallery-carousel]");
+  if (!carousel) return;
+
+  const slides = Array.from(carousel.querySelectorAll("[data-gallery-slide]"));
+
+  slides.forEach((slide) => {
+    const image = slide.querySelector("img");
+    if (!image) return;
+
+    const markMissing = () => {
+      slide.classList.add("is-missing");
+      image.hidden = true;
+      image.setAttribute("aria-hidden", "true");
+    };
+
+    image.addEventListener("error", markMissing, { once: true });
+    if (image.complete && image.naturalWidth === 0) markMissing();
+  });
+};
+
+setupGalleryCarousel();
 
 const setupTitanicExperienceLoader = () => {
   const section = document.querySelector("[data-titanic-experience]");

@@ -711,6 +711,123 @@ body.hov #c-ring {
   color: var(--amber);
 }
 
+#gallery {
+  background:
+    radial-gradient(
+      circle at 18% 12%,
+      rgb(202 138 36 / 0.18),
+      transparent 30rem
+    ),
+    radial-gradient(
+      circle at 82% 70%,
+      rgb(124 106 44 / 0.1),
+      transparent 34rem
+    ),
+    linear-gradient(180deg, #050403, #0b0705 52%, #070504);
+}
+
+.gallery-gridline {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.34;
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgb(202 138 36 / 0.12),
+      transparent
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent 0 5.4rem,
+      rgb(202 138 36 / 0.045) 5.45rem 5.5rem
+    ),
+    repeating-linear-gradient(
+      0deg,
+      transparent 0 4.2rem,
+      rgb(196 184 156 / 0.035) 4.25rem 4.3rem
+    );
+  mask-image: linear-gradient(180deg, transparent, #000 22%, #000 78%, transparent);
+}
+
+.gallery-head {
+  align-items: center;
+}
+
+.gallery-shell {
+  overflow: hidden;
+  position: relative;
+  width: 100vw;
+  max-width: 100vw;
+  margin-left: calc(50% - 50vw);
+}
+
+.gallery-viewport {
+  --gallery-gap: clamp(1rem, 2vw, 1.5rem);
+  position: relative;
+  height: clamp(26rem, 54vw, 38rem);
+  overflow: hidden;
+}
+
+.gallery-track {
+  display: flex;
+  width: max-content;
+  height: 100%;
+  gap: var(--gallery-gap);
+  animation: galleryMarquee 34s linear infinite;
+  will-change: transform;
+}
+
+.gallery-shell:hover .gallery-track {
+  animation-play-state: paused;
+}
+
+.gallery-slide {
+  position: relative;
+  flex: 0 0 clamp(24rem, 43vw, 48rem);
+  height: 100%;
+  overflow: hidden;
+  background: #040303;
+}
+
+.gallery-slide img,
+.gallery-fallback {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.gallery-slide img {
+  object-fit: cover;
+  object-position: center;
+  filter: none;
+}
+
+.gallery-fallback {
+  z-index: 1;
+  opacity: 0;
+  background:
+    radial-gradient(circle at 50% 46%, rgb(202 138 36 / 0.24), transparent 18rem),
+    linear-gradient(135deg, #1b110c, #070504 72%);
+}
+
+.gallery-slide.is-missing .gallery-fallback {
+  opacity: 1;
+}
+
+@keyframes galleryMarquee {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+
+  100% {
+    transform: translate3d(calc(-50% - (var(--gallery-gap) / 2)), 0, 0);
+  }
+}
+
 .concept-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -2008,6 +2125,10 @@ body.hov #c-ring {
     cursor: pointer;
   }
 
+  button {
+    cursor: pointer;
+  }
+
   #c-dot,
   #c-ring,
   #c-cross {
@@ -2154,6 +2275,15 @@ body.hov #c-ring {
     margin-top: 1.5rem;
   }
 
+  .gallery-viewport {
+    --gallery-gap: 0.85rem;
+    height: clamp(25rem, 94vw, 34rem);
+  }
+
+  .gallery-slide {
+    flex-basis: min(86vw, 31rem);
+  }
+
   .ccard,
   .ccard.wide {
     min-height: 14rem;
@@ -2223,6 +2353,14 @@ body.hov #c-ring {
     display: none;
   }
 
+  .gallery-viewport {
+    height: 25rem;
+  }
+
+  .gallery-slide {
+    flex-basis: 86vw;
+  }
+
   #cta .corner {
     display: none;
   }
@@ -2236,8 +2374,13 @@ body.hov #c-ring {
   }
 
   .analysis-capsule,
-  .abyss-stage {
+  .abyss-stage,
+  .gallery-track,
+  .gallery-slide,
+  .gallery-slide img {
+    animation: none !important;
     filter: none !important;
+    transition: none !important;
     transform: none !important;
   }
 }
