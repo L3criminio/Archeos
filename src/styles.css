@@ -754,12 +754,20 @@ body.hov #c-ring {
 
 .stitle {
   margin: 0;
+  padding-right: 0.08em;
+  padding-bottom: 0.06em;
   color: var(--sand-l);
   font-family: var(--font-sans);
   font-size: clamp(3.4rem, 7vw, 8rem);
   font-weight: 700;
   line-height: 0.9;
   letter-spacing: 0;
+  overflow: visible;
+}
+
+.stitle em {
+  display: inline-block;
+  padding-right: 0.04em;
 }
 
 .mono-copy,

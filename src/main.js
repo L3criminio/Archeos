@@ -389,7 +389,9 @@ const showStaticContent = () => {
 };
 
 const setupDesktopMotion = (gsap, ScrollTrigger) => {
-  gsap.set(".rv", { opacity: 0, y: 44, clipPath: "inset(12% 0 0 0)" });
+  const revealClip = "inset(-10% -0.18em -14% -0.04em)";
+
+  gsap.set(".rv", { opacity: 0, y: 44, clipPath: "inset(12% -0.18em -14% -0.04em)" });
   gsap.set(".rv-sc", { opacity: 0, y: 52, scale: 0.96 });
   setupDepthParallax(gsap);
   setupInteractiveTilt(gsap);
@@ -399,9 +401,9 @@ const setupDesktopMotion = (gsap, ScrollTrigger) => {
     .timeline({ defaults: { ease: "power4.out" } })
     .from(".brand, .nav-lnk, .nav-cta", { opacity: 0, y: -16, duration: 0.75, stagger: 0.04 })
     .from("#hero-grid", { opacity: 0, scale: 1.08, duration: 1.2 }, "-=.45")
-    .from(".clip-line", { clipPath: "inset(100% 0 0 0)", y: 42, duration: 1.1 }, "-=.65")
+    .from(".clip-line", { clipPath: "inset(100% -0.18em -14% -0.04em)", y: 42, duration: 1.1 }, "-=.65")
     .from(".hero-subline", { opacity: 0, y: 26, duration: 0.85 }, "-=.5")
-    .to(".hero .rv", { opacity: 1, y: 0, clipPath: "inset(0% 0 0 0)", duration: 0.9, stagger: 0.08 }, "-=.55");
+    .to(".hero .rv", { opacity: 1, y: 0, clipPath: revealClip, duration: 0.9, stagger: 0.08 }, "-=.55");
 
   const hero = document.getElementById("hero");
   const mouseLayer = document.getElementById("hero-mouse-layer");
@@ -444,7 +446,7 @@ const setupDesktopMotion = (gsap, ScrollTrigger) => {
     gsap.to(el, {
       opacity: 1,
       y: 0,
-      clipPath: "inset(0% 0 0 0)",
+      clipPath: revealClip,
       duration: 1,
       delay,
       ease: "power3.out",
@@ -473,7 +475,7 @@ const setupDesktopMotion = (gsap, ScrollTrigger) => {
 
   document.querySelectorAll(".stitle").forEach((title) => {
     gsap.from(title, {
-      clipPath: "inset(100% 0 0 0)",
+      clipPath: "inset(100% -0.18em -14% -0.04em)",
       y: 26,
       duration: 1.1,
       ease: "power4.out",
