@@ -1,7 +1,7 @@
 {
   "name": "Archeos",
   "short_name": "Archeos",
-  "description": "Landing page immersive pour la chaîne YouTube Archeos.",
+  "description": "Chaîne YouTube étudiante sur l'archéologie, la 3D et les technologies de reconstruction.",
   "start_url": ".",
   "scope": ".",
   "display": "standalone",

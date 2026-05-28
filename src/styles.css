@@ -238,7 +238,10 @@ em {
 
 body.cursor-off #c-dot,
 body.cursor-off #c-ring,
-body.cursor-off #c-cross {
+body.cursor-off #c-cross,
+body.titanic-video-open #c-dot,
+body.titanic-video-open #c-ring,
+body.titanic-video-open #c-cross {
   opacity: 0;
 }
 
@@ -246,6 +249,7 @@ html.titanic-video-open,
 body.titanic-video-open {
   overflow: hidden;
   scrollbar-width: none;
+  cursor: auto;
 }
 
 html.titanic-video-open::-webkit-scrollbar,
@@ -387,6 +391,14 @@ body.hov #c-ring {
 
 .nav-cta {
   justify-self: end;
+}
+
+.nav-cta svg {
+  flex: 0 0 auto;
+}
+
+.nav-cta-label {
+  display: inline-block;
 }
 
 .btn-p,
@@ -1169,6 +1181,21 @@ body.hov #c-ring {
   pointer-events: none;
 }
 
+.video-preview-img {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.74;
+  filter: saturate(0.76) contrast(1.08) brightness(0.72);
+  transition:
+    opacity 260ms ease,
+    filter 260ms ease,
+    transform 500ms ease;
+}
+
 #video {
   background:
     radial-gradient(
@@ -1490,9 +1517,49 @@ body.hov #c-ring {
   backdrop-filter: blur(14px);
 }
 
+.video-abyss.is-artifact-hover .artifact-video-cta,
 .video-abyss.is-fallback .artifact-video-cta,
 .video-abyss.is-video-placeholder .artifact-video-cta {
   display: inline-flex;
+}
+
+.titanic-direct-video {
+  display: none;
+}
+
+.titanic-direct-copy {
+  position: relative;
+  z-index: 2;
+  max-width: 34rem;
+}
+
+.titanic-direct-copy span {
+  color: var(--terracotta-soft);
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.titanic-direct-copy h3 {
+  margin-top: 0.7rem;
+  color: var(--sand-l);
+  font-family: var(--font-sans);
+  font-size: clamp(1.8rem, 8vw, 3rem);
+  font-weight: 500;
+  line-height: 0.95;
+  letter-spacing: 0;
+}
+
+.titanic-direct-copy p {
+  margin-top: 0.8rem;
+  color: rgb(240 223 194 / 0.68);
+  font-size: 0.95rem;
+}
+
+.titanic-inline-frame {
+  width: 100%;
 }
 
 .video-abyss.is-artifact-hover::before {
@@ -1523,6 +1590,8 @@ body.hov #c-ring {
   position: fixed;
   z-index: 80;
   inset: 0;
+  width: 100vw;
+  min-height: 100dvh;
   display: grid;
   place-items: center;
   padding: clamp(0.9rem, 3vw, 2rem);
@@ -1530,21 +1599,37 @@ body.hov #c-ring {
   pointer-events: none;
   visibility: hidden;
   overflow: hidden;
+  isolation: isolate;
+  cursor: auto;
+}
+
+.titanic-video-modal *,
+.titanic-video-modal *::before,
+.titanic-video-modal *::after {
+  cursor: auto;
+}
+
+.titanic-video-modal button,
+.titanic-video-modal [role="button"] {
+  cursor: pointer;
 }
 
 .titanic-video-modal[hidden] {
   display: none;
 }
 
-.video-abyss.is-video-modal-open .titanic-video-modal {
+.video-abyss.is-video-modal-open .titanic-video-modal,
+body.titanic-video-open .titanic-video-modal {
   opacity: 1;
   pointer-events: auto;
   visibility: visible;
 }
 
 .titanic-video-backdrop {
-  position: absolute;
+  position: fixed;
   inset: 0;
+  width: 100vw;
+  min-height: 100dvh;
   background:
     radial-gradient(
       ellipse at 12% 36%,
@@ -1627,8 +1712,18 @@ body.hov #c-ring {
   box-shadow:
     0 3rem 9rem rgb(0 0 0 / 0.68),
     inset 0 1px 0 rgb(255 255 255 / 0.08),
-    0 0 0 1px rgb(202 138 36 / 0.08) inset;
+    0 0 0 1px rgb(100 190 205 / 0.06) inset;
   backdrop-filter: blur(20px);
+}
+
+.titanic-video-panel:focus,
+.titanic-video-panel:focus-visible {
+  outline: 0;
+}
+
+.titanic-video-modal :where(button, iframe):focus-visible {
+  outline: 2px solid rgb(100 190 205 / 0.72);
+  outline-offset: 4px;
 }
 
 .titanic-video-panel::before,
@@ -1640,7 +1735,7 @@ body.hov #c-ring {
 
 .titanic-video-panel::before {
   inset: 0.42rem;
-  border: 1px solid rgb(202 138 36 / 0.16);
+  border: 1px solid rgb(100 190 205 / 0.12);
   border-radius: 0.35rem;
 }
 
@@ -1652,7 +1747,7 @@ body.hov #c-ring {
   background: linear-gradient(
     90deg,
     transparent,
-    rgb(202 138 36 / 0.72),
+    rgb(100 190 205 / 0.34),
     transparent
   );
 }
@@ -1745,6 +1840,8 @@ body.hov #c-ring {
 }
 
 .titanic-video-frame iframe {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   border: 0;
@@ -1772,6 +1869,15 @@ body.hov #c-ring {
       transparent 0 0.85rem,
       rgb(174 226 222 / 0.05) 0.9rem 0.95rem
     );
+}
+
+.titanic-video-placeholder span {
+  position: relative;
+  z-index: 2;
+  border: 1px solid rgb(240 223 194 / 0.18);
+  background: rgb(2 8 10 / 0.58);
+  padding: 0.55rem 0.72rem;
+  backdrop-filter: blur(12px);
 }
 
 .titanic-video-frame.is-playing .titanic-video-placeholder {
@@ -1821,7 +1927,7 @@ body.hov #c-ring {
   background: rgb(255 238 205 / 0.96);
   box-shadow:
     0 1rem 3rem rgb(0 0 0 / 0.38),
-    0 0 2rem rgb(202 138 36 / 0.2);
+    0 0 2rem rgb(100 190 205 / 0.14);
 }
 
 .titanic-video-play:disabled {
@@ -1839,14 +1945,7 @@ body.hov #c-ring {
 }
 
 #video::before {
-  content: "VIDEO STREAM - ARCHEOS EP.01";
-  position: absolute;
-  top: 3rem;
-  right: clamp(1.5rem, 4vw, 4rem);
-  color: rgb(196 184 156 / 0.12);
-  font-family: var(--font-mono);
-  font-size: 0.62rem;
-  letter-spacing: 0.16em;
+  content: none;
 }
 
 .section-head {
@@ -1941,14 +2040,16 @@ body.hov #c-ring {
 
 .shorts-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1.35rem;
+  grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr);
+  gap: clamp(1rem, 2.6vw, 1.7rem);
   align-items: start;
+  width: min(1040px, 100%);
+  margin-inline: auto;
 }
 
 .short-card {
   position: relative;
-  min-height: 28rem;
+  min-height: 30rem;
   display: flex;
   flex-direction: column;
   justify-content: end;
@@ -1962,16 +2063,12 @@ body.hov #c-ring {
 }
 
 .short-card.tall {
-  margin-top: 4rem;
-  min-height: 34rem;
-}
-
-.short-card:nth-child(3) {
-  margin-top: 1.8rem;
+  margin-top: clamp(2rem, 5vw, 4rem);
+  min-height: 31rem;
 }
 
 .short-embed-card {
-  min-height: 36rem;
+  min-height: clamp(32rem, 50vw, 38rem);
   background: #050403;
 }
 
@@ -2042,6 +2139,8 @@ body.hov #c-ring {
 }
 
 .short-video-shell iframe {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   border: 0;
@@ -2049,9 +2148,17 @@ body.hov #c-ring {
   pointer-events: none;
 }
 
+.short-video-shell .video-preview-img {
+  transform: scale(1.04);
+}
+
 .short-video-shell.is-playing iframe {
   opacity: 1;
   pointer-events: auto;
+}
+
+.short-video-shell.is-playing .video-preview-img {
+  opacity: 0;
 }
 
 .short-video-overlay {
@@ -2847,10 +2954,28 @@ body.hov #c-ring {
   }
 
   .nav-cta {
+    display: grid;
+    place-items: center;
     width: 2.75rem;
+    height: 2.75rem;
     min-height: 2.75rem;
+    aspect-ratio: 1;
+    gap: 0;
     padding: 0;
     font-size: 0;
+    line-height: 0;
+  }
+
+  .nav-cta svg {
+    grid-area: 1 / 1;
+    width: 1.08rem;
+    height: 1.08rem;
+    margin: 0;
+    transform: translateX(0.02rem);
+  }
+
+  .nav-cta-label {
+    display: none;
   }
 
   .hud-panel {
@@ -2917,16 +3042,21 @@ body.hov #c-ring {
 
   .video-abyss {
     min-height: auto;
-    padding-block: 5.5rem 6.5rem;
+    padding-block: 5.5rem 5.5rem;
+  }
+
+  #video::before {
+    display: none;
   }
 
   .abyss-head {
     min-height: auto;
-    margin-bottom: 3rem;
+    margin-bottom: 2.2rem;
   }
 
   .abyss-interface {
-    min-height: 46rem;
+    min-height: auto;
+    perspective: none;
   }
 
   .titanic-canvas {
@@ -2934,27 +3064,49 @@ body.hov #c-ring {
   }
 
   .abyss-fallback {
-    opacity: 0.5;
+    opacity: 0.34;
+  }
+
+  .abyss-fallback img {
+    filter: blur(14px) brightness(0.2) contrast(1.2) saturate(0.55) hue-rotate(142deg);
+    transform: scale(1.22);
   }
 
   .abyss-readout,
   .artifact-hud {
+    display: none;
+  }
+
+  .titanic-direct-video {
     position: relative;
-    right: auto;
-    bottom: auto;
-    left: auto;
-    max-width: 100%;
-    justify-content: flex-start;
+    z-index: 9;
+    display: grid;
+    gap: 1.15rem;
+    margin-top: 1.25rem;
+    border: 1px solid rgb(100 190 205 / 0.16);
+    border-radius: 0.6rem;
+    background:
+      radial-gradient(circle at 18% 8%, rgb(202 138 36 / 0.14), transparent 12rem),
+      radial-gradient(circle at 86% 86%, rgb(77 166 175 / 0.18), transparent 14rem),
+      rgb(2 10 14 / 0.68);
+    padding: clamp(0.8rem, 4vw, 1.15rem);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.06),
+      0 1.5rem 4.5rem rgb(0 0 0 / 0.35);
+    backdrop-filter: blur(16px);
   }
 
-  .artifact-hud {
-    margin-top: 18rem;
-    opacity: 1;
-    transform: none;
+  .titanic-direct-copy h3 {
+    max-width: 14ch;
   }
 
-  .artifact-video-cta {
-    display: inline-flex;
+  .titanic-direct-copy p {
+    max-width: 34rem;
+  }
+
+  .titanic-inline-frame {
+    max-height: none;
+    border-color: rgb(100 190 205 / 0.14);
   }
 
   .titanic-video-modal {
@@ -3002,8 +3154,7 @@ body.hov #c-ring {
   }
 
   .short-card,
-  .short-card.tall,
-  .short-card:nth-child(3) {
+  .short-card.tall {
     min-height: 24rem;
     margin-top: 0;
   }
@@ -3025,7 +3176,7 @@ body.hov #c-ring {
     max-width: 100%;
     min-width: 0;
     height: auto;
-    margin-bottom: 2rem;
+    margin: 1.75rem auto 2.75rem;
     overflow: visible;
     perspective: none;
   }
@@ -3037,20 +3188,18 @@ body.hov #c-ring {
 
   .team-ring {
     display: grid;
-    grid-auto-flow: column;
-    grid-auto-columns: minmax(14rem, 78vw);
-    gap: 1rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-auto-flow: row;
+    gap: 0.72rem;
     width: 100%;
     max-width: 100%;
     min-width: 0;
     height: auto;
-    overflow-x: auto;
-    overscroll-behavior-x: contain;
-    scroll-snap-type: x mandatory;
+    overflow: visible;
+    overscroll-behavior: auto;
+    scroll-snap-type: none;
     animation: none;
     transform: none;
-    scrollbar-width: thin;
-    scrollbar-color: rgb(202 138 36 / 0.55) rgb(240 223 194 / 0.08);
   }
 
   .team-member {
@@ -3058,9 +3207,28 @@ body.hov #c-ring {
     top: auto;
     left: auto;
     width: auto;
-    min-height: 16.6rem;
-    scroll-snap-align: center;
+    min-height: auto;
+    gap: 0.46rem;
+    padding: 0.56rem;
+    scroll-snap-align: none;
     transform: none;
+  }
+
+  .team-avatar {
+    border-radius: 0.16rem;
+  }
+
+  .team-member span {
+    font-size: 0.52rem;
+  }
+
+  .team-member h3 {
+    font-size: clamp(0.82rem, 3.7vw, 0.98rem);
+  }
+
+  .team-member p {
+    font-size: 0.68rem;
+    line-height: 1.25;
   }
 
   .timeline::before {

@@ -1,9 +1,7 @@
 import {
   createIcons,
   Compass,
-  Layers3,
   Play,
-  ScanLine,
   SquarePlay,
   Waves,
 } from "lucide";
@@ -12,9 +10,7 @@ import "./styles.css";
 createIcons({
   icons: {
     Compass,
-    Layers3,
     Play,
-    ScanLine,
     SquarePlay,
     Waves,
   },
@@ -117,7 +113,14 @@ const setupCursor = () => {
   let cursorOffDepth = 0;
   document
     .querySelectorAll(
-      "[data-titanic-experience], .latest-video-shell, .short-video-shell",
+      [
+        "[data-titanic-experience]",
+        ".latest-video-shell",
+        ".short-video-shell",
+        ".titanic-video-modal",
+        ".titanic-video-frame",
+        ".titanic-direct-video",
+      ].join(", "),
     )
     .forEach((zone) => {
       zone.addEventListener("pointerenter", () => {

@@ -32,22 +32,48 @@ export async function initTitanicExperience({ section, gsap, ScrollTrigger, redu
   const videoIframe = section.querySelector("[data-titanic-video-embed]");
   const videoPlay = section.querySelector("[data-titanic-video-play]");
   const videoPlaceholder = section.querySelector("[data-titanic-video-placeholder]");
+  const inlineVideoFrame = section.querySelector("[data-titanic-inline-frame]");
+  const inlineVideoIframe = section.querySelector("[data-titanic-inline-embed]");
+  const inlineVideoPlay = section.querySelector("[data-titanic-inline-play]");
+  const inlineVideoPlaceholder = section.querySelector("[data-titanic-inline-placeholder]");
   const videoTriggers = section.querySelectorAll("[data-titanic-video-trigger]");
   const videoClosers = section.querySelectorAll("[data-titanic-video-close]");
   const videoState = section.querySelector("[data-titanic-video-state]");
   let modalTimeline = null;
   let lastFocusedElement = null;
+  const modalHome = videoModal?.parentNode ?? null;
+  const modalNextSibling = videoModal?.nextSibling ?? null;
+
+  const moveModalToViewport = () => {
+    if (!videoModal || videoModal.parentElement === document.body) return;
+    document.body.appendChild(videoModal);
+  };
+
+  const restoreModalHome = () => {
+    if (!videoModal || !modalHome || videoModal.parentNode === modalHome) return;
+    modalHome.insertBefore(videoModal, modalNextSibling);
+  };
 
   section.classList.toggle("has-titanic-video", hasVideoId);
   section.classList.toggle("is-video-placeholder", !hasVideoId);
-  if (videoState && !hasVideoId) {
-    videoState.textContent = "ID VIDEO A RENSEIGNER";
+  if (videoState) {
+    videoState.textContent = hasVideoId ? "ARCHIVE READY" : "VIDEO ID MISSING";
   }
   if (videoPlaceholder) {
-    videoPlaceholder.textContent = hasVideoId ? "Lancer l'archive video" : "ID video a renseigner";
+    videoPlaceholder.textContent = hasVideoId
+      ? "Voir l'archive du Titanic"
+      : "ID video a renseigner";
+  }
+  if (inlineVideoPlaceholder) {
+    inlineVideoPlaceholder.textContent = hasVideoId
+      ? "Voir l'archive du Titanic"
+      : "ID video a renseigner";
   }
   if (videoPlay) {
     videoPlay.disabled = !hasVideoId;
+  }
+  if (inlineVideoPlay) {
+    inlineVideoPlay.disabled = !hasVideoId;
   }
 
   const getVideoSrc = (autoplay = false) => {
@@ -60,10 +86,10 @@ export async function initTitanicExperience({ section, gsap, ScrollTrigger, redu
   };
 
   const resetVideo = () => {
-    if (!videoIframe || !videoFrame) return;
-
-    videoFrame.classList.remove("is-playing");
-    videoIframe.removeAttribute("src");
+    videoFrame?.classList.remove("is-playing");
+    videoIframe?.removeAttribute("src");
+    inlineVideoFrame?.classList.remove("is-playing");
+    inlineVideoIframe?.removeAttribute("src");
   };
 
   const openVideo = () => {
@@ -71,6 +97,7 @@ export async function initTitanicExperience({ section, gsap, ScrollTrigger, redu
 
     resetVideo();
     lastFocusedElement = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    moveModalToViewport();
     videoModal.hidden = false;
     videoModal.removeAttribute("aria-hidden");
     section.classList.add("is-video-modal-open");
@@ -109,6 +136,7 @@ export async function initTitanicExperience({ section, gsap, ScrollTrigger, redu
     if (gsap) {
       gsap.set([videoModal, videoPanel].filter(Boolean), { clearProps: "all" });
     }
+    restoreModalHome();
     lastFocusedElement?.focus?.({ preventScroll: true });
   };
 
@@ -117,6 +145,13 @@ export async function initTitanicExperience({ section, gsap, ScrollTrigger, redu
 
     videoIframe.src = getVideoSrc(true);
     videoFrame.classList.add("is-playing");
+  };
+
+  const playInlineVideo = () => {
+    if (!hasVideoId || !inlineVideoIframe || !inlineVideoFrame) return;
+
+    inlineVideoIframe.src = getVideoSrc(true);
+    inlineVideoFrame.classList.add("is-playing");
   };
 
   const onKeydown = (event) => {
@@ -154,6 +189,7 @@ export async function initTitanicExperience({ section, gsap, ScrollTrigger, redu
   videoTriggers.forEach((trigger) => trigger.addEventListener("click", openVideo));
   videoClosers.forEach((closer) => closer.addEventListener("click", closeVideo));
   videoPlay?.addEventListener("click", playVideo);
+  inlineVideoPlay?.addEventListener("click", playInlineVideo);
   document.addEventListener("keydown", onKeydown);
 
   const destroyVideoControls = () => {
@@ -161,9 +197,11 @@ export async function initTitanicExperience({ section, gsap, ScrollTrigger, redu
     videoTriggers.forEach((trigger) => trigger.removeEventListener("click", openVideo));
     videoClosers.forEach((closer) => closer.removeEventListener("click", closeVideo));
     videoPlay?.removeEventListener("click", playVideo);
+    inlineVideoPlay?.removeEventListener("click", playInlineVideo);
     document.removeEventListener("keydown", onKeydown);
     document.body.classList.remove("titanic-video-open");
     document.documentElement.classList.remove("titanic-video-open");
+    restoreModalHome();
   };
 
   if (!canvas || reducedMotion || isSmallViewport() || isConstrainedDevice() || !canUseWebGL()) {
