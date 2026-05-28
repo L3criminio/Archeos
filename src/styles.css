@@ -2815,6 +2815,18 @@ body.titanic-video-open .titanic-video-modal {
   overflow: visible;
 }
 
+.split-layout > .rv,
+.latest-copy.rv,
+.section-head > .rv {
+  --reveal-safe-inline: 0.7rem;
+  --reveal-safe-block: 0.28rem;
+  width: calc(100% + var(--reveal-safe-inline));
+  padding-right: var(--reveal-safe-inline);
+  padding-bottom: var(--reveal-safe-block);
+  margin-right: calc(-1 * var(--reveal-safe-inline));
+  margin-bottom: calc(-1 * var(--reveal-safe-block));
+}
+
 [data-parallax] {
   --parallax-x: 0%;
   --parallax-y: 0%;
