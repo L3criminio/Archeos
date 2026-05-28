@@ -765,10 +765,30 @@ body.hov #c-ring {
 }
 
 .gallery-viewport {
-  --gallery-gap: clamp(1rem, 2vw, 1.5rem);
+  --gallery-gap: clamp(0.75rem, 1.4vw, 1rem);
   position: relative;
-  height: clamp(26rem, 54vw, 38rem);
+  display: grid;
+  grid-template-rows: repeat(3, minmax(0, 1fr));
+  gap: var(--gallery-gap);
+  height: clamp(22rem, 39vw, 30rem);
   overflow: hidden;
+}
+
+.gallery-row {
+  min-width: 0;
+  overflow: hidden;
+}
+
+.gallery-row:nth-child(1) {
+  --gallery-duration: 38s;
+}
+
+.gallery-row:nth-child(2) {
+  --gallery-duration: 48s;
+}
+
+.gallery-row:nth-child(3) {
+  --gallery-duration: 58s;
 }
 
 .gallery-track {
@@ -776,8 +796,12 @@ body.hov #c-ring {
   width: max-content;
   height: 100%;
   gap: var(--gallery-gap);
-  animation: galleryMarquee 34s linear infinite;
+  animation: galleryMarquee var(--gallery-duration, 38s) linear infinite;
   will-change: transform;
+}
+
+.gallery-row.is-reverse .gallery-track {
+  animation-name: galleryMarqueeReverse;
 }
 
 .gallery-shell:hover .gallery-track {
@@ -786,7 +810,7 @@ body.hov #c-ring {
 
 .gallery-slide {
   position: relative;
-  flex: 0 0 clamp(24rem, 43vw, 48rem);
+  flex: 0 0 clamp(12rem, 24vw, 22rem);
   height: 100%;
   overflow: hidden;
   background: #040303;
@@ -825,6 +849,16 @@ body.hov #c-ring {
 
   100% {
     transform: translate3d(calc(-50% - (var(--gallery-gap) / 2)), 0, 0);
+  }
+}
+
+@keyframes galleryMarqueeReverse {
+  0% {
+    transform: translate3d(calc(-50% - (var(--gallery-gap) / 2)), 0, 0);
+  }
+
+  100% {
+    transform: translate3d(0, 0, 0);
   }
 }
 
@@ -2361,12 +2395,12 @@ body.hov #c-ring {
   }
 
   .gallery-viewport {
-    --gallery-gap: 0.85rem;
-    height: clamp(25rem, 94vw, 34rem);
+    --gallery-gap: 0.65rem;
+    height: clamp(19rem, 76vw, 24rem);
   }
 
   .gallery-slide {
-    flex-basis: min(86vw, 31rem);
+    flex-basis: min(58vw, 20rem);
   }
 
   .ccard,
@@ -2439,11 +2473,12 @@ body.hov #c-ring {
   }
 
   .gallery-viewport {
-    height: 25rem;
+    --gallery-gap: 0.5rem;
+    height: 18rem;
   }
 
   .gallery-slide {
-    flex-basis: 86vw;
+    flex-basis: 68vw;
   }
 
   #cta .corner {
