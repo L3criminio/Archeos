@@ -390,15 +390,30 @@ body.hov #c-ring {
 }
 
 .nav-cta {
+  display: inline-flex;
+  height: 2.8rem;
+  min-height: 2.8rem;
+  align-self: center;
+  align-items: center;
+  justify-content: center;
   justify-self: end;
+  padding-block: 0;
+  line-height: 1;
+}
+
+#nav .nav-cta {
+  transform: none !important;
 }
 
 .nav-cta svg {
   flex: 0 0 auto;
+  display: block;
 }
 
 .nav-cta-label {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  line-height: 1;
 }
 
 .btn-p,
@@ -2960,6 +2975,8 @@ body.titanic-video-open .titanic-video-modal {
     height: 2.75rem;
     min-height: 2.75rem;
     aspect-ratio: 1;
+    align-self: center;
+    justify-self: end;
     gap: 0;
     padding: 0;
     font-size: 0;

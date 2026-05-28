@@ -79,6 +79,27 @@ const setupCursor = () => {
   let ry = my;
   let cx = mx;
   let cy = my;
+  let cursorSyncTick = 0;
+  const cursorOffSelector = [
+    "[data-titanic-experience]",
+    ".latest-video-shell",
+    ".short-video-shell",
+    ".titanic-video-modal",
+    ".titanic-video-frame",
+    ".titanic-direct-video",
+  ].join(", ");
+
+  const syncCursorState = (target = document.elementFromPoint(mx, my)) => {
+    const isOverCursorOffZone =
+      target instanceof Element && Boolean(target.closest(cursorOffSelector));
+    const shouldDisableCursor =
+      document.body.classList.contains("titanic-video-open") || isOverCursorOffZone;
+
+    document.body.classList.toggle("cursor-off", shouldDisableCursor);
+    if (shouldDisableCursor) {
+      document.body.classList.remove("hov");
+    }
+  };
 
   document.addEventListener(
     "mousemove",
@@ -87,6 +108,7 @@ const setupCursor = () => {
       my = event.clientY;
       dot.style.left = `${mx}px`;
       dot.style.top = `${my}px`;
+      syncCursorState(event.target);
     },
     { passive: true },
   );
@@ -100,6 +122,10 @@ const setupCursor = () => {
     ring.style.top = `${ry}px`;
     cross.style.left = `${cx}px`;
     cross.style.top = `${cy}px`;
+    cursorSyncTick = (cursorSyncTick + 1) % 10;
+    if (cursorSyncTick === 0) {
+      syncCursorState();
+    }
     requestAnimationFrame(animate);
   };
 
@@ -110,32 +136,12 @@ const setupCursor = () => {
     el.addEventListener("mouseleave", () => document.body.classList.remove("hov"));
   });
 
-  let cursorOffDepth = 0;
-  document
-    .querySelectorAll(
-      [
-        "[data-titanic-experience]",
-        ".latest-video-shell",
-        ".short-video-shell",
-        ".titanic-video-modal",
-        ".titanic-video-frame",
-        ".titanic-direct-video",
-      ].join(", "),
-    )
-    .forEach((zone) => {
-      zone.addEventListener("pointerenter", () => {
-        cursorOffDepth += 1;
-        document.body.classList.add("cursor-off");
-        document.body.classList.remove("hov");
-      });
-
-      zone.addEventListener("pointerleave", () => {
-        cursorOffDepth = Math.max(0, cursorOffDepth - 1);
-        if (cursorOffDepth === 0) {
-          document.body.classList.remove("cursor-off");
-        }
-      });
-    });
+  document.addEventListener("pointerover", (event) => syncCursorState(event.target), {
+    passive: true,
+  });
+  document.addEventListener("click", () => requestAnimationFrame(() => syncCursorState()), {
+    passive: true,
+  });
 };
 
 setupCursor();
