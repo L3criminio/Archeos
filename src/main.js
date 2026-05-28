@@ -108,7 +108,7 @@ const setupCursor = () => {
 
   animate();
 
-  document.querySelectorAll("a, button, iframe").forEach((el) => {
+  document.querySelectorAll("a, button, iframe, input, textarea").forEach((el) => {
     el.addEventListener("mouseenter", () => document.body.classList.add("hov"));
     el.addEventListener("mouseleave", () => document.body.classList.remove("hov"));
   });

@@ -1,9 +1,11 @@
 node_modules/
 dist/
+build/
 .qodo/
 landing-page-stratum.html
 .env
 .env.local
+.env.*.local
 .DS_Store
 Thumbs.db
 npm-debug.log*

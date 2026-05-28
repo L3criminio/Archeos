@@ -7,12 +7,26 @@
       name="description"
       content="Archeos explore l'archéologie, les civilisations enfouies et les reconstructions 3D à travers une expérience YouTube cinématique."
     />
+<<<<<<< HEAD
     <meta name="theme-color" content="#050403" />
     <meta name="application-name" content="Archeos" />
     <meta name="apple-mobile-web-app-title" content="Archeos" />
     <meta
       name="apple-mobile-web-app-status-bar-style"
       content="black-translucent"
+=======
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://i.ytimg.com; frame-src https://www.youtube.com https://www.youtube-nocookie.com; connect-src 'self' https://hook.eu1.make.com ws:; form-action 'self';"
+    />
+    <meta name="theme-color" content="#07050a" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Instrument+Serif:ital@0;1&family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+>>>>>>> origin/sheedan
     />
     <link
       rel="icon"
@@ -56,13 +70,18 @@
         <a href="#concept" class="nav-lnk">Concept</a>
         <a href="#video" class="nav-lnk">Vidéo</a>
         <a href="#shorts" class="nav-lnk">Shorts</a>
+<<<<<<< HEAD
+=======
+        <a href="#artifacts" class="nav-lnk">Exploration</a>
+        <a href="#cta" class="nav-lnk">Contact</a>
+>>>>>>> origin/sheedan
       </nav>
 
       <a
         class="btn-p nav-cta"
         href="https://www.youtube.com/@archeosx"
         target="_blank"
-        rel="noreferrer"
+        rel="noopener noreferrer"
       >
         <i data-lucide="square-play"></i>
         YouTube
@@ -658,11 +677,27 @@
             Archeos transforme les vestiges en expériences visuelles. Le
             prochain signal est déjà sous la surface.
           </p>
+          <form id="contact-form" class="contact-form rv d3">
+            <div class="contact-fields">
+              <input type="text" id="name" placeholder="Votre nom" required />
+              <input
+                type="email"
+                id="email"
+                placeholder="Votre email"
+                required
+                maxlength="254"
+                autocomplete="email"
+              />
+            </div>
+            <textarea id="message" placeholder="Votre message"></textarea>
+            <button type="submit" class="btn-p">Envoyer</button>
+            <p id="status" class="form-status" style="display: none" aria-live="polite"></p>
+          </form>
           <a
-            class="btn-p rv d3"
+            class="btn-s rv d3"
             href="https://youtube.com"
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
           >
             <i data-lucide="square-play"></i>
             Suivre Archeos
@@ -671,6 +706,7 @@
       </section>
     </main>
 
+    <script type="module" src="/src/contact-form.js"></script>
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>
