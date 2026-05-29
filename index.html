@@ -787,15 +787,22 @@
           </div>
 
           <div
-            class="latest-frame rv d2"
+            class="latest-frame latest-frame--portrait rv d2"
             data-parallax
             data-depth="5"
             data-axis="y"
           >
-            <div class="latest-video-shell">
+            <div class="latest-video-shell latest-video-shell--portrait">
+              <img
+                class="video-preview-img"
+                src="https://i.ytimg.com/vi/kbj_--CGnPQ/hqdefault.jpg"
+                alt=""
+                loading="lazy"
+                decoding="async"
+              />
               <iframe
                 data-latest-video-embed
-                data-video-src="https://www.youtube.com/embed/videoseries?list=UUi4LQcbzEj3Lp2HzUbh6QkQ&amp;rel=0&amp;modestbranding=1"
+                data-video-src="https://www.youtube.com/embed/kbj_--CGnPQ?si=x-DyOTje2IgImuVF"
                 title="Dernière vidéo de la chaîne Archeos"
                 allow="
                   accelerometer;
@@ -827,6 +834,7 @@
         class="scene section-pad video-abyss"
         data-titanic-experience
         data-titanic-video-id="kbj_--CGnPQ"
+        data-titanic-video-src="https://www.youtube.com/embed/kbj_--CGnPQ?si=x-DyOTje2IgImuVF"
       >
         <div class="abyss-stage" data-abyss-stage aria-hidden="true">
           <canvas class="titanic-canvas" data-titanic-canvas></canvas>
@@ -913,7 +921,7 @@
                 </p>
               </div>
               <div
-                class="titanic-video-frame titanic-inline-frame"
+                class="titanic-video-frame titanic-video-frame--portrait titanic-inline-frame"
                 data-titanic-inline-frame
               >
                 <div class="titanic-video-placeholder">
@@ -978,7 +986,10 @@
 
                 <h3 id="titanic-video-title"><strong>Archive Titanic</strong></h3>
 
-                <div class="titanic-video-frame" data-titanic-video-frame>
+                <div
+                  class="titanic-video-frame titanic-video-frame--portrait"
+                  data-titanic-video-frame
+                >
                   <div class="titanic-video-placeholder">
                     <span data-titanic-video-placeholder>
                       Voir l'archive du Titanic

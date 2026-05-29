@@ -1108,6 +1108,11 @@ body.hov #c-ring {
     0 1.6rem 4rem rgb(0 0 0 / 0.38);
 }
 
+.latest-frame--portrait {
+  width: min(100%, 29rem);
+  justify-self: center;
+}
+
 .latest-frame::before,
 .latest-frame::after {
   content: "";
@@ -1152,6 +1157,7 @@ body.hov #c-ring {
 .latest-video-shell {
   position: relative;
   z-index: 1;
+  width: 100%;
   overflow: hidden;
   aspect-ratio: 16 / 9;
   border: 1px solid rgb(240 223 194 / 0.12);
@@ -1161,6 +1167,8 @@ body.hov #c-ring {
 }
 
 .latest-video-shell iframe {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   border: 0;
@@ -1168,9 +1176,19 @@ body.hov #c-ring {
   pointer-events: none;
 }
 
+.latest-video-shell--portrait {
+  width: min(100%, 26rem);
+  aspect-ratio: 9 / 16;
+  margin-inline: auto;
+}
+
 .latest-video-shell.is-playing iframe {
   opacity: 1;
   pointer-events: auto;
+}
+
+.latest-video-shell.is-playing .video-preview-img {
+  opacity: 0;
 }
 
 .latest-video-overlay {
@@ -1871,6 +1889,16 @@ body.titanic-video-open .titanic-video-modal {
   box-shadow:
     inset 0 0 0 1px rgb(0 0 0 / 0.36),
     0 1.8rem 5rem rgb(0 0 0 / 0.42);
+}
+
+.titanic-video-frame--portrait {
+  width: min(100%, 25rem);
+  max-height: min(72svh, 44rem);
+  aspect-ratio: 9 / 16;
+}
+
+.titanic-inline-frame.titanic-video-frame--portrait {
+  width: min(100%, 23rem);
 }
 
 .titanic-video-frame iframe,
@@ -3193,6 +3221,11 @@ body.titanic-video-open .titanic-video-modal {
   .titanic-video-frame {
     width: min(100%, 31rem);
     max-height: 52svh;
+  }
+
+  .titanic-video-frame--portrait {
+    width: min(100%, 21rem);
+    max-height: 68svh;
   }
 
   .head-copy {

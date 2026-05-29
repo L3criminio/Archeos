@@ -25,7 +25,9 @@ export async function initTitanicExperience({ section, gsap, ScrollTrigger, redu
 
   const canvas = section.querySelector("[data-titanic-canvas]");
   const videoId = section.dataset.titanicVideoId?.trim() ?? "";
+  const rawVideoSrc = section.dataset.titanicVideoSrc?.trim() ?? "";
   const hasVideoId = Boolean(videoId && videoId !== VIDEO_ID_PLACEHOLDER);
+  const hasVideo = hasVideoId || Boolean(rawVideoSrc);
   const videoModal = section.querySelector("[data-titanic-video-modal]");
   const videoPanel = section.querySelector("[data-titanic-video-panel]");
   const videoFrame = section.querySelector("[data-titanic-video-frame]");
@@ -54,35 +56,33 @@ export async function initTitanicExperience({ section, gsap, ScrollTrigger, redu
     modalHome.insertBefore(videoModal, modalNextSibling);
   };
 
-  section.classList.toggle("has-titanic-video", hasVideoId);
-  section.classList.toggle("is-video-placeholder", !hasVideoId);
+  section.classList.toggle("has-titanic-video", hasVideo);
+  section.classList.toggle("is-video-placeholder", !hasVideo);
   if (videoState) {
-    videoState.textContent = hasVideoId ? "ARCHIVE READY" : "VIDEO ID MISSING";
+    videoState.textContent = hasVideo ? "ARCHIVE READY" : "VIDEO ID MISSING";
   }
   if (videoPlaceholder) {
-    videoPlaceholder.textContent = hasVideoId
+    videoPlaceholder.textContent = hasVideo
       ? "Voir l'archive du Titanic"
       : "ID video a renseigner";
   }
   if (inlineVideoPlaceholder) {
-    inlineVideoPlaceholder.textContent = hasVideoId
+    inlineVideoPlaceholder.textContent = hasVideo
       ? "Voir l'archive du Titanic"
       : "ID video a renseigner";
   }
   if (videoPlay) {
-    videoPlay.disabled = !hasVideoId;
+    videoPlay.disabled = !hasVideo;
   }
   if (inlineVideoPlay) {
-    inlineVideoPlay.disabled = !hasVideoId;
+    inlineVideoPlay.disabled = !hasVideo;
   }
 
   const getVideoSrc = (autoplay = false) => {
-    const params = new URLSearchParams({
-      rel: "0",
-      modestbranding: "1",
-    });
-    if (autoplay) params.set("autoplay", "1");
-    return `https://www.youtube.com/embed/${videoId}?${params.toString()}`;
+    const src = rawVideoSrc || `https://www.youtube.com/embed/${videoId}`;
+    const url = new URL(src, window.location.href);
+    if (autoplay) url.searchParams.set("autoplay", "1");
+    return url.toString();
   };
 
   const resetVideo = () => {
@@ -141,14 +141,14 @@ export async function initTitanicExperience({ section, gsap, ScrollTrigger, redu
   };
 
   const playVideo = () => {
-    if (!hasVideoId || !videoIframe || !videoFrame) return;
+    if (!hasVideo || !videoIframe || !videoFrame) return;
 
     videoIframe.src = getVideoSrc(true);
     videoFrame.classList.add("is-playing");
   };
 
   const playInlineVideo = () => {
-    if (!hasVideoId || !inlineVideoIframe || !inlineVideoFrame) return;
+    if (!hasVideo || !inlineVideoIframe || !inlineVideoFrame) return;
 
     inlineVideoIframe.src = getVideoSrc(true);
     inlineVideoFrame.classList.add("is-playing");
